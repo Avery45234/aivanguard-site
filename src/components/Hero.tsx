@@ -59,7 +59,7 @@ export function Hero() {
           overlaid here in the upper-right and then spins out to the
           bottom-right corner as the scroll progress indicator). The hero
           text reserves the right-side area visually with a grid. */}
-      <Container size="wide" className="relative pt-16 pb-10 md:pt-24 md:pb-16 lg:pt-28">
+      <Container size="wide" className="relative pt-12 pb-10 md:pt-20 md:pb-14">
         <motion.div
           className="grid gap-8 md:grid-cols-12 md:gap-10 items-start"
           variants={container}
@@ -127,7 +127,7 @@ export function Hero() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: reduce ? 0 : 0.9, ease: EASE }}
-          className="mt-14 md:mt-20 pt-8 border-t border-border"
+          className="mt-12 md:mt-16 pt-8 border-t border-border"
         >
           <p className="font-display italic text-ink-dim text-2xl md:text-3xl lg:text-[40px] leading-[1.15] tracking-tight max-w-5xl">
             Student voice, on the future of AI in education &mdash;{" "}

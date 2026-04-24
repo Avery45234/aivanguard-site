@@ -4,8 +4,8 @@ import { nav, site } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="relative mt-24 border-t border-border">
-      <Container size="wide" className="py-16 md:py-20">
+    <footer className="relative mt-16 border-t border-border">
+      <Container size="wide" className="py-14 md:py-16">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="font-display text-[22px] tracking-tight text-ink">
@@ -73,7 +73,7 @@ export function Footer() {
           </FooterCol>
         </div>
 
-        <div className="mt-14 pt-6 border-t border-border flex flex-col md:flex-row gap-3 md:items-baseline md:justify-between">
+        <div className="mt-10 pt-6 border-t border-border flex flex-col md:flex-row gap-3 md:items-baseline md:justify-between">
           <p className="text-xs text-ink-muted">
             © {new Date().getFullYear()} AI Vanguard. A student-led nonprofit.
           </p>
