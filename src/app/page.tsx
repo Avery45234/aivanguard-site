@@ -41,7 +41,7 @@ export default function HomePage() {
 
       {/* PULL QUOTE / MISSION */}
       <section
-        className="py-14 md:py-20 surface-panel"
+        className="py-10 md:py-14 surface-panel"
         data-rail-section="Mission"
       >
         <Container size="wide">
@@ -129,7 +129,7 @@ export default function HomePage() {
           {pillars.map((p, i) => (
             <Reveal key={p.slug}>
               <article
-                className="border-t border-border py-14 md:py-20"
+                className="border-t border-border py-10 md:py-14"
                 id={p.slug}
               >
                 <Container size="wide">
@@ -195,7 +195,7 @@ export default function HomePage() {
 
       {/* HOW IT WORKS */}
       <section
-        className="py-14 md:py-20 border-t border-border"
+        className="py-10 md:py-14 border-t border-border"
         data-rail-section="The loop"
       >
         <Container size="wide">
@@ -263,7 +263,7 @@ export default function HomePage() {
 
       {/* LEADERSHIP PREVIEW */}
       <section
-        className="py-14 md:py-20 border-t border-border"
+        className="py-10 md:py-14 border-t border-border"
         data-rail-section="Leadership"
       >
         <Container size="wide">
@@ -324,7 +324,7 @@ export default function HomePage() {
 
       {/* IMPACT PREVIEW */}
       <section
-        className="py-14 md:py-20 border-t border-border"
+        className="py-10 md:py-14 border-t border-border"
         data-rail-section="Impact"
       >
         <Container size="wide">
@@ -373,7 +373,7 @@ export default function HomePage() {
 
       {/* AUDIENCE PATHS */}
       <section
-        className="py-14 md:py-20 border-t border-border"
+        className="py-10 md:py-14 border-t border-border"
         data-rail-section="Ways in"
       >
         <Container size="wide">
@@ -447,7 +447,7 @@ export default function HomePage() {
         className="relative border-t border-border"
         data-rail-section="The ask"
       >
-        <Container size="wide" className="py-14 md:py-20">
+        <Container size="wide" className="py-10 md:py-14">
           <Reveal>
             <div className="grid gap-12 md:grid-cols-12 md:gap-16 items-center">
               <div className="md:col-span-7">
