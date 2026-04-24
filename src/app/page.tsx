@@ -47,7 +47,7 @@ export default function HomePage() {
         <Container size="wide">
           <Reveal>
             <div className="flex items-center gap-4 text-[11px] uppercase tracking-[0.22em] text-ink-muted mb-10 ornament">
-              <span className="text-accent">§ 01</span>
+              <span className="text-accent fig">01</span>
               <span>On mission</span>
               <Sparkles size={40} className="ml-2 opacity-80" />
             </div>

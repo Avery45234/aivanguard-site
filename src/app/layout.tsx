@@ -5,6 +5,7 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { SharpenFilter } from "@/components/SharpenFilter";
+import { StructuredData } from "@/components/StructuredData";
 
 const sans = Geist({
   variable: "--font-sans",
@@ -88,6 +89,7 @@ export default function RootLayout({
       className={`${sans.variable} ${display.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <StructuredData />
         <SharpenFilter />
         <Nav />
         {/* pt matches the fixed Nav's height (60px mobile, 64px ≥md) so

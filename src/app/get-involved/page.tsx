@@ -76,7 +76,7 @@ export default function GetInvolvedPage() {
                   name="Avery Updike"
                   role="Founder · President"
                   caption="Plate 01 · 2026"
-                  chapter="§ Founder"
+                  chapter="Founder"
                   className="max-w-[360px] md:ml-auto"
                 />
               </Reveal>

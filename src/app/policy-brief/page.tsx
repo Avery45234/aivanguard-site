@@ -74,7 +74,7 @@ export default function PolicyBriefPage() {
           <div className="grid gap-10 md:grid-cols-12 md:gap-16">
             <div className="md:col-span-4">
               <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                § 01 · Preamble
+                01 · Preamble
               </div>
             </div>
             <div className="md:col-span-8 max-w-3xl">
@@ -121,7 +121,7 @@ export default function PolicyBriefPage() {
         <Container size="wide">
           <Reveal>
             <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted mb-10">
-              § 02 · Our six asks
+              02 · Our six asks
             </div>
             <h2 className="font-display text-3xl md:text-5xl lg:text-[72px] leading-[1.02] tracking-tight text-ink max-w-4xl">
               What a good AI policy{" "}
@@ -172,7 +172,7 @@ export default function PolicyBriefPage() {
           <div className="grid gap-10 md:grid-cols-12 md:gap-16">
             <div className="md:col-span-4">
               <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                § 03 · What we offer
+                03 · What we offer
               </div>
             </div>
             <div className="md:col-span-8 max-w-3xl">
@@ -217,7 +217,7 @@ export default function PolicyBriefPage() {
             <div className="grid gap-10 md:grid-cols-[1.2fr_auto] md:gap-16 items-end">
               <div>
                 <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted mb-6">
-                  § 04 · In closing
+                  04 · In closing
                 </div>
                 <p className="font-display text-2xl md:text-[36px] leading-[1.16] tracking-tight text-ink max-w-3xl">
                   A policy students helped write{" "}
