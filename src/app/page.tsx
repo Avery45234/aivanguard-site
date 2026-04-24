@@ -41,7 +41,7 @@ export default function HomePage() {
 
       {/* PULL QUOTE / MISSION */}
       <section
-        className="py-28 md:py-40 surface-panel"
+        className="py-14 md:py-20 surface-panel"
         data-rail-section="Mission"
       >
         <Container size="wide">
@@ -195,7 +195,7 @@ export default function HomePage() {
 
       {/* HOW IT WORKS */}
       <section
-        className="py-28 md:py-40 border-t border-border"
+        className="py-14 md:py-20 border-t border-border"
         data-rail-section="The loop"
       >
         <Container size="wide">
@@ -263,7 +263,7 @@ export default function HomePage() {
 
       {/* LEADERSHIP PREVIEW */}
       <section
-        className="py-28 md:py-40 border-t border-border"
+        className="py-14 md:py-20 border-t border-border"
         data-rail-section="Leadership"
       >
         <Container size="wide">
@@ -324,7 +324,7 @@ export default function HomePage() {
 
       {/* IMPACT PREVIEW */}
       <section
-        className="py-28 md:py-40 border-t border-border"
+        className="py-14 md:py-20 border-t border-border"
         data-rail-section="Impact"
       >
         <Container size="wide">
@@ -373,7 +373,7 @@ export default function HomePage() {
 
       {/* AUDIENCE PATHS */}
       <section
-        className="py-28 md:py-36 border-t border-border"
+        className="py-14 md:py-20 border-t border-border"
         data-rail-section="Ways in"
       >
         <Container size="wide">
@@ -447,7 +447,7 @@ export default function HomePage() {
         className="relative border-t border-border"
         data-rail-section="The ask"
       >
-        <Container size="wide" className="py-28 md:py-40">
+        <Container size="wide" className="py-14 md:py-20">
           <Reveal>
             <div className="grid gap-12 md:grid-cols-12 md:gap-16 items-center">
               <div className="md:col-span-7">
