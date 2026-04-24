@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local editor / tooling — not part of the site
+.vscode/
+.claude/
+
+# Private research data — student/teacher survey CSVs must never be committed
+# to the public repo (per PRD §12 privacy policy). The aggregated findings
+# live in src/lib/research.ts, which is safe to commit.
+/scripts/data/*.csv
+/scripts/data/*.xlsx
+
+# Windows internet-shortcut files from drag-and-drop
+*.url
