@@ -338,9 +338,6 @@ export default function ImpactPage() {
                     </div>
                   ))}
                 </div>
-                <div className="mt-6 text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-                  — {perceptionStudy.by}
-                </div>
               </div>
 
               <Reveal>
@@ -349,6 +346,9 @@ export default function ImpactPage() {
                     {perceptionStudy.title}
                   </h3>
                   <p>{perceptionStudy.report}</p>
+                  <p className="mt-6 text-[12.5px] uppercase tracking-[0.2em] text-ink-muted">
+                    Written by {perceptionStudy.by}
+                  </p>
                 </article>
               </Reveal>
             </div>
