@@ -346,7 +346,7 @@ export default function ImpactPage() {
                     {perceptionStudy.title}
                   </h3>
                   <p>{perceptionStudy.report}</p>
-                  <p className="mt-6 text-[12.5px] uppercase tracking-[0.2em] text-ink-muted">
+                  <p className="mt-8 text-[13.5px] tracking-wide text-ink-dim">
                     Written by {perceptionStudy.by}
                   </p>
                 </article>
