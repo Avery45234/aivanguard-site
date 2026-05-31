@@ -184,7 +184,7 @@ export const teacherSurvey2026 = {
 // public attribution is deliberately anonymized per PRD §12.
 export const perceptionStudy = {
   title: "AI Perception Change",
-  by: "AI Vanguard student representative",
+  by: "Saiya Bhakta, AI Vanguard student representative",
   findings: [
     { label: "Teachers surveyed (blind then revealed)", value: "5" },
     { label: "Preferred AI version — both before and after reveal", value: "2" },
