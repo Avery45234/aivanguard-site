@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/Container";
-import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
@@ -39,12 +38,12 @@ export default function PortalLayout({
             >
               Competition brief ↗
             </a>
-            <a
-              href={`mailto:${site.email}?subject=Entrant%20Portal%20Help`}
+            <Link
+              href="/portal/help"
               className="text-ink-dim hover:text-ink transition-colors whitespace-nowrap"
             >
               Help
-            </a>
+            </Link>
           </nav>
         </Container>
       </header>
@@ -59,7 +58,9 @@ export default function PortalLayout({
           <span>© 2026 AI Vanguard · Open Competition Entrant Portal</span>
           <span>
             Submissions due September 25, 2026 · Results October 3, 2026 ·{" "}
-            {site.email}
+            <Link href="/portal/help" className="hover:text-ink transition-colors underline underline-offset-4">
+              Help
+            </Link>
           </span>
         </Container>
       </footer>

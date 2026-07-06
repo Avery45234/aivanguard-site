@@ -4,15 +4,12 @@ import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
-import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Open Competition",
   description:
     "The AI Vanguard Open Competition: design an AI-era classroom you'd actually want to learn in — and defend one thing you'd refuse to automate. Any format. $1,000 in prizes. Deadline September 25, 2026.",
 };
-
-const questionHref = `mailto:${site.email}?subject=Competition%20Question`;
 
 const keyDates = [
   { date: "Open now", label: "Registration", note: "Free, a few minutes, in the Entrant Portal." },
@@ -296,7 +293,9 @@ const faq = [
 
 export default function CompetitionPage() {
   return (
-    <>
+    // The competition page adopts the portal's white-paper/purple-ink
+    // theme so it stands out from the rest of the (dark) site.
+    <div className="portal-theme">
       <PageHeader
         eyebrow="AI Vanguard Open Competition · 2026"
         title={
@@ -350,10 +349,10 @@ export default function CompetitionPage() {
           <p className="mt-4 text-[13px] text-ink-muted">
             Questions before you register?{" "}
             <a
-              href={questionHref}
+              href="/contact"
               className="underline underline-offset-4 decoration-accent/60 hover:decoration-accent text-ink-dim hover:text-ink"
             >
-              Email us
+              Use the contact form
             </a>
             .
           </p>
@@ -836,6 +835,6 @@ export default function CompetitionPage() {
           </Reveal>
         </Container>
       </section>
-    </>
+    </div>
   );
 }

@@ -3,7 +3,6 @@
 import { useState, useSyncExternalStore } from "react";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
-import { site } from "@/lib/site";
 import {
   clearProfile,
   daysUntilDeadline,
@@ -18,6 +17,7 @@ import {
 } from "./profile";
 
 const DEADLINE = new Date("2026-09-25T23:59:59");
+
 const checklistItems = [
   {
     key: "work",
@@ -41,9 +41,22 @@ const checklistItems = [
   },
 ] as const;
 
+type DashboardTab = "competitions" | "entry" | "profile";
+
+function formatDate(iso: string): string {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime())
+    ? "On file"
+    : d.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      });
+}
+
 export function PortalHome() {
   // The server (and first client render) always sees the signed-out
-  // Welcome view; a profile stored on this device swaps in the dashboard
+  // auth gate; a profile stored on this device swaps in the dashboard
   // after hydration.
   const profile = useSyncExternalStore(
     subscribeEntrant,
@@ -56,6 +69,7 @@ export function PortalHome() {
     getServerChecklistSnapshot,
   );
   const [lookupEmail, setLookupEmail] = useState("");
+  const [tab, setTab] = useState<DashboardTab>("competitions");
 
   const openDashboard = (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,7 +82,13 @@ export function PortalHome() {
   };
 
   if (!profile) {
-    return <AuthGate lookupEmail={lookupEmail} setLookupEmail={setLookupEmail} onOpen={openDashboard} />;
+    return (
+      <AuthGate
+        lookupEmail={lookupEmail}
+        setLookupEmail={setLookupEmail}
+        onOpen={openDashboard}
+      />
+    );
   }
 
   const daysLeft = daysUntilDeadline(DEADLINE);
@@ -78,179 +98,455 @@ export function PortalHome() {
   return (
     <>
       {/* Dashboard header */}
-      <section className="border-b border-border bg-surface/60">
-        <Container size="wide" className="py-10 md:py-14">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.22em] text-accent">
-                Entrant Dashboard
-              </div>
-              <h1 className="mt-3 font-display text-4xl md:text-5xl tracking-tight text-ink">
-                {firstName ? (
-                  <>
-                    Welcome back,{" "}
-                    <span className="serif-italic">{firstName}.</span>
-                  </>
-                ) : (
-                  <>
-                    Welcome <span className="serif-italic">back.</span>
-                  </>
-                )}
-              </h1>
-              <p className="mt-3 text-[14px] text-ink-dim max-w-md">
-                {profile.division
-                  ? `${profile.division} division · ${profile.entryType ?? "Individual"} entry`
-                  : `Signed in as ${profile.email}`}
-              </p>
-            </div>
-            <div className="text-right">
-              <div className="fig text-5xl md:text-6xl text-accent leading-none">
-                {daysLeft}
-              </div>
-              <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-                Days until the deadline
-              </div>
-            </div>
+      <section className="border-b border-border">
+        <Container size="wide" className="py-8 md:py-10 flex items-end justify-between gap-6">
+          <div>
+            <h1 className="font-display text-3xl md:text-4xl tracking-tight text-ink">
+              Dashboard
+            </h1>
+            <p className="mt-1.5 text-[14px] text-ink-dim">
+              Welcome back, {firstName ?? profile.email}!
+            </p>
           </div>
+          <button
+            type="button"
+            onClick={clearProfile}
+            className="flex items-center gap-2 text-[13.5px] text-ink-dim hover:text-ink transition-colors"
+          >
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden>
+              <path
+                d="M9.5 2H4a1 1 0 00-1 1v9a1 1 0 001 1h5.5M7 7.5h6m0 0L10.5 5M13 7.5L10.5 10"
+                stroke="currentColor"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            Logout
+          </button>
         </Container>
       </section>
 
-      <section className="py-10 md:py-14">
+      <section className="py-8 md:py-10">
         <Container size="wide">
-          <div className="grid gap-10 md:grid-cols-12 md:gap-14 items-start">
-            {/* Status rail */}
-            <div className="md:col-span-4 space-y-8">
-              <div className="border border-border">
-                <div className="px-5 py-4 border-b border-border text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-                  Entry status
-                </div>
-                <ol>
-                  {[
-                    {
-                      label: "Registration",
-                      state: profile.registeredAt
-                        ? "Complete"
-                        : "Confirm by email",
-                      done: true,
-                    },
-                    {
-                      label: "Submission",
-                      state: "Due September 25, 2026",
-                      done: false,
-                      active: true,
-                    },
-                    {
-                      label: "Results",
-                      state: "October 3, 2026",
-                      done: false,
-                    },
-                  ].map((s) => (
-                    <li
-                      key={s.label}
-                      className="px-5 py-4 border-b border-border last:border-b-0 flex items-baseline justify-between gap-4"
-                    >
-                      <span
-                        className={`text-[14px] ${s.active ? "text-ink font-medium" : "text-ink-dim"}`}
-                      >
-                        {s.done ? "✓ " : ""}
-                        {s.label}
-                      </span>
-                      <span className="text-[12px] text-ink-muted text-right">
-                        {s.state}
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-
-              <div className="border border-accent/40 bg-surface/50 p-5">
-                <div className="text-[11px] uppercase tracking-[0.2em] text-accent">
-                  Submitting your entry
-                </div>
-                <p className="mt-3 text-[13.5px] text-ink-dim leading-relaxed">
-                  The submission window opens here in the portal ahead of the
-                  deadline. Registered entrants also receive instructions at
-                  their contact email. Anything unclear before then?{" "}
-                  <a
-                    href={`mailto:${site.email}?subject=Competition%20Question`}
-                    className="text-accent underline underline-offset-4"
-                  >
-                    Email us
-                  </a>
-                  .
-                </p>
-              </div>
-
+          {/* Tab bar */}
+          <div
+            className="rounded-full bg-surface-2 p-1 grid grid-cols-3 max-w-3xl mx-auto"
+            role="tablist"
+            aria-label="Dashboard sections"
+          >
+            {(
+              [
+                ["competitions", "Competitions"],
+                ["entry", "My Submissions"],
+                ["profile", "Profile"],
+              ] as [DashboardTab, string][]
+            ).map(([key, label]) => (
               <button
+                key={key}
                 type="button"
-                onClick={clearProfile}
-                className="text-[12px] text-ink-muted hover:text-ink underline underline-offset-4 transition-colors"
+                role="tab"
+                aria-selected={tab === key ? "true" : "false"}
+                onClick={() => setTab(key)}
+                className={`h-10 rounded-full text-[13px] tracking-tight transition-all ${
+                  tab === key
+                    ? "bg-bg text-ink font-medium shadow-[0_1px_6px_rgba(60,34,116,0.15)]"
+                    : "text-ink-muted hover:text-ink"
+                }`}
               >
-                Sign out of this device
+                {label}
               </button>
-            </div>
-
-            {/* Checklist */}
-            <div className="md:col-span-8">
-              <div className="flex items-baseline justify-between gap-4">
-                <h2 className="font-display text-2xl md:text-3xl tracking-tight text-ink">
-                  Your entry checklist
-                </h2>
-                <span className="fig text-sm text-ink-muted">
-                  {done}/{checklistItems.length} ready
-                </span>
-              </div>
-              <p className="mt-2 text-[13px] text-ink-muted">
-                Progress is saved on this device.
-              </p>
-
-              <ul className="mt-6 divide-y divide-border border-y border-border">
-                {checklistItems.map((item) => {
-                  const checked = !!checklist[item.key];
-                  return (
-                    <li key={item.key}>
-                      <label className="flex items-start gap-4 py-5 cursor-pointer group">
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          onChange={() => toggle(item.key)}
-                          className="mt-1 h-4 w-4 shrink-0 accent-accent"
-                        />
-                        <span>
-                          <span
-                            className={`block text-[16px] font-medium transition-colors ${
-                              checked
-                                ? "text-ink-muted line-through"
-                                : "text-ink group-hover:text-accent"
-                            }`}
-                          >
-                            {item.title}
-                          </span>
-                          <span className="mt-1 block text-[13.5px] text-ink-dim leading-relaxed">
-                            {item.hint}
-                          </span>
-                        </span>
-                      </label>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button href="/competition#rubric" external variant="secondary">
-                  Review the rubric ↗
-                </Button>
-                <Button href="/competition#requirements" external variant="secondary">
-                  Submission requirements ↗
-                </Button>
-              </div>
-            </div>
+            ))}
           </div>
+
+          {tab === "competitions" && (
+            <CompetitionsTab profile={profile} daysLeft={daysLeft} />
+          )}
+          {tab === "entry" && (
+            <EntryTab
+              profile={profile}
+              checklist={checklist}
+              done={done}
+              toggle={toggle}
+            />
+          )}
+          {tab === "profile" && (
+            <ProfileTab profile={profile} done={done} />
+          )}
         </Container>
       </section>
     </>
   );
 }
+
+/* ---------- Competitions ---------- */
+
+function CompetitionsTab({
+  profile,
+  daysLeft,
+}: {
+  profile: EntrantProfile;
+  daysLeft: number;
+}) {
+  return (
+    <div className="mt-10">
+      <h2 className="font-display text-2xl md:text-[28px] tracking-tight text-ink">
+        Available Competitions
+      </h2>
+
+      <div className="mt-5 rounded-2xl border border-border bg-bg shadow-[0_2px_16px_rgba(60,34,116,0.05)] p-7 md:p-9">
+        <h3 className="font-display text-2xl md:text-[26px] tracking-tight text-ink">
+          Open Competition 2026
+        </h3>
+
+        <div className="mt-6 grid gap-6 sm:grid-cols-3">
+          {[
+            { k: "Registration period", v: "Open now" },
+            {
+              k: "Submission deadline",
+              v: `September 25, 2026 · ${daysLeft} days left`,
+            },
+            { k: "Results released", v: "October 3, 2026" },
+          ].map((x) => (
+            <div key={x.k}>
+              <div className="text-[12px] font-medium text-ink">{x.k}:</div>
+              <div className="mt-1 text-[13.5px] text-ink-dim">{x.v}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-7 flex flex-wrap items-center gap-3">
+          <Button disabled className="opacity-50 cursor-not-allowed">
+            Submit entry
+          </Button>
+          <span className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent/10 px-3.5 h-9 text-[13px] text-accent-deep">
+            Submission window opens ahead of the deadline
+          </span>
+        </div>
+
+        <div className="mt-8 rounded-xl border border-accent/25 bg-accent/5 px-6 py-9 text-center">
+          <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-accent/15 text-accent">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+              <path
+                d="M4 10.5l4 4 8-9"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+          <p className="mt-4 font-display text-lg md:text-xl text-ink">
+            You&apos;re registered for the Open Competition 2026.
+          </p>
+          <p className="mt-2 text-[13.5px] text-ink-dim">
+            Submission instructions will arrive at{" "}
+            <span className="text-ink">{profile.email}</span> before the window
+            opens.
+          </p>
+        </div>
+      </div>
+
+      {/* Brief banner */}
+      <div className="mt-8 rounded-2xl bg-ink px-8 py-9 md:px-10 flex flex-wrap items-center justify-between gap-6">
+        <div className="max-w-md">
+          <div className="font-display text-2xl md:text-[26px] tracking-tight text-bg">
+            The 2026 brief
+          </div>
+          <p className="mt-2 text-[14px] leading-relaxed text-bg/75">
+            Design an AI-era classroom you&apos;d actually want to learn in —
+            and defend one thing you&apos;d refuse to automate.
+          </p>
+        </div>
+        <Button href="/competition" external size="lg">
+          Read the brief ↗
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- My Submissions ---------- */
+
+function EntryTab({
+  profile,
+  checklist,
+  done,
+  toggle,
+}: {
+  profile: EntrantProfile;
+  checklist: Record<string, boolean>;
+  done: number;
+  toggle: (key: string) => void;
+}) {
+  const steps = [
+    {
+      label: "Registered",
+      sub: profile.registeredAt ? formatDate(profile.registeredAt) : "On file",
+      state: "done" as const,
+    },
+    {
+      label: "Entry submitted",
+      sub: "Due September 25, 2026",
+      state: "current" as const,
+    },
+    { label: "Screening", sub: "Completeness check", state: "todo" as const },
+    { label: "Judging", sub: "Two judges per entry", state: "todo" as const },
+    { label: "Results", sub: "October 3, 2026", state: "todo" as const },
+  ];
+
+  return (
+    <div className="mt-10">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h2 className="font-display text-2xl md:text-[28px] tracking-tight text-ink">
+          My Submissions
+        </h2>
+        <Button disabled variant="secondary" className="opacity-50 cursor-not-allowed">
+          + New submission
+        </Button>
+      </div>
+
+      <div className="mt-5 rounded-2xl border border-border bg-bg shadow-[0_2px_16px_rgba(60,34,116,0.05)] p-7 md:p-9">
+        <span className="inline-flex items-center rounded-full bg-surface-2 px-3.5 h-7 text-[12px] text-ink-dim">
+          Open Competition 2026
+        </span>
+        <h3 className="mt-4 font-display text-xl md:text-2xl tracking-tight text-ink">
+          Your entry
+        </h3>
+
+        {/* Progress stepper */}
+        <div className="mt-8 overflow-x-auto pb-2">
+          <ol className="flex items-start min-w-[640px]">
+            {steps.map((s, i) => (
+              <li key={s.label} className="flex-1 flex items-start">
+                <div className="flex flex-col items-center text-center min-w-[110px]">
+                  <StepCircle state={s.state} n={i + 1} />
+                  <div
+                    className={`mt-3 text-[13px] font-medium ${
+                      s.state === "todo" ? "text-ink-muted" : "text-ink"
+                    }`}
+                  >
+                    {s.label}
+                  </div>
+                  <div className="mt-1 text-[11.5px] text-ink-muted leading-snug">
+                    {s.sub}
+                  </div>
+                </div>
+                {i < steps.length - 1 && (
+                  <div
+                    className={`mt-4 h-px flex-1 min-w-[24px] ${
+                      s.state === "done" ? "bg-accent" : "bg-border-strong"
+                    }`}
+                    aria-hidden
+                  />
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="mt-6 flex items-center gap-3 border-t border-border pt-6">
+          <span className="text-[13.5px] text-ink-dim">Result status:</span>
+          <span className="inline-flex items-center rounded-full bg-surface-2 px-3.5 h-7 text-[12px] font-medium text-ink">
+            In progress
+          </span>
+        </div>
+      </div>
+
+      {/* Checklist */}
+      <div className="mt-8 rounded-2xl border border-border bg-bg shadow-[0_2px_16px_rgba(60,34,116,0.05)] p-7 md:p-9">
+        <div className="flex items-baseline justify-between gap-4">
+          <h3 className="font-display text-xl md:text-2xl tracking-tight text-ink">
+            Entry checklist
+          </h3>
+          <span className="fig text-sm text-ink-muted">
+            {done}/{checklistItems.length} ready
+          </span>
+        </div>
+        <p className="mt-1.5 text-[12.5px] text-ink-muted">
+          Progress is saved on this device.
+        </p>
+
+        <ul className="mt-5 divide-y divide-border border-y border-border">
+          {checklistItems.map((item) => {
+            const checked = !!checklist[item.key];
+            return (
+              <li key={item.key}>
+                <label className="flex items-start gap-4 py-4.5 md:py-5 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() => toggle(item.key)}
+                    className="mt-1 h-4 w-4 shrink-0 accent-accent"
+                  />
+                  <span>
+                    <span
+                      className={`block text-[15px] font-medium transition-colors ${
+                        checked
+                          ? "text-ink-muted line-through"
+                          : "text-ink group-hover:text-accent"
+                      }`}
+                    >
+                      {item.title}
+                    </span>
+                    <span className="mt-1 block text-[13px] text-ink-dim leading-relaxed">
+                      {item.hint}
+                    </span>
+                  </span>
+                </label>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Button href="/competition#rubric" external variant="secondary">
+            Review the rubric ↗
+          </Button>
+          <Button href="/competition#requirements" external variant="secondary">
+            Submission requirements ↗
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StepCircle({ state, n }: { state: "done" | "current" | "todo"; n: number }) {
+  if (state === "done") {
+    return (
+      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-accent-ink">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+          <path
+            d="M2.5 7.5l3 3 6-7"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+    );
+  }
+  if (state === "current") {
+    return (
+      <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-accent text-accent fig text-[13px]">
+        {n}
+      </span>
+    );
+  }
+  return (
+    <span className="flex h-8 w-8 items-center justify-center rounded-full border border-border-strong text-ink-muted fig text-[13px]">
+      {n}
+    </span>
+  );
+}
+
+/* ---------- Profile ---------- */
+
+function ProfileTab({
+  profile,
+  done,
+}: {
+  profile: EntrantProfile;
+  done: number;
+}) {
+  const initials = profile.name
+    ? profile.name
+        .split(" ")
+        .map((w) => w[0])
+        .filter(Boolean)
+        .slice(0, 2)
+        .join("")
+        .toUpperCase()
+    : profile.email[0]?.toUpperCase() ?? "?";
+
+  return (
+    <div className="mt-10">
+      <h2 className="font-display text-2xl md:text-[28px] tracking-tight text-ink">
+        Entrant Profile
+      </h2>
+
+      <div className="mt-5 grid gap-6 md:grid-cols-2 items-start">
+        {/* Profile information */}
+        <div className="rounded-2xl border border-border bg-bg shadow-[0_2px_16px_rgba(60,34,116,0.05)] p-7 md:p-8">
+          <h3 className="font-display text-xl tracking-tight text-ink">
+            Profile Information
+          </h3>
+          <div className="mt-6 flex flex-col items-center text-center">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-accent-ink font-display text-xl">
+              {initials}
+            </span>
+            <div className="mt-3 font-display text-2xl tracking-tight text-ink">
+              {profile.name ?? "Entrant"}
+            </div>
+          </div>
+          <div className="mt-6 space-y-3">
+            <ProfileRow k="Email" v={profile.email} />
+            <ProfileRow k="Division" v={profile.division ?? "—"} />
+            <ProfileRow k="Entry type" v={profile.entryType ?? "—"} />
+            <ProfileRow
+              k="Registered"
+              v={profile.registeredAt ? formatDate(profile.registeredAt) : "On file"}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={clearProfile}
+            className="mt-7 w-full rounded-full border border-border-strong h-11 text-[14px] text-ink hover:bg-surface transition-colors"
+          >
+            Sign out of this device
+          </button>
+          <p className="mt-4 text-[12px] text-ink-muted text-center leading-relaxed">
+            Need to correct your details?{" "}
+            <a
+              href="/portal/help"
+              className="text-accent underline underline-offset-4"
+            >
+              Send us a request
+            </a>
+            .
+          </p>
+        </div>
+
+        {/* Entry information */}
+        <div className="rounded-2xl border border-border bg-bg shadow-[0_2px_16px_rgba(60,34,116,0.05)] p-7 md:p-8">
+          <h3 className="font-display text-xl tracking-tight text-ink">
+            Entry Information
+          </h3>
+          <div className="mt-6 text-center">
+            <div className="fig text-4xl text-accent">0</div>
+            <div className="mt-1 text-[12px] uppercase tracking-[0.18em] text-ink-muted">
+              Entries submitted
+            </div>
+          </div>
+          <div className="mt-6 space-y-3">
+            <ProfileRow k="Competition" v="Open Competition 2026" />
+            <ProfileRow k="Status" v="Registered ✓" />
+            <ProfileRow k="Checklist" v={`${done}/${checklistItems.length} ready`} />
+            <ProfileRow k="Submission deadline" v="September 25, 2026" />
+            <ProfileRow k="Results released" v="October 3, 2026" />
+          </div>
+          <p className="mt-6 text-[12px] text-ink-muted leading-relaxed">
+            Full entrant accounts — with password sign-in and entries stored
+            across devices — arrive with the submission window.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProfileRow({ k, v }: { k: string; v: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-6 text-[13.5px]">
+      <span className="text-ink-dim shrink-0">{k}:</span>
+      <span className="text-ink text-right break-all">{v}</span>
+    </div>
+  );
+}
+
+/* ---------- Auth gate ---------- */
 
 function AuthGate({
   lookupEmail,
@@ -267,26 +563,38 @@ function AuthGate({
     <section className="py-14 md:py-24">
       <Container size="narrow">
         <div className="max-w-md mx-auto">
-          <div className="text-center">
-            <div className="text-[11px] uppercase tracking-[0.22em] text-accent">
-              AI Vanguard Open Competition · 2026
+          <div className="rounded-2xl border border-border bg-bg shadow-[0_8px_40px_rgba(60,34,116,0.10)] px-7 py-9 md:px-9 md:py-10">
+            <div className="text-center">
+              <div className="font-display text-[24px] tracking-tight text-ink">
+                AI Vanguard
+              </div>
+              <div className="mt-1.5 text-[10px] uppercase tracking-[0.26em] text-ink-muted">
+                Entrant Portal
+              </div>
+              <h1 className="mt-6 font-display text-3xl md:text-[32px] tracking-tight text-ink">
+                Open Competition 2026
+              </h1>
+              <p className="mt-4 text-[13.5px] text-ink-dim leading-relaxed">
+                Registration for the 2026 AI Vanguard Open Competition is now
+                open. Sign up to enter, or sign in to access your entrant
+                dashboard.
+              </p>
             </div>
-            <h1 className="mt-4 font-display text-4xl md:text-5xl tracking-tight leading-[1.02] text-ink">
-              Entrant <span className="serif-italic">Portal.</span>
-            </h1>
-          </div>
 
-          <div className="mt-8 border border-border bg-bg shadow-[0_2px_24px_rgba(60,34,116,0.06)]">
-            <div className="grid grid-cols-2" role="tablist" aria-label="Sign up or sign in">
+            <div
+              className="mt-7 rounded-full bg-surface-2 p-1 grid grid-cols-2"
+              role="tablist"
+              aria-label="Sign up or sign in"
+            >
               <button
                 type="button"
                 role="tab"
                 aria-selected={tab === "signup" ? "true" : "false"}
                 onClick={() => setTab("signup")}
-                className={`h-12 text-[13px] uppercase tracking-[0.14em] transition-colors border-b ${
+                className={`h-10 rounded-full text-[13px] tracking-tight transition-all ${
                   tab === "signup"
-                    ? "border-accent text-ink font-medium"
-                    : "border-border text-ink-muted hover:text-ink"
+                    ? "bg-bg text-ink font-medium shadow-[0_1px_6px_rgba(60,34,116,0.15)]"
+                    : "text-ink-muted hover:text-ink"
                 }`}
               >
                 Sign up
@@ -296,10 +604,10 @@ function AuthGate({
                 role="tab"
                 aria-selected={tab === "signin" ? "true" : "false"}
                 onClick={() => setTab("signin")}
-                className={`h-12 text-[13px] uppercase tracking-[0.14em] transition-colors border-b ${
+                className={`h-10 rounded-full text-[13px] tracking-tight transition-all ${
                   tab === "signin"
-                    ? "border-accent text-ink font-medium"
-                    : "border-border text-ink-muted hover:text-ink"
+                    ? "bg-bg text-ink font-medium shadow-[0_1px_6px_rgba(60,34,116,0.15)]"
+                    : "text-ink-muted hover:text-ink"
                 }`}
               >
                 Sign in
@@ -307,30 +615,55 @@ function AuthGate({
             </div>
 
             {tab === "signin" ? (
-              <form onSubmit={onOpen} className="p-7 md:p-8">
+              <form onSubmit={onOpen} className="mt-7">
                 <label className="block">
-                  <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-muted mb-2">
-                    The email you registered with
+                  <span className="block text-[13px] font-medium text-ink mb-2">
+                    Email
                   </span>
-                  <input
-                    type="email"
-                    value={lookupEmail}
-                    onChange={(e) => setLookupEmail(e.target.value)}
-                    placeholder="you@school.edu"
-                    required
-                    autoFocus
-                    className="w-full border border-border bg-transparent px-4 py-3 text-[16px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:outline-none"
-                  />
+                  <span className="relative block">
+                    <span
+                      className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted"
+                      aria-hidden
+                    >
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <rect
+                          x="1.5"
+                          y="3.25"
+                          width="13"
+                          height="9.5"
+                          rx="1.5"
+                          stroke="currentColor"
+                          strokeWidth="1.2"
+                        />
+                        <path
+                          d="M2.5 4.5L8 9l5.5-4.5"
+                          stroke="currentColor"
+                          strokeWidth="1.2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    <input
+                      type="email"
+                      value={lookupEmail}
+                      onChange={(e) => setLookupEmail(e.target.value)}
+                      placeholder="you@school.edu"
+                      required
+                      autoFocus
+                      className="w-full rounded-lg border border-border bg-surface pl-11 pr-4 py-3 text-[15px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:bg-bg focus:outline-none"
+                    />
+                  </span>
                 </label>
                 <Button type="submit" size="lg" className="mt-6 w-full">
-                  Sign in to your dashboard
+                  Sign in
                 </Button>
-                <p className="mt-5 text-[12.5px] text-ink-muted leading-relaxed">
+                <p className="mt-5 text-[12.5px] text-ink-muted leading-relaxed text-center">
                   No password needed yet — signing in restores your dashboard
                   on this device. Full entrant accounts arrive with the
                   submission window.
                 </p>
-                <p className="mt-4 text-[13px] text-ink-dim">
+                <p className="mt-4 text-[13px] text-ink-dim text-center">
                   New here?{" "}
                   <button
                     type="button"
@@ -342,11 +675,8 @@ function AuthGate({
                 </p>
               </form>
             ) : (
-              <div className="p-7 md:p-8">
-                <h2 className="font-display text-2xl tracking-tight text-ink">
-                  Register your entry.
-                </h2>
-                <p className="mt-3 text-[14.5px] text-ink-dim leading-relaxed">
+              <div className="mt-7">
+                <p className="text-[14px] text-ink-dim leading-relaxed text-center">
                   Registration is your sign-up — free, a few minutes, one entry
                   per person or team. You&apos;ll get your dashboard the moment
                   you finish.
@@ -354,7 +684,7 @@ function AuthGate({
                 <Button href="/portal/register" size="lg" className="mt-6 w-full">
                   Start registration
                 </Button>
-                <p className="mt-5 text-[13px] text-ink-dim">
+                <p className="mt-5 text-[13px] text-ink-dim text-center">
                   Already registered?{" "}
                   <button
                     type="button"
@@ -368,7 +698,17 @@ function AuthGate({
             )}
           </div>
 
-          <p className="mt-6 text-center text-[12.5px] text-ink-muted">
+          <div className="mt-6 rounded-xl border border-border bg-surface/70 px-6 py-4 text-center text-[13px] text-ink-dim">
+            Questions or technical issues?{" "}
+            <a
+              href="/portal/help"
+              className="text-accent underline underline-offset-4"
+            >
+              Open the help form
+            </a>
+            .
+          </div>
+          <p className="mt-5 text-center text-[12.5px] text-ink-muted">
             Submissions due September 25, 2026 · Results October 3, 2026
           </p>
         </div>

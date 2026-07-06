@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import { Button } from "./Button";
-import { site } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
 const inquiryTypes = [
@@ -10,48 +10,46 @@ const inquiryTypes = [
   "School partnership",
   "Press / media",
   "Speaking request",
+  "Competition",
   "General",
 ];
 
 export function ContactForm() {
+  const [state, handleSubmit] = useForm("xpqgnpva");
   const [inquiry, setInquiry] = useState(inquiryTypes[0]);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [sent, setSent] = useState(false);
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // MVP: open user's mail client with a prefilled message.
-    const subject = `[AI Vanguard · ${inquiry}] from ${name}`;
-    const body = `From: ${name} <${email}>\nInquiry type: ${inquiry}\n\n${message}`;
-    const href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = href;
-    setSent(true);
-  };
-
-  if (sent) {
+  if (state.succeeded) {
     return (
       <div className="border border-accent/50 p-8">
         <h3 className="font-display text-2xl text-ink">
-          Your mail client should be open.
+          Message sent{name ? `, ${name.split(" ")[0]}` : ""}.
         </h3>
         <p className="mt-3 text-sm text-ink-dim">
-          If nothing opened, email us directly at{" "}
-          <a
-            href={`mailto:${site.email}`}
-            className="text-accent underline underline-offset-4"
-          >
-            {site.email}
-          </a>
-          .
+          Thanks for reaching out — we&apos;ll reply to the email you provided,
+          usually within a couple of days.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <input type="hidden" name="inquiryType" value={inquiry} />
+      <input
+        type="hidden"
+        name="_subject"
+        value={`[AI Vanguard · ${inquiry}] from ${name || "website visitor"}`}
+      />
+      <input
+        type="text"
+        name="_gotcha"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="hidden"
+      />
+
       <Field label="I'm reaching out about">
         <div className="flex flex-wrap gap-2">
           {inquiryTypes.map((t) => (
@@ -74,35 +72,42 @@ export function ContactForm() {
 
       <div className="grid gap-8 sm:grid-cols-2">
         <Field label="Your name">
-          <Input value={name} onChange={setName} placeholder="Alex Rivera" required />
+          <Input name="name" value={name} onChange={setName} placeholder="Alex Rivera" required />
         </Field>
         <Field label="Email">
-          <Input
-            type="email"
-            value={email}
-            onChange={setEmail}
-            placeholder="you@school.edu"
-            required
+          <Input name="email" type="email" placeholder="you@school.edu" required />
+          <ValidationError
+            prefix="Email"
+            field="email"
+            errors={state.errors}
+            className="mt-2 block text-[13px] text-accent"
           />
         </Field>
       </div>
 
       <Field label="Message">
         <Textarea
-          value={message}
-          onChange={setMessage}
+          name="message"
           placeholder="Tell us a little about what you're reaching out about."
           required
           rows={6}
         />
+        <ValidationError
+          prefix="Message"
+          field="message"
+          errors={state.errors}
+          className="mt-2 block text-[13px] text-accent"
+        />
       </Field>
+
+      <ValidationError errors={state.errors} className="block text-sm text-accent" />
 
       <div className="flex items-center justify-between pt-4 border-t border-border">
         <p className="text-xs text-ink-muted max-w-xs">
-          We&apos;ll reply from {site.email}.
+          We&apos;ll reply by email.
         </p>
-        <Button type="submit" size="lg">
-          Send message
+        <Button type="submit" size="lg" disabled={state.submitting}>
+          {state.submitting ? "Sending…" : "Send message"}
         </Button>
       </div>
     </form>
@@ -127,22 +132,25 @@ function Field({
 }
 
 function Input({
+  name,
   value,
   onChange,
   type = "text",
   placeholder,
   required,
 }: {
-  value: string;
-  onChange: (v: string) => void;
+  name: string;
+  value?: string;
+  onChange?: (v: string) => void;
   type?: string;
   placeholder?: string;
   required?: boolean;
 }) {
   return (
     <input
+      name={name}
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={onChange ? (e) => onChange(e.target.value) : undefined}
       type={type}
       placeholder={placeholder}
       required={required}
@@ -152,22 +160,19 @@ function Input({
 }
 
 function Textarea({
-  value,
-  onChange,
+  name,
   placeholder,
   required,
   rows = 5,
 }: {
-  value: string;
-  onChange: (v: string) => void;
+  name: string;
   placeholder?: string;
   required?: boolean;
   rows?: number;
 }) {
   return (
     <textarea
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
+      name={name}
       placeholder={placeholder}
       required={required}
       rows={rows}

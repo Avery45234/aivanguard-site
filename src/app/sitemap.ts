@@ -11,6 +11,7 @@ const routes = [
   "/competition",
   "/portal",
   "/portal/register",
+  "/portal/help",
   "/contact",
   "/press",
 ];
