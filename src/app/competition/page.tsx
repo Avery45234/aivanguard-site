@@ -9,7 +9,7 @@ import { rubric, judgingRounds } from "@/lib/competition";
 export const metadata: Metadata = {
   title: "Open Competition",
   description:
-    "The AI Vanguard Open Competition: design an AI-era classroom you'd actually want to learn in — and defend one thing you'd refuse to automate. Any format. $1,000 in prizes. Deadline September 25, 2026.",
+    "The AI Vanguard Open Competition: design an AI-era classroom you'd actually want to learn in, then defend one thing you'd refuse to automate. Any format. $1,000 in prizes. Deadline September 25, 2026.",
 };
 
 const keyDates = [
@@ -21,7 +21,7 @@ const keyDates = [
 const quickFacts = [
   { k: "Prize pool", v: "$1,000" },
   { k: "Format", v: "Open" },
-  { k: "Team size", v: "1–4" },
+  { k: "Team size", v: "1-4" },
   { k: "Deadline", v: "Sept 25" },
 ];
 
@@ -29,19 +29,19 @@ const requirements = [
   {
     tag: "A · The work",
     title: "The work itself",
-    body: "An app, essay, video, prototype, design file — the format is your choice; the thinking is what we judge.",
+    body: "Build an app, write an essay, film something, design something. The format is your choice. We judge the thinking.",
     items: [
-      "Code / apps — a public repository link or hosted demo, plus a 2–3 minute walkthrough video (a screen recording is fine).",
-      "Essays / written work — PDF, max 2,500 words.",
-      "Video / film — max 6 minutes, hosted link (unlisted YouTube is fine).",
-      "Design / visual work — PDF or hosted link, max 15 pages or frames.",
-      "Something else entirely — email us before the deadline and we'll tell you how to submit it.",
+      "Code / apps: a public repository link or hosted demo, plus a 2 to 3 minute walkthrough video. A screen recording is fine.",
+      "Essays / written work: PDF, max 2,500 words.",
+      "Video / film: max 6 minutes, hosted link. Unlisted YouTube is fine.",
+      "Design / visual work: PDF or hosted link, max 15 pages or frames.",
+      "Something else entirely? Email us before the deadline and we'll tell you how to submit it.",
     ],
   },
   {
     tag: "B · Required",
-    title: "The Rationale — max 300 words",
-    body: "A short written statement answering three questions. The Rationale is judged with equal weight for every entrant — it's how we fairly compare an app against an essay against a film. Everyone thinks on the same 300-word playing field.",
+    title: "The Rationale (max 300 words)",
+    body: "A short written statement answering three questions. The Rationale is judged with equal weight for every entrant. It's how we fairly compare an app against an essay against a film: everyone thinks on the same 300-word playing field.",
     items: [
       "What problem does your classroom design solve, and for whom?",
       "What can be improved in classrooms through AI?",
@@ -51,7 +51,7 @@ const requirements = [
   {
     tag: "C · Required",
     title: "AI Use Disclosure",
-    body: "Tell us how you used AI tools in creating your submission. Using AI is not just allowed — for a competition about AI, it's encouraged. But undisclosed AI use is grounds for disqualification. There's no penalty for heavy AI use; there's a penalty for hiding it. Judges may weigh how thoughtfully you used AI as part of Execution & Craft.",
+    body: "Tell us how you used AI tools in creating your submission. Using AI isn't just allowed. For a competition about AI, it's encouraged. But undisclosed AI use is grounds for disqualification. There's no penalty for heavy AI use; there's a penalty for hiding it. Judges may weigh how thoughtfully you used AI as part of Execution & Craft.",
   },
   {
     tag: "D · Required",
@@ -63,7 +63,7 @@ const requirements = [
 const rules = [
   {
     title: "Who can enter",
-    body: "Anyone. Two divisions: Under 18 and Open (all ages). Students, educators, parents — everyone is a learner.",
+    body: "Anyone. Two divisions: Under 18 and Open (all ages). Students, educators, parents: everyone is a learner.",
   },
   {
     title: "Free to enter",
@@ -75,7 +75,7 @@ const rules = [
   },
   {
     title: "Original work",
-    body: "Created for this competition, or substantially developed during it. Building on prior work is fine — just disclose it.",
+    body: "Created for this competition, or substantially developed during it. Building on prior work is fine, just disclose it.",
   },
   {
     title: "AI use",
@@ -83,7 +83,7 @@ const rules = [
   },
   {
     title: "You keep your work",
-    body: "Entrants retain full ownership. Entering grants AI Vanguard a non-exclusive license to display, publish, and promote your work — always with credit.",
+    body: "Entrants retain full ownership. Entering grants AI Vanguard a non-exclusive license to display, publish, and promote your work, always with credit.",
   },
   {
     title: "Privacy & consent",
@@ -130,11 +130,11 @@ const prizes = [
 const faq = [
   {
     q: "How do I enter?",
-    a: "Open the Entrant Portal (it opens in a new tab) and register — it's free and takes a few minutes. You'll receive confirmation and submission instructions by email, and your completed entry is due September 25, 2026.",
+    a: "Open the Entrant Portal (it opens in a new tab) and register. It's free and takes a few minutes. You'll receive confirmation and submission instructions by email, and your completed entry is due September 25, 2026.",
   },
   {
     q: "Can I use AI to build my submission?",
-    a: "Yes — it's encouraged. Disclose how you used it. We judge your thinking and your choices.",
+    a: "Yes, and it's encouraged. Disclose how you used it. We judge your thinking and your choices.",
   },
   {
     q: "Does my classroom design have to be realistic or buildable today?",
@@ -146,7 +146,7 @@ const faq = [
   },
   {
     q: "I'm a teacher or parent, not a student. Can I enter?",
-    a: "Yes — the prompt is the classroom you'd want to learn in. Everyone is a learner.",
+    a: "Yes. The prompt is the classroom you'd want to learn in, and everyone is a learner.",
   },
   {
     q: "What if my format doesn't fit the categories?",
@@ -154,7 +154,7 @@ const faq = [
   },
   {
     q: "Do teams split the judging criteria?",
-    a: "No — a submission is judged as one work, regardless of team size.",
+    a: "No. A submission is judged as one work, regardless of team size.",
   },
 ];
 
@@ -173,7 +173,7 @@ export default function CompetitionPage() {
             </span>
           </>
         }
-        blurb="AI is entering classrooms faster than anyone can evaluate it — and most of the conversation is happening about students, not with them. So here's the prompt: what would you automate, and what would you refuse to automate?"
+        blurb="AI is entering classrooms faster than anyone can evaluate it, and most of the conversation is happening about students, not with them. So here's the prompt: what would you automate, and what would you refuse to automate?"
         meta={
           <div className="flex flex-wrap gap-3">
             <Button href="/portal" external size="md">
@@ -273,8 +273,8 @@ export default function CompetitionPage() {
                 </div>
                 <p className="mt-4 text-[15.5px] text-ink-dim leading-relaxed max-w-md">
                   Name one thing you&apos;d refuse to automate, and defend it.
-                  Your refusal can live inside your design — a deliberate
-                  absence, a protected space, a human-only feature — or stand
+                  Your refusal can live inside your design (a deliberate
+                  absence, a protected space, a human-only feature) or stand
                   beside it as an argument.
                 </p>
               </div>
@@ -302,14 +302,14 @@ export default function CompetitionPage() {
                     We are not looking for &ldquo;AI is good&rdquo; or
                     &ldquo;AI is bad.&rdquo; We&apos;re looking for the
                     interesting, uncomfortable, specific territory in between.
-                    This competition is a thought experiment — but we want
-                    well-thought-out submissions that would benefit school
-                    districts and students if implemented.
+                    This competition is a thought experiment, but we want
+                    submissions thought through well enough that a school
+                    district could actually learn something from them.
                   </p>
                   <p>
                     Submissions in any format are welcome: working apps, code
                     prototypes, essays, films, design mockups, interactive
-                    experiences, games, zines, policy proposals — or something
+                    experiences, games, zines, policy proposals, or something
                     we haven&apos;t thought of. The format is your choice; the
                     thinking is what we judge.
                   </p>
@@ -342,7 +342,7 @@ export default function CompetitionPage() {
                   <span className="serif-italic">four things.</span>
                 </>
               }
-              blurb="Register in the Entrant Portal first — then, whatever format you choose, your completed submission must include all four parts below."
+              blurb="Register in the Entrant Portal first. Then, whatever format you choose, your completed submission must include all four parts below."
             />
           </Reveal>
 
@@ -406,7 +406,7 @@ export default function CompetitionPage() {
                   <span className="serif-italic">the same five criteria.</span>
                 </>
               }
-              blurb="Judges are instructed to score the thinking, not the medium — a brilliant essay beats a mediocre app, and vice versa."
+              blurb="Judges are instructed to score the thinking, not the medium. A brilliant essay beats a mediocre app, and vice versa."
             />
             <div className="mt-8">
               <Button href="/competition/rubric" variant="secondary" size="md">
@@ -466,8 +466,8 @@ export default function CompetitionPage() {
             <p className="mt-8 text-[14px] text-ink-muted leading-relaxed">
               <span className="uppercase tracking-[0.18em] text-[11px]">
                 Tiebreakers
-              </span>{" "}
-              — in order: the higher score on Insight &amp; Originality, then a
+              </span>
+              , in order: the higher score on Insight &amp; Originality, then a
               judges&apos; panel discussion and vote.
             </p>
           </Reveal>
@@ -498,7 +498,7 @@ export default function CompetitionPage() {
                       <span className="serif-italic">no shortcuts.</span>
                     </>
                   }
-                  blurb="Entries are judged by a panel of 5–7 professionals from the AI and education fields. Judges recuse themselves from scoring any entrant they know personally or professionally."
+                  blurb="Entries are judged by a panel of 5 to 7 professionals from the AI and education fields. Judges recuse themselves from scoring any entrant they know personally or professionally."
                 />
               </Reveal>
             </div>
@@ -612,11 +612,11 @@ export default function CompetitionPage() {
             <SectionHeading
               title={
                 <>
-                  $1,000 in awards —{" "}
+                  $1,000 in awards,{" "}
                   <span className="serif-italic">and a seat at the table.</span>
                 </>
               }
-              blurb="Winning work gets published on aivanguard.org, and winners are invited into the organization's orbit — not just handed a check."
+              blurb="Winning work gets published on aivanguard.org, and winners are invited into the organization's orbit, not just handed a check."
             />
           </Reveal>
 
@@ -665,7 +665,7 @@ export default function CompetitionPage() {
               eyebrow="FAQ"
               title={
                 <>
-                  Before you ask —{" "}
+                  Before you ask:{" "}
                   <span className="serif-italic">yes, you can use AI.</span>
                 </>
               }

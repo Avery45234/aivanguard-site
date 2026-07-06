@@ -7,13 +7,13 @@ import { rubric, judgingRounds } from "@/lib/competition";
 export const metadata: Metadata = {
   title: "Official Judging Rubric",
   description:
-    "The official 100-point judging rubric for the AI Vanguard Open Competition 2026 — five criteria with full score bands, tiebreakers, and the judging process.",
+    "The official 100-point judging rubric for the AI Vanguard Open Competition 2026: five criteria with full score bands, tiebreakers, and the judging process.",
 };
 
 export default function RubricPage() {
   return (
     <div className="portal-theme">
-      {/* Toolbar — visible on screen, hidden when printed */}
+      {/* Toolbar: visible on screen, hidden when printed */}
       <section className="border-b border-border print:hidden">
         <Container size="narrow" className="py-4 flex items-center justify-between gap-4">
           <Link
@@ -36,8 +36,8 @@ export default function RubricPage() {
             Official Judging <span className="serif-italic">Rubric.</span>
           </h1>
           <p className="mt-5 text-[15px] text-ink-dim leading-relaxed max-w-xl">
-            100 points across five criteria. Every format — app, essay, film,
-            design, or otherwise — is scored on the same scale, and judges are
+            100 points across five criteria. Every format (app, essay, film,
+            design, or otherwise) is scored on the same scale, and judges are
             instructed to score the thinking, not the medium. The 300-word
             Rationale carries equal weight for every entrant.
           </p>
@@ -179,7 +179,7 @@ export default function RubricPage() {
               personally or professionally.
             </p>
             <p>
-              <strong className="text-ink">The panel.</strong> 5–7
+              <strong className="text-ink">The panel.</strong> 5 to 7
               professionals from the AI and education fields.
             </p>
           </div>

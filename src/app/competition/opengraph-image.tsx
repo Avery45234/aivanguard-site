@@ -1,7 +1,7 @@
 import { renderOgCard, OG_SIZE } from "@/lib/og";
 
 export const runtime = "edge";
-export const alt = "AI Vanguard Open Competition — Design an AI-era classroom you'd actually want to learn in. Any format, $1,000 in prizes.";
+export const alt = "AI Vanguard Open Competition: design an AI-era classroom you'd actually want to learn in. Any format, $1,000 in prizes.";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
