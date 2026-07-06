@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
+import { rubric, judgingRounds } from "@/lib/competition";
 
 export const metadata: Metadata = {
   title: "Open Competition",
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 
 const keyDates = [
   { date: "Open now", label: "Registration", note: "Free, a few minutes, in the Entrant Portal." },
-  { date: "September 25, 2026", label: "Submission deadline", note: "Registered entrants receive submission instructions by email." },
+  { date: "September 25, 2026", label: "Submission deadline", note: "Entries close 11:59 PM Pacific. Registered entrants receive submission instructions by email." },
   { date: "October 3, 2026", label: "Results announced", note: "Winners published and featured on aivanguard.org." },
 ];
 
@@ -59,180 +60,46 @@ const requirements = [
   },
 ];
 
-const rubric = [
-  {
-    n: "01",
-    title: "Insight & Originality",
-    points: 25,
-    question: "Does this submission contain an idea we haven't seen fifty times?",
-    bands: [
-      {
-        range: "21–25",
-        text: "A genuinely novel angle, or a familiar idea reframed so sharply it feels new. Judges want to argue about it afterward.",
-      },
-      {
-        range: "15–20",
-        text: "A solid, specific idea with at least one original element or unexpected connection — we're looking for nuance.",
-      },
-      {
-        range: "8–14",
-        text: "Competent but familiar. Ideas the judges have encountered in mainstream ed-tech discourse.",
-      },
-      {
-        range: "0–7",
-        text: "Generic. “AI tutor personalizes learning; teachers provide human connection” with no further development.",
-      },
-    ],
-  },
-  {
-    n: "02",
-    title: "The Acceptance vs. the Refusal",
-    points: 25,
-    question: "What would you automate — and what would you refuse to automate?",
-    bands: [
-      {
-        range: "21–25",
-        text: "The refusals and acceptances are specific and surprising, defended with real reasoning (not sentiment), and structurally connected to the design — remove them and the whole submission changes.",
-      },
-      {
-        range: "15–20",
-        text: "A clear, specific acceptance and refusal with genuine argumentation, though the connection to the design may be loose.",
-      },
-      {
-        range: "8–14",
-        text: "A refusal is named but defended with platitudes (“human connection matters”) rather than reasoning, or it reads as a list rather than a position.",
-      },
-      {
-        range: "0–7",
-        text: "The refusal is missing, an afterthought, or so broad it's meaningless (“I'd never automate teaching”).",
-      },
-    ],
-  },
-  {
-    n: "03",
-    title: "Depth of Reasoning",
-    points: 20,
-    question: "Has the entrant thought past the first-order effects?",
-    bands: [
-      {
-        range: "17–20",
-        text: "Engages seriously with trade-offs, failure modes, or counterarguments. Acknowledges what the design costs, not just what it gains.",
-      },
-      {
-        range: "12–16",
-        text: "Some awareness of trade-offs or limitations; addresses at least one obvious objection.",
-      },
-      {
-        range: "6–11",
-        text: "Purely first-order thinking. The design is presented as having only upsides.",
-      },
-      {
-        range: "0–5",
-        text: "No evidence of reasoning beyond the initial idea.",
-      },
-    ],
-  },
-  {
-    n: "04",
-    title: "Execution & Craft",
-    points: 20,
-    question: "Is the work well-made for its chosen format?",
-    note: "Craft is scored relative to the format's demands, not its production cost. A tightly argued 1,500-word essay can earn 20/20; a feature-rich but confused app can earn 8/20.",
-    bands: [
-      {
-        range: "17–20",
-        text: "Exceptional craft: polished, deliberate, and complete for its medium. For apps: it works. For essays: it's well-written. For films: it's well-made.",
-      },
-      {
-        range: "12–16",
-        text: "Solid execution with minor rough edges that don't obscure the idea.",
-      },
-      {
-        range: "6–11",
-        text: "Noticeable gaps in execution — broken features, unclear writing, unfinished sections — that get in the way.",
-      },
-      {
-        range: "0–5",
-        text: "Execution problems make the idea hard to evaluate at all.",
-      },
-    ],
-  },
-  {
-    n: "05",
-    title: "Communication",
-    points: 10,
-    question: "Can we understand it — quickly?",
-    bands: [
-      {
-        range: "9–10",
-        text: "The core idea lands within minutes. The Rationale is sharp. Nothing requires re-reading.",
-      },
-      {
-        range: "6–8",
-        text: "Clear overall, with occasional confusion or clutter.",
-      },
-      {
-        range: "3–5",
-        text: "The idea is in there, but the judge has to dig for it.",
-      },
-      {
-        range: "0–2",
-        text: "Unclear what is being proposed.",
-      },
-    ],
-  },
-];
-
-const rounds = [
-  {
-    n: "01",
-    title: "Screening",
-    body: "Organizers check each entry for completeness — the work, the Rationale, and the AI disclosure — and rules compliance. Incomplete entries get one email and 48 hours to fix.",
-  },
-  {
-    n: "02",
-    title: "Scoring",
-    body: "Every eligible entry is independently scored by at least two judges using the rubric, and the scores are averaged. If two judges' totals differ by more than 20 points, a third judge scores the entry and the outlier is dropped.",
-  },
-  {
-    n: "03",
-    title: "Finalist panel",
-    body: "The top 10 entries are re-read by the full judging panel together, and judges may adjust scores after discussion. Finalists may be invited to a brief 10-minute live or video Q&A — used to verify authorship and probe reasoning, not to re-pitch.",
-  },
-];
-
 const rules = [
   {
-    title: "Age categories",
-    body: "Two divisions: Under 18, and Open (all ages).",
+    title: "Who can enter",
+    body: "Anyone. Two divisions: Under 18 and Open (all ages). Students, educators, parents — everyone is a learner.",
   },
   {
-    title: "Original work",
-    body: "Submissions must be created for this competition or substantially developed during the competition window. Prior work may be built upon if disclosed.",
-  },
-  {
-    title: "AI use",
-    body: "Permitted and encouraged in any part of the creation process, with full disclosure (see the AI Use Disclosure requirement).",
+    title: "Free to enter",
+    body: "No purchase, payment, or donation is ever required to enter or to win.",
   },
   {
     title: "One entry per person or team",
-    body: "A person may not appear on multiple teams.",
+    body: "Enter solo or as a team of up to 4. A person may not appear on multiple teams, and prizes are split equally among team members.",
   },
   {
-    title: "Rights",
-    body: "Entrants retain full ownership of their work. By entering, you grant AI Vanguard a non-exclusive license to display, publish, and promote submissions with attribution.",
+    title: "Original work",
+    body: "Created for this competition, or substantially developed during it. Building on prior work is fine — just disclose it.",
   },
   {
-    title: "Privacy",
-    body: "If a submission includes real students, classrooms, or identifiable people, entrants must confirm they have consent to include them.",
+    title: "AI use",
+    body: "Allowed and encouraged anywhere in your process, on one condition: full disclosure. Undisclosed AI use is grounds for disqualification.",
+  },
+  {
+    title: "You keep your work",
+    body: "Entrants retain full ownership. Entering grants AI Vanguard a non-exclusive license to display, publish, and promote your work — always with credit.",
+  },
+  {
+    title: "Privacy & consent",
+    body: "If your entry shows real students, classrooms, or identifiable people, you must have their consent to include them.",
+  },
+  {
+    title: "Content standards",
+    body: "No hateful, obscene, harassing, or unlawful content. Entries that cross the line are removed from consideration.",
   },
   {
     title: "Disqualification",
-    body: "Grounds include plagiarism, undisclosed AI use presented as human authorship, fabricated data or testimonials, and content that violates the submission platform's terms.",
+    body: "Plagiarism, undisclosed AI use, or fabricated data or testimonials will disqualify an entry.",
   },
   {
     title: "Decisions are final",
-    body: "Judges' decisions are final; there are no appeals on scoring.",
+    body: "Judges' scores and decisions are final; there are no appeals.",
   },
 ];
 
@@ -541,6 +408,11 @@ export default function CompetitionPage() {
               }
               blurb="Judges are instructed to score the thinking, not the medium — a brilliant essay beats a mediocre app, and vice versa."
             />
+            <div className="mt-8">
+              <Button href="/competition/rubric" variant="secondary" size="md">
+                Open the official rubric document →
+              </Button>
+            </div>
           </Reveal>
 
           <ol className="mt-14 divide-y divide-border border-y border-border">
@@ -633,7 +505,7 @@ export default function CompetitionPage() {
             <div className="md:col-span-7">
               <Reveal>
                 <ol className="divide-y divide-border border-y border-border">
-                  {rounds.map((r) => (
+                  {judgingRounds.map((r) => (
                     <li
                       key={r.n}
                       className="py-8 grid grid-cols-[64px_1fr] gap-6 items-baseline"
@@ -678,7 +550,26 @@ export default function CompetitionPage() {
                   <span className="serif-italic">in plain language.</span>
                 </>
               }
+              blurb="Ten rules, no legalese. Everything that governs entry and judging is on this page or linked right here."
             />
+            <div className="mt-8 flex flex-wrap gap-3">
+              {[
+                { label: "Official judging rubric", href: "/competition/rubric" },
+                { label: "Submission requirements", href: "#requirements" },
+                { label: "Register in the Entrant Portal", href: "/portal" },
+              ].map((d) => (
+                <a
+                  key={d.label}
+                  href={d.href}
+                  className="inline-flex items-center gap-2 rounded-full border border-border-strong px-4 h-9 text-[13px] text-ink hover:bg-surface transition-colors"
+                >
+                  <span className="text-accent" aria-hidden>
+                    →
+                  </span>
+                  {d.label}
+                </a>
+              ))}
+            </div>
           </Reveal>
 
           <ol className="mt-14 grid gap-x-14 gap-y-8 md:grid-cols-2">

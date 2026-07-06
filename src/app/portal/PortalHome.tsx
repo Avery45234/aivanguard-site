@@ -400,8 +400,8 @@ function EntryTab({
         </ul>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button href="/competition#rubric" external variant="secondary">
-            Review the rubric ↗
+          <Button href="/competition/rubric" external variant="secondary">
+            Official judging rubric ↗
           </Button>
           <Button href="/competition#requirements" external variant="secondary">
             Submission requirements ↗
