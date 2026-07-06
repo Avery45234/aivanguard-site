@@ -261,7 +261,7 @@ function AuthGate({
   setLookupEmail: (v: string) => void;
   onOpen: (e: React.FormEvent) => void;
 }) {
-  const [tab, setTab] = useState<"signin" | "signup">("signin");
+  const [tab, setTab] = useState<"signin" | "signup">("signup");
 
   return (
     <section className="py-14 md:py-24">
@@ -277,20 +277,7 @@ function AuthGate({
           </div>
 
           <div className="mt-8 border border-border bg-bg shadow-[0_2px_24px_rgba(60,34,116,0.06)]">
-            <div className="grid grid-cols-2" role="tablist" aria-label="Sign in or sign up">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={tab === "signin" ? "true" : "false"}
-                onClick={() => setTab("signin")}
-                className={`h-12 text-[13px] uppercase tracking-[0.14em] transition-colors border-b ${
-                  tab === "signin"
-                    ? "border-accent text-ink font-medium"
-                    : "border-border text-ink-muted hover:text-ink"
-                }`}
-              >
-                Sign in
-              </button>
+            <div className="grid grid-cols-2" role="tablist" aria-label="Sign up or sign in">
               <button
                 type="button"
                 role="tab"
@@ -303,6 +290,19 @@ function AuthGate({
                 }`}
               >
                 Sign up
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={tab === "signin" ? "true" : "false"}
+                onClick={() => setTab("signin")}
+                className={`h-12 text-[13px] uppercase tracking-[0.14em] transition-colors border-b ${
+                  tab === "signin"
+                    ? "border-accent text-ink font-medium"
+                    : "border-border text-ink-muted hover:text-ink"
+                }`}
+              >
+                Sign in
               </button>
             </div>
 
@@ -319,7 +319,7 @@ function AuthGate({
                     placeholder="you@school.edu"
                     required
                     autoFocus
-                    className="w-full border-b border-border bg-transparent py-3 text-[16px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:outline-none"
+                    className="w-full border border-border bg-transparent px-4 py-3 text-[16px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:outline-none"
                   />
                 </label>
                 <Button type="submit" size="lg" className="mt-6 w-full">

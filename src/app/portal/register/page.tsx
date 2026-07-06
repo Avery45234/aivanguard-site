@@ -32,7 +32,7 @@ export default function PortalRegisterPage() {
   return (
     <>
       <section className="border-b border-border">
-        <Container size="wide" className="py-12 md:py-16">
+        <Container size="narrow" className="py-12 md:py-16">
           <div className="text-[11px] uppercase tracking-[0.22em] text-accent">
             Official entry form · 2026
           </div>
@@ -55,45 +55,44 @@ export default function PortalRegisterPage() {
       </section>
 
       <section className="py-12 md:py-16">
-        <Container size="wide">
-          <div className="grid gap-14 md:grid-cols-12 md:gap-16 items-start">
-            <div className="md:col-span-4">
-              <ol className="divide-y divide-border border-y border-border">
-                {steps.map((s) => (
-                  <li key={s.n} className="py-6 grid grid-cols-[44px_1fr] gap-4">
-                    <span
-                      className={`fig text-xl ${s.now ? "text-accent" : "text-ink-muted"}`}
-                    >
-                      {s.n}
-                    </span>
-                    <div>
-                      <h3 className="font-display text-xl tracking-tight text-ink flex items-baseline gap-3">
-                        {s.title}
-                        {s.now && (
-                          <span className="text-[10px] uppercase tracking-[0.2em] text-accent">
-                            You are here
-                          </span>
-                        )}
-                      </h3>
-                      <p className="mt-2 text-[14px] text-ink-dim leading-relaxed">
-                        {s.body}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-              <p className="mt-6 text-[13px] text-ink-muted leading-relaxed">
-                Already registered?{" "}
-                <Link
-                  href="/portal"
-                  className="text-ink underline underline-offset-4 decoration-accent/60 hover:decoration-accent"
-                >
-                  Sign in to your dashboard
-                </Link>
-                .
-              </p>
-            </div>
-            <div className="md:col-span-8 max-w-2xl">
+        <Container size="narrow">
+          <div className="max-w-xl">
+            <ol className="divide-y divide-border border-y border-border">
+              {steps.map((s) => (
+                <li key={s.n} className="py-5 grid grid-cols-[44px_1fr] gap-4">
+                  <span
+                    className={`fig text-xl ${s.now ? "text-accent" : "text-ink-muted"}`}
+                  >
+                    {s.n}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-xl tracking-tight text-ink flex items-baseline gap-3">
+                      {s.title}
+                      {s.now && (
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-accent">
+                          You are here
+                        </span>
+                      )}
+                    </h3>
+                    <p className="mt-2 text-[14px] text-ink-dim leading-relaxed">
+                      {s.body}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-6 text-[13px] text-ink-muted leading-relaxed">
+              Already registered?{" "}
+              <Link
+                href="/portal"
+                className="text-ink underline underline-offset-4 decoration-accent/60 hover:decoration-accent"
+              >
+                Sign in to your dashboard
+              </Link>
+              .
+            </p>
+
+            <div className="mt-12 md:mt-14">
               <RegisterForm />
             </div>
           </div>

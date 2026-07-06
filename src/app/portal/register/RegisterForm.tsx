@@ -106,55 +106,51 @@ export function RegisterForm() {
       <fieldset className="space-y-9">
         <SectionTitle n="01" title="Entrant" />
 
-        <div className="grid gap-9 sm:grid-cols-2">
-          <Field label="Division">
-            <Chips options={divisions} value={division} onChange={setDivision} />
-          </Field>
-          <Field label="Entry type">
-            <Chips options={entryTypes} value={entryType} onChange={setEntryType} />
-          </Field>
-        </div>
+        <Field label="Division">
+          <Chips options={divisions} value={division} onChange={setDivision} />
+        </Field>
+        <Field label="Entry type">
+          <Chips options={entryTypes} value={entryType} onChange={setEntryType} />
+        </Field>
 
         <Field label="I am entering as a">
           <Chips options={roles} value={role} onChange={setRole} />
         </Field>
 
-        <div className="grid gap-9 sm:grid-cols-2">
-          <Field label={isTeam ? "Team lead — full name" : "Full name"}>
-            <Input
-              name="name"
-              value={name}
-              onChange={setName}
-              placeholder="Alex Rivera"
-              required
-            />
-            <ValidationError
-              prefix="Name"
-              field="name"
-              errors={state.errors}
-              className="mt-2 block text-[13px] text-accent"
-            />
-          </Field>
-          <Field label="Contact email">
-            <Input
-              name="email"
-              type="email"
-              value={email}
-              onChange={setEmail}
-              placeholder="you@school.edu"
-              required
-            />
-            <ValidationError
-              prefix="Email"
-              field="email"
-              errors={state.errors}
-              className="mt-2 block text-[13px] text-accent"
-            />
-          </Field>
-        </div>
+        <Field label={isTeam ? "Team lead — full name" : "Full name"}>
+          <Input
+            name="name"
+            value={name}
+            onChange={setName}
+            placeholder="Alex Rivera"
+            required
+          />
+          <ValidationError
+            prefix="Name"
+            field="name"
+            errors={state.errors}
+            className="mt-2 block text-[13px] text-accent"
+          />
+        </Field>
+        <Field label="Contact email">
+          <Input
+            name="email"
+            type="email"
+            value={email}
+            onChange={setEmail}
+            placeholder="you@school.edu"
+            required
+          />
+          <ValidationError
+            prefix="Email"
+            field="email"
+            errors={state.errors}
+            className="mt-2 block text-[13px] text-accent"
+          />
+        </Field>
 
         {isUnder18 && (
-          <div className="grid gap-9 sm:grid-cols-2">
+          <>
             <Field label="Age on September 25, 2026">
               <Input
                 name="age"
@@ -172,17 +168,15 @@ export function RegisterForm() {
                 placeholder="parent@example.com"
               />
             </Field>
-          </div>
+          </>
         )}
 
-        <div className="grid gap-9 sm:grid-cols-2">
-          <Field label="School / organization (optional)">
-            <Input name="school" placeholder="Cypress High School" />
-          </Field>
-          <Field label="City & state (or country)">
-            <Input name="location" placeholder="Cerritos, CA" required />
-          </Field>
-        </div>
+        <Field label="School / organization (optional)">
+          <Input name="school" placeholder="Cypress High School" />
+        </Field>
+        <Field label="City & state (or country)">
+          <Input name="location" placeholder="Cerritos, CA" required />
+        </Field>
       </fieldset>
 
       {/* 02 · PLANNED ENTRY */}
@@ -190,7 +184,7 @@ export function RegisterForm() {
         <SectionTitle n="02" title="Planned entry" />
 
         {isTeam && (
-          <div className="grid gap-9 sm:grid-cols-2">
+          <>
             <Field label="Team name (optional)">
               <Input name="teamName" placeholder="The Unautomatables" />
             </Field>
@@ -201,17 +195,15 @@ export function RegisterForm() {
                 required
               />
             </Field>
-          </div>
+          </>
         )}
 
-        <div className="grid gap-9 sm:grid-cols-2">
-          <Field label="Planned format">
-            <Select name="format" ariaLabel="Planned format" options={formats} />
-          </Field>
-          <Field label="Working title (optional)">
-            <Input name="workingTitle" placeholder="You can change this later" />
-          </Field>
-        </div>
+        <Field label="Planned format">
+          <Select name="format" ariaLabel="Planned format" options={formats} />
+        </Field>
+        <Field label="Working title (optional)">
+          <Input name="workingTitle" placeholder="You can change this later" />
+        </Field>
 
         <Field label="What are you planning to make? (optional)">
           <textarea
@@ -220,6 +212,13 @@ export function RegisterForm() {
             maxLength={500}
             placeholder="A sentence or two is plenty — you're free to change direction before the deadline."
             className="w-full border-b border-border bg-transparent py-3 text-[16px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:outline-none resize-y"
+          />
+        </Field>
+
+        <Field label="Gut check — name one thing about school you'd refuse to automate (optional)">
+          <Input
+            name="refusalInstinct"
+            placeholder="First instinct, no commitment — your real answer comes with your entry."
           />
         </Field>
 
