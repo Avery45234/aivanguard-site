@@ -263,6 +263,32 @@ main, header, footer {
 }
 
 /* ============================================================
+ * Entrant Portal theme — the competition portal inverts the site:
+ * white paper background, purple ink. All brand utilities
+ * (bg-bg, text-ink, border-border, …) read these vars, so
+ * overriding them here reskins every component inside the portal.
+ * ============================================================ */
+.portal-theme {
+  --color-bg: #ffffff;
+  --color-bg-deep: #f4f1fa;
+  --color-surface: #f7f4fc;
+  --color-surface-2: #efe9f8;
+  --color-surface-warm: #f7f4fc;
+  --color-border: rgba(60, 34, 116, 0.14);
+  --color-border-strong: rgba(60, 34, 116, 0.3);
+  --color-ink: #2c1a5e;
+  --color-ink-dim: #5c4794;
+  --color-ink-muted: #7b68ad;
+  --color-accent: #6b4cb5;
+  --color-accent-soft: #9571db;
+  --color-accent-deep: #4d3390;
+  --color-accent-ink: #ffffff;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  color-scheme: light;
+}
+
+/* ============================================================
  * Print styles — used when a user chooses "Save as PDF" on the
  * policy brief (and any other page). Goals: clean black-on-white
  * output, no ink-wasting backgrounds, hidden chrome (nav/footer/

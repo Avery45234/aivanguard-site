@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const questionHref = `mailto:${site.email}?subject=Competition%20Question`;
 
 const keyDates = [
-  { date: "Open now", label: "Registration", note: "Free, two minutes, through this website." },
+  { date: "Open now", label: "Registration", note: "Free, a few minutes, in the Entrant Portal." },
   { date: "September 25, 2026", label: "Submission deadline", note: "Registered entrants receive submission instructions by email." },
   { date: "October 3, 2026", label: "Results announced", note: "Winners published and featured on aivanguard.org." },
 ];
@@ -266,7 +266,7 @@ const prizes = [
 const faq = [
   {
     q: "How do I enter?",
-    a: "Register through this website first — it's free and takes two minutes. You'll receive confirmation and submission instructions by email, and your completed entry is due September 25, 2026.",
+    a: "Open the Entrant Portal (it opens in a new tab) and register — it's free and takes a few minutes. You'll receive confirmation and submission instructions by email, and your completed entry is due September 25, 2026.",
   },
   {
     q: "Can I use AI to build my submission?",
@@ -310,8 +310,8 @@ export default function CompetitionPage() {
         blurb="AI is entering classrooms faster than anyone can evaluate it — and most of the conversation is happening about students, not with them. So here's the prompt: what would you automate, and what would you refuse to automate?"
         meta={
           <div className="flex flex-wrap gap-3">
-            <Button href="/competition/register" size="md">
-              Register to enter
+            <Button href="/portal" external size="md">
+              Open the Entrant Portal ↗
             </Button>
             <Button href="#brief" variant="secondary" size="md">
               Read the brief ↓
@@ -476,7 +476,7 @@ export default function CompetitionPage() {
                   <span className="serif-italic">four things.</span>
                 </>
               }
-              blurb="Register through the website first — then, whatever format you choose, your completed submission must include all four parts below."
+              blurb="Register in the Entrant Portal first — then, whatever format you choose, your completed submission must include all four parts below."
             />
           </Reveal>
 
@@ -820,13 +820,13 @@ export default function CompetitionPage() {
                 <span className="serif-italic">Prove it.</span>
               </h2>
               <p className="mt-6 text-[16px] md:text-[17px] text-ink-dim leading-relaxed max-w-xl">
-                Registration is open now and takes two minutes. Completed
-                entries are due September 25, 2026, and results will be
-                announced October 3, 2026.
+                Registration is open now in the Entrant Portal and takes a few
+                minutes. Completed entries are due September 25, 2026, and
+                results will be announced October 3, 2026.
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
-                <Button href="/competition/register" size="lg">
-                  Register to enter
+                <Button href="/portal" external size="lg">
+                  Open the Entrant Portal ↗
                 </Button>
                 <Button href="/contact" variant="secondary" size="lg">
                   Ask a question first

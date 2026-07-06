@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
+import { Chrome } from "@/components/Chrome";
 import { SharpenFilter } from "@/components/SharpenFilter";
 import { StructuredData } from "@/components/StructuredData";
 
@@ -91,11 +90,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <StructuredData />
         <SharpenFilter />
-        <Nav />
-        {/* pt matches the fixed Nav's height (60px mobile, 64px ≥md) so
-            page content doesn't slide under the bar on first render. */}
-        <main className="flex-1 pt-[60px] md:pt-[64px]">{children}</main>
-        <Footer />
+        <Chrome>{children}</Chrome>
         <Analytics />
       </body>
     </html>
