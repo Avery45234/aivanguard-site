@@ -6,9 +6,22 @@ export type EntrantProfile = {
   registeredAt?: string;
   passwordSalt?: string;
   passwordHash?: string;
+  /**
+   * Organizer flag. This only unlocks a tab of convenience links —
+   * everything sensitive (Formspree inbox, Google Docs) sits behind
+   * those services' own logins, so faking this flag exposes nothing.
+   */
+  isAdmin?: boolean;
 };
 
-export type SignInResult = "ok" | "no-account" | "wrong-password";
+export type SignInResult = "ok" | "no-account" | "wrong-password" | "admin-setup";
+
+/**
+ * SHA-256 of the organizer's email (lowercased). Comparing hashes keeps
+ * the address itself out of the public bundle and repo.
+ */
+const ADMIN_EMAIL_SHA256 =
+  "08304756b93de1fb405a3149fe3c191ba014368463b04cf9a9123178d314f5d0";
 
 const PROFILE_KEY = "aiv-competition-profile";
 const CHECKLIST_KEY = "aiv-competition-checklist";
@@ -208,10 +221,39 @@ export async function hashPassword(
   return bytesToHex(new Uint8Array(bits));
 }
 
+async function sha256Hex(text: string): Promise<string> {
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(text),
+  );
+  return bytesToHex(new Uint8Array(digest));
+}
+
+export async function isAdminEmail(email: string): Promise<boolean> {
+  return (await sha256Hex(email.trim().toLowerCase())) === ADMIN_EMAIL_SHA256;
+}
+
+/** First organizer sign-in on a device: create the admin account. */
+export async function createAdminAccount(
+  email: string,
+  password: string,
+): Promise<void> {
+  const salt = makeSalt();
+  const hash = await hashPassword(password, salt);
+  saveProfile({
+    email: email.trim(),
+    isAdmin: true,
+    registeredAt: new Date().toISOString(),
+    passwordSalt: salt,
+    passwordHash: hash,
+  });
+}
+
 /**
  * Verify credentials against the account stored on this device.
  * Accounts registered before passwords existed set their password on
- * first successful email match.
+ * first successful email match. The organizer email gets an account
+ * setup path instead of "no account".
  */
 export async function signIn(
   email: string,
@@ -219,6 +261,7 @@ export async function signIn(
 ): Promise<SignInResult> {
   const p = profileSnap();
   if (!p || p.email.trim().toLowerCase() !== email.trim().toLowerCase()) {
+    if (await isAdminEmail(email)) return "admin-setup";
     return "no-account";
   }
   if (!p.passwordHash || !p.passwordSalt) {

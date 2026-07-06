@@ -4,6 +4,7 @@ import { useState, useSyncExternalStore } from "react";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import {
+  createAdminAccount,
   daysUntilDeadline,
   getChecklistSnapshot,
   getProfileSnapshot,
@@ -42,7 +43,7 @@ const checklistItems = [
   },
 ] as const;
 
-type DashboardTab = "competitions" | "entry" | "profile";
+type DashboardTab = "competitions" | "entry" | "profile" | "organizer";
 
 function formatDate(iso: string): string {
   const d = new Date(iso);
@@ -94,6 +95,11 @@ export function PortalHome() {
             </h1>
             <p className="mt-1.5 text-[14px] text-ink-dim">
               Welcome back, {firstName ?? profile.email}!
+              {profile.isAdmin && (
+                <span className="ml-2 inline-flex items-center rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.18em] text-accent-deep align-middle">
+                  Organizer
+                </span>
+              )}
             </p>
           </div>
           <button
@@ -119,7 +125,9 @@ export function PortalHome() {
         <Container size="wide">
           {/* Tab bar */}
           <div
-            className="rounded-full bg-surface-2 p-1 grid grid-cols-3 max-w-3xl mx-auto"
+            className={`rounded-full bg-surface-2 p-1 grid ${
+              profile.isAdmin ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3"
+            } max-w-3xl mx-auto`}
             role="tablist"
             aria-label="Dashboard sections"
           >
@@ -128,6 +136,9 @@ export function PortalHome() {
                 ["competitions", "Competitions"],
                 ["entry", "My Submissions"],
                 ["profile", "Profile"],
+                ...(profile.isAdmin
+                  ? ([["organizer", "Organizer"]] as [DashboardTab, string][])
+                  : []),
               ] as [DashboardTab, string][]
             ).map(([key, label]) => (
               <button
@@ -161,6 +172,7 @@ export function PortalHome() {
           {tab === "profile" && (
             <ProfileTab profile={profile} done={done} />
           )}
+          {tab === "organizer" && profile.isAdmin && <OrganizerTab />}
         </Container>
       </section>
     </>
@@ -525,6 +537,74 @@ function ProfileTab({
   );
 }
 
+/* ---------- Organizer ---------- */
+
+function OrganizerTab() {
+  return (
+    <div className="mt-10">
+      <div className="flex items-baseline gap-3">
+        <h2 className="font-display text-2xl md:text-[28px] tracking-tight text-ink">
+          Organizer
+        </h2>
+        <span className="text-[10px] uppercase tracking-[0.2em] text-accent">
+          Admin · this device
+        </span>
+      </div>
+
+      <div className="mt-5 grid gap-6 md:grid-cols-2 items-start">
+        <div className="rounded-2xl border border-border bg-bg shadow-[0_2px_16px_rgba(60,34,116,0.05)] p-7 md:p-8">
+          <h3 className="font-display text-xl tracking-tight text-ink">
+            Registrations &amp; inbox
+          </h3>
+          <p className="mt-3 text-[14px] text-ink-dim leading-relaxed">
+            Every registration, help request, and contact message lands in the
+            Formspree inbox. View sign-ups, delete participants, and export
+            everything to CSV there — protected by your Formspree login.
+          </p>
+          <div className="mt-5">
+            <Button
+              href="https://formspree.io/forms/xpqgnpva/submissions"
+              external
+            >
+              Open the Formspree inbox ↗
+            </Button>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-border bg-bg shadow-[0_2px_16px_rgba(60,34,116,0.05)] p-7 md:p-8">
+          <h3 className="font-display text-xl tracking-tight text-ink">
+            Judging documents
+          </h3>
+          <p className="mt-3 text-[14px] text-ink-dim leading-relaxed">
+            The official rubric as published on the site, and your private
+            Google Doc master for the judging panel.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Button href="/competition/rubric" external variant="secondary">
+              Rubric document ↗
+            </Button>
+            <Button
+              href="https://docs.google.com/document/d/1oerrzGc_gEt8e3eFfr4SbBrxBNr1ZNyUuH_WF_Pp3f4/edit"
+              external
+              variant="secondary"
+            >
+              Rubric Google Doc ↗
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 rounded-xl border border-border bg-surface/60 px-6 py-5 text-[13px] text-ink-dim leading-relaxed">
+        <strong className="text-ink">Coming with the entrant database:</strong>{" "}
+        in-portal participant management — every entrant and submission listed
+        right here, with delete and executive controls. Until then this tab
+        holds your organizer links; the data itself stays behind your
+        Formspree and Google logins.
+      </div>
+    </div>
+  );
+}
+
 function ProfileRow({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex items-baseline justify-between gap-6 text-[13.5px]">
@@ -543,14 +623,39 @@ function AuthGate() {
   const [showPw, setShowPw] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<SignInResult | null>(null);
+  const [adminSetup, setAdminSetup] = useState(false);
+  const [adminPw, setAdminPw] = useState("");
+  const [adminPw2, setAdminPw2] = useState("");
+  const [adminErr, setAdminErr] = useState<string | null>(null);
 
   const onSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
     setError(null);
     const result = await signIn(email, password);
+    if (result === "admin-setup") {
+      setAdminSetup(true);
+      setBusy(false);
+      return;
+    }
     if (result !== "ok") setError(result);
     setBusy(false);
+  };
+
+  const onCreateAdmin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (adminPw.length < 8) {
+      setAdminErr("Your password needs at least 8 characters.");
+      return;
+    }
+    if (adminPw !== adminPw2) {
+      setAdminErr("The passwords don't match.");
+      return;
+    }
+    setAdminErr(null);
+    setBusy(true);
+    await createAdminAccount(email, adminPw);
+    // The store emits on success, so the dashboard renders on its own.
   };
 
   return (
@@ -608,7 +713,59 @@ function AuthGate() {
               </button>
             </div>
 
-            {tab === "signin" ? (
+            {adminSetup ? (
+              <form onSubmit={onCreateAdmin} className="mt-7 space-y-5">
+                <div className="rounded-lg border border-accent/40 bg-accent/5 px-4 py-3 text-[13px] text-ink-dim leading-relaxed">
+                  <span className="text-accent-deep font-medium">
+                    Organizer email recognized.
+                  </span>{" "}
+                  Create your admin password to set up your organizer account
+                  on this device.
+                </div>
+                <label className="block">
+                  <span className="block text-[13px] font-medium text-ink mb-2">
+                    Create admin password
+                  </span>
+                  <input
+                    type="password"
+                    value={adminPw}
+                    onChange={(e) => setAdminPw(e.target.value)}
+                    placeholder="At least 8 characters"
+                    required
+                    minLength={8}
+                    autoFocus
+                    autoComplete="new-password"
+                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-[15px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:bg-bg focus:outline-none"
+                  />
+                </label>
+                <label className="block">
+                  <span className="block text-[13px] font-medium text-ink mb-2">
+                    Confirm admin password
+                  </span>
+                  <input
+                    type="password"
+                    value={adminPw2}
+                    onChange={(e) => setAdminPw2(e.target.value)}
+                    placeholder="Type it again"
+                    required
+                    minLength={8}
+                    autoComplete="new-password"
+                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-[15px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:bg-bg focus:outline-none"
+                  />
+                </label>
+                {adminErr && (
+                  <p className="text-[13px] text-accent">{adminErr}</p>
+                )}
+                <Button type="submit" size="lg" className="w-full" disabled={busy}>
+                  {busy ? "Creating account…" : "Create organizer account"}
+                </Button>
+                <p className="text-[12.5px] text-ink-muted leading-relaxed text-center">
+                  Stored only on this device as a salted hash — never sent
+                  anywhere. You&apos;ll repeat this once per device until cloud
+                  accounts launch.
+                </p>
+              </form>
+            ) : tab === "signin" ? (
               <form onSubmit={onSignIn} className="mt-7 space-y-5">
                 <label className="block">
                   <span className="block text-[13px] font-medium text-ink mb-2">
