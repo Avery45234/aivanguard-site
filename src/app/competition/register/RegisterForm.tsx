@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useForm, ValidationError } from "@formspree/react";
 import { Button } from "@/components/Button";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/cn";
@@ -17,95 +18,65 @@ const formats = [
 ];
 
 export function RegisterForm() {
+  const [state, handleSubmit] = useForm("xpqgnpva");
   const [division, setDivision] = useState(divisions[0]);
   const [entryType, setEntryType] = useState(entryTypes[0]);
-  const [format, setFormat] = useState(formats[4]);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [school, setSchool] = useState("");
-  const [teamMembers, setTeamMembers] = useState("");
   const [agreed, setAgreed] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   const isTeam = entryType !== entryTypes[0];
 
-  const registrationText = [
-    "AI Vanguard Open Competition — Registration",
-    "",
-    `Name: ${name}`,
-    `Email: ${email}`,
-    `Division: ${division}`,
-    `Entry type: ${entryType}`,
-    ...(isTeam ? [`Team members: ${teamMembers}`] : []),
-    `School / organization: ${school || "—"}`,
-    `Planned format: ${format}`,
-    "",
-    "I confirm that I have read and agree to the competition rules,",
-    "including the AI Use Disclosure requirement.",
-  ].join("\n");
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = `[AI Vanguard Competition] Registration — ${name}`;
-    const href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(registrationText)}`;
-    window.location.href = href;
-    setSent(true);
-  };
-
-  const onCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(registrationText);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard unavailable — the text is visible below for manual copying.
-    }
-  };
-
-  if (sent) {
+  if (state.succeeded) {
     return (
       <div className="border border-accent/50 p-8 md:p-10">
         <div className="text-[11px] uppercase tracking-[0.22em] text-accent">
-          Registration prepared
+          Registration received
         </div>
         <h3 className="mt-4 font-display text-2xl md:text-3xl text-ink tracking-tight">
-          Your mail client should be open — press send to complete your
-          registration.
+          You&apos;re registered{name ? `, ${name.split(" ")[0]}` : ""}. Now go
+          build something with an opinion.
         </h3>
         <div className="mt-6 space-y-4 text-[15px] text-ink-dim leading-relaxed max-w-xl">
           <p>
-            Once we receive it, you&apos;ll get a confirmation from{" "}
-            {site.email} with submission instructions. Your completed entry —
-            the work, the 300-word Rationale, and the AI Use Disclosure — is
-            due <strong className="text-ink">September 25, 2026</strong>.
-            Results are announced October 3, 2026.
+            You&apos;ll receive confirmation and submission instructions from{" "}
+            {site.email}. Your completed entry — the work, the 300-word
+            Rationale, and the AI Use Disclosure — is due{" "}
+            <strong className="text-ink">September 25, 2026</strong>. Results
+            are announced October 3, 2026.
           </p>
           <p>
-            If nothing opened, copy your registration below and email it to{" "}
+            Questions in the meantime? Email{" "}
             <a
               href={`mailto:${site.email}`}
               className="text-accent underline underline-offset-4"
             >
               {site.email}
-            </a>{" "}
-            with the subject &ldquo;Competition Registration.&rdquo;
+            </a>
+            .
           </p>
-        </div>
-        <pre className="mt-6 border border-border bg-surface/50 p-5 text-[13px] leading-relaxed text-ink-dim whitespace-pre-wrap font-mono">
-          {registrationText}
-        </pre>
-        <div className="mt-4">
-          <Button variant="secondary" onClick={onCopy}>
-            {copied ? "Copied ✓" : "Copy registration details"}
-          </Button>
         </div>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-9">
+    <form onSubmit={handleSubmit} className="space-y-9">
+      <input type="hidden" name="division" value={division} />
+      <input type="hidden" name="entryType" value={entryType} />
+      <input
+        type="hidden"
+        name="_subject"
+        value={`Competition Registration — ${name || "New entrant"}`}
+      />
+      <input
+        type="text"
+        name="_gotcha"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="hidden"
+      />
+
       <div className="grid gap-9 sm:grid-cols-2">
         <Field label="Division">
           <Chips options={divisions} value={division} onChange={setDivision} />
@@ -117,15 +88,27 @@ export function RegisterForm() {
 
       <div className="grid gap-9 sm:grid-cols-2">
         <Field label={isTeam ? "Team lead — full name" : "Full name"}>
-          <Input value={name} onChange={setName} placeholder="Alex Rivera" required />
+          <Input
+            name="name"
+            value={name}
+            onChange={setName}
+            placeholder="Alex Rivera"
+            required
+          />
+          <ValidationError
+            prefix="Name"
+            field="name"
+            errors={state.errors}
+            className="mt-2 block text-[13px] text-accent"
+          />
         </Field>
         <Field label="Contact email">
-          <Input
-            type="email"
-            value={email}
-            onChange={setEmail}
-            placeholder="you@school.edu"
-            required
+          <Input name="email" type="email" placeholder="you@school.edu" required />
+          <ValidationError
+            prefix="Email"
+            field="email"
+            errors={state.errors}
+            className="mt-2 block text-[13px] text-accent"
           />
         </Field>
       </div>
@@ -133,8 +116,7 @@ export function RegisterForm() {
       {isTeam && (
         <Field label="Team members — full names (up to 3 more)">
           <Input
-            value={teamMembers}
-            onChange={setTeamMembers}
+            name="teamMembers"
             placeholder="Jordan Kim, Sam Patel, …"
             required
           />
@@ -143,13 +125,13 @@ export function RegisterForm() {
 
       <div className="grid gap-9 sm:grid-cols-2">
         <Field label="School / organization (optional)">
-          <Input value={school} onChange={setSchool} placeholder="Cypress High School" />
+          <Input name="school" placeholder="Cypress High School" />
         </Field>
         <Field label="Planned format">
           <select
-            value={format}
+            name="format"
+            defaultValue={formats[4]}
             aria-label="Planned format"
-            onChange={(e) => setFormat(e.target.value)}
             className="w-full border-b border-border bg-transparent py-3 text-[16px] text-ink transition-colors focus:border-accent focus:outline-none"
           >
             {formats.map((f) => (
@@ -164,6 +146,7 @@ export function RegisterForm() {
       <label className="flex items-start gap-3 cursor-pointer max-w-xl">
         <input
           type="checkbox"
+          name="agreedToRules"
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
           required
@@ -182,13 +165,18 @@ export function RegisterForm() {
         </span>
       </label>
 
+      <ValidationError
+        errors={state.errors}
+        className="block text-[14px] text-accent"
+      />
+
       <div className="flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-border">
         <p className="text-xs text-ink-muted max-w-xs">
           Registration is free. You&apos;ll receive confirmation and submission
           instructions from {site.email}.
         </p>
-        <Button type="submit" size="lg" disabled={!agreed}>
-          Register
+        <Button type="submit" size="lg" disabled={!agreed || state.submitting}>
+          {state.submitting ? "Registering…" : "Register"}
         </Button>
       </div>
     </form>
@@ -243,22 +231,25 @@ function Field({
 }
 
 function Input({
+  name,
   value,
   onChange,
   type = "text",
   placeholder,
   required,
 }: {
-  value: string;
-  onChange: (v: string) => void;
+  name: string;
+  value?: string;
+  onChange?: (v: string) => void;
   type?: string;
   placeholder?: string;
   required?: boolean;
 }) {
   return (
     <input
+      name={name}
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={onChange ? (e) => onChange(e.target.value) : undefined}
       type={type}
       placeholder={placeholder}
       required={required}
