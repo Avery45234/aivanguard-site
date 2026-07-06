@@ -6,7 +6,7 @@ import { Button } from "@/components/Button";
 import { cn } from "@/lib/cn";
 import { hashPassword, makeSalt, saveProfile } from "../profile";
 
-const divisions = ["Under 18", "Open (all ages)"];
+const divisions = ["18 and under", "Open (all ages)"];
 const entryTypes = ["Individual", "Team (2–4)"];
 const roles = ["Student", "Educator", "Parent", "Other"];
 const formats = [
@@ -227,7 +227,7 @@ export function RegisterForm() {
                 placeholder="16"
                 required
                 min={5}
-                max={17}
+                max={18}
               />
             </Field>
             <Field label="Parent / guardian email (optional)">

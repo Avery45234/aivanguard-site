@@ -63,7 +63,7 @@ const requirements = [
 const rules = [
   {
     title: "Who can enter",
-    body: "Anyone. Two divisions: Under 18 and Open (all ages). Students, educators, parents: everyone is a learner.",
+    body: "Anyone. Two divisions: 18 and under, and Open (all ages). Students, educators, parents: everyone is a learner.",
   },
   {
     title: "Free to enter",
