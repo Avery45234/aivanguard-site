@@ -6,7 +6,7 @@ import { RegisterForm } from "./RegisterForm";
 export const metadata: Metadata = {
   title: "Register",
   description:
-    "Official registration form for the AI Vanguard Open Competition. Free, takes a few minutes. Submissions due September 25, 2026.",
+    "Official registration form for the Vanguard Open. Free, takes a few minutes. Submissions due September 25, 2026.",
 };
 
 const steps = [

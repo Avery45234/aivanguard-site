@@ -4,11 +4,11 @@ import { Container } from "@/components/Container";
 
 export const metadata: Metadata = {
   title: {
-    default: "Entrant Portal — AI Vanguard Open Competition",
+    default: "Entrant Portal · The Vanguard Open",
     template: "%s · Entrant Portal · AI Vanguard",
   },
   description:
-    "The official entrant portal for the AI Vanguard Open Competition. Register, track your entry, and find submission instructions.",
+    "The official entrant portal for the Vanguard Open. Register, track your entry, and find submission instructions.",
 };
 
 export default function PortalLayout({
@@ -55,7 +55,7 @@ export default function PortalLayout({
           size="wide"
           className="py-6 flex flex-col sm:flex-row gap-2 sm:items-baseline sm:justify-between text-xs text-ink-muted"
         >
-          <span>© 2026 AI Vanguard · Open Competition Entrant Portal</span>
+          <span>© 2026 AI Vanguard · Vanguard Open Entrant Portal</span>
           <span>
             Submissions due September 25, 2026 · Results October 3, 2026 ·{" "}
             <Link href="/portal/help" className="hover:text-ink transition-colors underline underline-offset-4">

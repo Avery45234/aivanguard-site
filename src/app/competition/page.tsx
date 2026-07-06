@@ -7,9 +7,9 @@ import { Reveal } from "@/components/Reveal";
 import { rubric, judgingRounds } from "@/lib/competition";
 
 export const metadata: Metadata = {
-  title: "Open Competition",
+  title: "The Vanguard Open",
   description:
-    "The AI Vanguard Open Competition: design an AI-era classroom you'd actually want to learn in, then defend one thing you'd refuse to automate. Any format. $1,000 in prizes. Deadline September 25, 2026.",
+    "The Vanguard Open, AI Vanguard's competition: design an AI-era classroom you'd actually want to learn in, then defend one thing you'd refuse to automate. Any format. $1,000 in prizes. Deadline September 25, 2026.",
 };
 
 const keyDates = [
@@ -164,7 +164,7 @@ export default function CompetitionPage() {
     // theme so it stands out from the rest of the (dark) site.
     <div className="portal-theme">
       <PageHeader
-        eyebrow="AI Vanguard Open Competition · 2026"
+        eyebrow="The Vanguard Open · 2026"
         title={
           <>
             Design a classroom{" "}

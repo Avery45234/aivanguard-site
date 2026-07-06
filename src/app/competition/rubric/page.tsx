@@ -7,7 +7,7 @@ import { rubric, judgingRounds } from "@/lib/competition";
 export const metadata: Metadata = {
   title: "Official Judging Rubric",
   description:
-    "The official 100-point judging rubric for the AI Vanguard Open Competition 2026: five criteria with full score bands, tiebreakers, and the judging process.",
+    "The official 100-point judging rubric for the Vanguard Open 2026: five criteria with full score bands, tiebreakers, and the judging process.",
 };
 
 export default function RubricPage() {
@@ -30,7 +30,7 @@ export default function RubricPage() {
       <section className="py-12 md:py-16">
         <Container size="narrow">
           <div className="text-[11px] uppercase tracking-[0.22em] text-accent">
-            AI Vanguard Open Competition · 2026
+            The Vanguard Open · 2026
           </div>
           <h1 className="mt-4 font-display text-4xl md:text-5xl tracking-tight text-ink">
             Official Judging <span className="serif-italic">Rubric.</span>

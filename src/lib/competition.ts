@@ -1,4 +1,4 @@
-// Shared data for the AI Vanguard Open Competition 2026.
+// Shared data for the Vanguard Open 2026, AI Vanguard's competition.
 // Used by /competition (web presentation) and /competition/rubric
 // (formal document view) so the rubric can't drift between the two.
 

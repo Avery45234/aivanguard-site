@@ -196,7 +196,7 @@ function CompetitionsTab({
 
       <div className="mt-5 rounded-2xl border border-border bg-bg shadow-[0_2px_16px_rgba(60,34,116,0.05)] p-7 md:p-9">
         <h3 className="font-display text-2xl md:text-[26px] tracking-tight text-ink">
-          Open Competition 2026
+          Vanguard Open 2026
         </h3>
 
         <div className="mt-6 grid gap-6 sm:grid-cols-3">
@@ -237,7 +237,7 @@ function CompetitionsTab({
             </svg>
           </span>
           <p className="mt-4 font-display text-lg md:text-xl text-ink">
-            You&apos;re registered for the Open Competition 2026.
+            You&apos;re registered for the Vanguard Open 2026.
           </p>
           <p className="mt-2 text-[13.5px] text-ink-dim">
             Submission instructions will arrive at{" "}
@@ -308,7 +308,7 @@ function EntryTab({
 
       <div className="mt-5 rounded-2xl border border-border bg-bg shadow-[0_2px_16px_rgba(60,34,116,0.05)] p-7 md:p-9">
         <span className="inline-flex items-center rounded-full bg-surface-2 px-3.5 h-7 text-[12px] text-ink-dim">
-          Open Competition 2026
+          Vanguard Open 2026
         </span>
         <h3 className="mt-4 font-display text-xl md:text-2xl tracking-tight text-ink">
           Your entry
@@ -521,7 +521,7 @@ function ProfileTab({
             </div>
           </div>
           <div className="mt-6 space-y-3">
-            <ProfileRow k="Competition" v="Open Competition 2026" />
+            <ProfileRow k="Competition" v="Vanguard Open 2026" />
             <ProfileRow k="Status" v="Registered ✓" />
             <ProfileRow k="Checklist" v={`${done}/${checklistItems.length} ready`} />
             <ProfileRow k="Submission deadline" v="September 25, 2026" />
@@ -671,12 +671,12 @@ function AuthGate() {
                 Entrant Portal
               </div>
               <h1 className="mt-6 font-display text-3xl md:text-[32px] tracking-tight text-ink">
-                Open Competition 2026
+                Vanguard Open 2026
               </h1>
               <p className="mt-4 text-[13.5px] text-ink-dim leading-relaxed">
-                Registration for the 2026 AI Vanguard Open Competition is now
-                open. Sign in to your entrant dashboard — or sign up first if
-                you haven&apos;t entered yet.
+                Registration for the Vanguard Open 2026 is now open. Sign in
+                to your entrant dashboard, or sign up first if you
+                haven&apos;t entered yet.
               </p>
             </div>
 

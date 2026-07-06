@@ -5,7 +5,7 @@ import { HelpForm } from "./HelpForm";
 export const metadata: Metadata = {
   title: "Help",
   description:
-    "Get help with the AI Vanguard Open Competition — registration, submissions, rules, or technical issues.",
+    "Get help with the Vanguard Open: registration, submissions, rules, or technical issues.",
 };
 
 export default function PortalHelpPage() {
