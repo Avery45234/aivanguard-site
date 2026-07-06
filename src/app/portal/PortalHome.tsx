@@ -68,7 +68,7 @@ export function PortalHome() {
   };
 
   if (!profile) {
-    return <Welcome lookupEmail={lookupEmail} setLookupEmail={setLookupEmail} onOpen={openDashboard} />;
+    return <AuthGate lookupEmail={lookupEmail} setLookupEmail={setLookupEmail} onOpen={openDashboard} />;
   }
 
   const daysLeft = daysUntilDeadline(DEADLINE);
@@ -252,7 +252,7 @@ export function PortalHome() {
   );
 }
 
-function Welcome({
+function AuthGate({
   lookupEmail,
   setLookupEmail,
   onOpen,
@@ -261,53 +261,53 @@ function Welcome({
   setLookupEmail: (v: string) => void;
   onOpen: (e: React.FormEvent) => void;
 }) {
-  return (
-    <>
-      <section className="border-b border-border">
-        <Container size="wide" className="py-14 md:py-20">
-          <div className="text-[11px] uppercase tracking-[0.22em] text-accent">
-            AI Vanguard Open Competition · 2026
-          </div>
-          <h1 className="mt-5 font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.02] text-ink max-w-3xl">
-            Entrant <span className="serif-italic">Portal.</span>
-          </h1>
-          <p className="mt-6 text-[16px] md:text-[17px] text-ink-dim leading-relaxed max-w-xl">
-            Register your entry, track your progress, and submit your work for
-            the AI Vanguard Open Competition. Submissions are due September 25,
-            2026; results are announced October 3, 2026.
-          </p>
-        </Container>
-      </section>
+  const [tab, setTab] = useState<"signin" | "signup">("signin");
 
-      <section className="py-12 md:py-16">
-        <Container size="wide">
-          <div className="grid gap-px bg-border md:grid-cols-2 max-w-4xl">
-            <div className="bg-bg p-8 md:p-10">
-              <div className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-                New entrant
-              </div>
-              <h2 className="mt-4 font-display text-2xl md:text-3xl tracking-tight text-ink">
-                Register your entry.
-              </h2>
-              <p className="mt-3 text-[14.5px] text-ink-dim leading-relaxed">
-                Free, takes a few minutes, and doesn&apos;t commit you to a
-                format. One registration per person or team.
-              </p>
-              <div className="mt-6">
-                <Button href="/portal/register" size="lg">
-                  Register
-                </Button>
-              </div>
+  return (
+    <section className="py-14 md:py-24">
+      <Container size="narrow">
+        <div className="max-w-md mx-auto">
+          <div className="text-center">
+            <div className="text-[11px] uppercase tracking-[0.22em] text-accent">
+              AI Vanguard Open Competition · 2026
+            </div>
+            <h1 className="mt-4 font-display text-4xl md:text-5xl tracking-tight leading-[1.02] text-ink">
+              Entrant <span className="serif-italic">Portal.</span>
+            </h1>
+          </div>
+
+          <div className="mt-8 border border-border bg-bg shadow-[0_2px_24px_rgba(60,34,116,0.06)]">
+            <div className="grid grid-cols-2" role="tablist" aria-label="Sign in or sign up">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={tab === "signin" ? "true" : "false"}
+                onClick={() => setTab("signin")}
+                className={`h-12 text-[13px] uppercase tracking-[0.14em] transition-colors border-b ${
+                  tab === "signin"
+                    ? "border-accent text-ink font-medium"
+                    : "border-border text-ink-muted hover:text-ink"
+                }`}
+              >
+                Sign in
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={tab === "signup" ? "true" : "false"}
+                onClick={() => setTab("signup")}
+                className={`h-12 text-[13px] uppercase tracking-[0.14em] transition-colors border-b ${
+                  tab === "signup"
+                    ? "border-accent text-ink font-medium"
+                    : "border-border text-ink-muted hover:text-ink"
+                }`}
+              >
+                Sign up
+              </button>
             </div>
 
-            <div className="bg-bg p-8 md:p-10">
-              <div className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-                Already registered?
-              </div>
-              <h2 className="mt-4 font-display text-2xl md:text-3xl tracking-tight text-ink">
-                Open your dashboard.
-              </h2>
-              <form onSubmit={onOpen} className="mt-3">
+            {tab === "signin" ? (
+              <form onSubmit={onOpen} className="p-7 md:p-8">
                 <label className="block">
                   <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-muted mb-2">
                     The email you registered with
@@ -318,25 +318,61 @@ function Welcome({
                     onChange={(e) => setLookupEmail(e.target.value)}
                     placeholder="you@school.edu"
                     required
+                    autoFocus
                     className="w-full border-b border-border bg-transparent py-3 text-[16px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:outline-none"
                   />
                 </label>
-                <div className="mt-5">
-                  <Button type="submit" variant="secondary" size="lg">
-                    Open dashboard
-                  </Button>
-                </div>
+                <Button type="submit" size="lg" className="mt-6 w-full">
+                  Sign in to your dashboard
+                </Button>
+                <p className="mt-5 text-[12.5px] text-ink-muted leading-relaxed">
+                  No password needed yet — signing in restores your dashboard
+                  on this device. Full entrant accounts arrive with the
+                  submission window.
+                </p>
+                <p className="mt-4 text-[13px] text-ink-dim">
+                  New here?{" "}
+                  <button
+                    type="button"
+                    onClick={() => setTab("signup")}
+                    className="text-accent underline underline-offset-4 hover:text-accent-deep"
+                  >
+                    Sign up as an entrant
+                  </button>
+                </p>
               </form>
-            </div>
+            ) : (
+              <div className="p-7 md:p-8">
+                <h2 className="font-display text-2xl tracking-tight text-ink">
+                  Register your entry.
+                </h2>
+                <p className="mt-3 text-[14.5px] text-ink-dim leading-relaxed">
+                  Registration is your sign-up — free, a few minutes, one entry
+                  per person or team. You&apos;ll get your dashboard the moment
+                  you finish.
+                </p>
+                <Button href="/portal/register" size="lg" className="mt-6 w-full">
+                  Start registration
+                </Button>
+                <p className="mt-5 text-[13px] text-ink-dim">
+                  Already registered?{" "}
+                  <button
+                    type="button"
+                    onClick={() => setTab("signin")}
+                    className="text-accent underline underline-offset-4 hover:text-accent-deep"
+                  >
+                    Sign in
+                  </button>
+                </p>
+              </div>
+            )}
           </div>
 
-          <p className="mt-6 text-[13px] text-ink-muted max-w-2xl leading-relaxed">
-            Your dashboard saves progress on this device — no password needed.
-            Full entrant accounts arrive with the submission window, ahead of
-            the September 25 deadline.
+          <p className="mt-6 text-center text-[12.5px] text-ink-muted">
+            Submissions due September 25, 2026 · Results October 3, 2026
           </p>
-        </Container>
-      </section>
-    </>
+        </div>
+      </Container>
+    </section>
   );
 }

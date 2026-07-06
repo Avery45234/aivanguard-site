@@ -88,7 +88,7 @@ export default function PortalRegisterPage() {
                   href="/portal"
                   className="text-ink underline underline-offset-4 decoration-accent/60 hover:decoration-accent"
                 >
-                  Open your dashboard
+                  Sign in to your dashboard
                 </Link>
                 .
               </p>
