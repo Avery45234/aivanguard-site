@@ -8,6 +8,7 @@ const routes = [
   "/impact",
   "/policy-brief",
   "/get-involved",
+  "/competition",
   "/contact",
   "/press",
 ];

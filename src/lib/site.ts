@@ -17,6 +17,7 @@ export const nav = [
   { label: "Impact", href: "/impact" },
   { label: "Policy Brief", href: "/policy-brief" },
   { label: "Get Involved", href: "/get-involved" },
+  { label: "Competition", href: "/competition" },
   { label: "Contact", href: "/contact" },
 ];
 

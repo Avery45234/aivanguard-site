@@ -40,7 +40,7 @@ export function Nav() {
           <Logo />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-7">
           {nav.map((item) => {
             const active =
               pathname === item.href ||
@@ -63,7 +63,7 @@ export function Nav() {
           })}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           <Button href={site.applyUrl} external size="md">
             Apply
             <Arrow />
@@ -72,7 +72,7 @@ export function Nav() {
 
         <button
           type="button"
-          className="md:hidden inline-flex h-10 w-10 items-center justify-center border border-border-strong text-ink"
+          className="lg:hidden inline-flex h-10 w-10 items-center justify-center border border-border-strong text-ink"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open ? "true" : "false"}
           onClick={() => setOpen((v) => !v)}
@@ -88,7 +88,7 @@ export function Nav() {
       </Container>
 
       {open && (
-        <div className="md:hidden border-t border-border bg-bg/95 backdrop-blur-md">
+        <div className="lg:hidden border-t border-border bg-bg/95 backdrop-blur-md">
           <Container size="wide" className="py-5 flex flex-col">
             {nav.map((item) => (
               <Link
