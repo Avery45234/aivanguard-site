@@ -10,6 +10,6 @@ export default function OG() {
     eyebrow: "Open Competition",
     title: "Design a classroom",
     titleItalic: "you'd actually want to learn in.",
-    footerRight: "Any format · $1,000 in prizes",
+    footerRight: "$1,000 in prizes · Deadline Sept 25",
   });
 }

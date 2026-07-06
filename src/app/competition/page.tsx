@@ -9,7 +9,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Open Competition",
   description:
-    "The AI Vanguard Open Competition: design an AI-era classroom you'd actually want to learn in — and defend one thing you'd refuse to automate. Any format. $1,000 in prizes.",
+    "The AI Vanguard Open Competition: design an AI-era classroom you'd actually want to learn in — and defend one thing you'd refuse to automate. Any format. $1,000 in prizes. Deadline September 25, 2026.",
 };
 
 const enterHref = `mailto:${site.email}?subject=Competition%20Entry`;
@@ -19,7 +19,7 @@ const quickFacts = [
   { k: "Prize pool", v: "$1,000" },
   { k: "Format", v: "Open" },
   { k: "Team size", v: "1–4" },
-  { k: "Deadline", v: "TBA" },
+  { k: "Deadline", v: "Sept 25" },
 ];
 
 const requirements = [
@@ -325,8 +325,8 @@ export default function CompetitionPage() {
             ))}
           </div>
           <p className="mt-4 text-[13px] text-ink-muted">
-            Submission deadline and key dates will be announced soon. Questions
-            in the meantime?{" "}
+            Submissions are open now and close September 25, 2026. Results will
+            be announced October 3, 2026. Questions?{" "}
             <a
               href={questionHref}
               className="underline underline-offset-4 decoration-accent/60 hover:decoration-accent text-ink-dim hover:text-ink"
@@ -799,8 +799,8 @@ export default function CompetitionPage() {
               </h2>
               <p className="mt-6 text-[16px] md:text-[17px] text-ink-dim leading-relaxed max-w-xl">
                 Send your entry — or any questions about format, eligibility,
-                or the brief — to {site.email}. Deadline and key dates will be
-                announced soon.
+                or the brief — to {site.email} by September 25, 2026. Results
+                will be announced October 3, 2026.
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
                 <Button href={enterHref} size="lg">
