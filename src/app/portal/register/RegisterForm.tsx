@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { Button } from "@/components/Button";
 import { cn } from "@/lib/cn";
-import { saveProfile } from "../profile";
+import { hashPassword, makeSalt, saveProfile } from "../profile";
 
 const divisions = ["Under 18", "Open (all ages)"];
 const entryTypes = ["Individual", "Team (2–4)"];
@@ -32,6 +32,9 @@ export function RegisterForm() {
   const [role, setRole] = useState(roles[0]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [pwError, setPwError] = useState<string | null>(null);
   const [agreedRules, setAgreedRules] = useState(false);
   const [agreedOriginal, setAgreedOriginal] = useState(false);
   const [agreedOneEntry, setAgreedOneEntry] = useState(false);
@@ -40,16 +43,44 @@ export function RegisterForm() {
   const isUnder18 = division === divisions[0];
   const allAgreed = agreedRules && agreedOriginal && agreedOneEntry;
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    if (password.length < 8) {
+      e.preventDefault();
+      setPwError("Your password needs at least 8 characters.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      e.preventDefault();
+      setPwError("The passwords don't match.");
+      return;
+    }
+    setPwError(null);
+    handleSubmit(e);
+  };
+
   useEffect(() => {
-    if (state.succeeded) {
+    if (!state.succeeded) return;
+    let cancelled = false;
+    (async () => {
+      // The password is hashed and stored on this device only — it is
+      // never part of the Formspree submission (see the unnamed inputs
+      // below) and never leaves the browser.
+      const salt = makeSalt();
+      const hash = await hashPassword(password, salt);
+      if (cancelled) return;
       saveProfile({
         name,
         email,
         division,
         entryType,
         registeredAt: new Date().toISOString(),
+        passwordSalt: salt,
+        passwordHash: hash,
       });
-    }
+    })();
+    return () => {
+      cancelled = true;
+    };
     // Snapshot the entrant's details at the moment of success only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.succeeded]);
@@ -72,6 +103,10 @@ export function RegisterForm() {
             <strong className="text-ink">September 25, 2026</strong>. Results
             are announced October 3, 2026.
           </p>
+          <p>
+            You can sign back in to your dashboard on this device anytime with
+            your email and password.
+          </p>
         </div>
         <div className="mt-8">
           <Button href="/portal" size="lg">
@@ -83,7 +118,7 @@ export function RegisterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-12">
+    <form onSubmit={onSubmit} className="space-y-12">
       <input type="hidden" name="division" value={division} />
       <input type="hidden" name="entryType" value={entryType} />
       <input type="hidden" name="role" value={role} />
@@ -146,6 +181,41 @@ export function RegisterForm() {
             errors={state.errors}
             className="mt-2 block text-[13px] text-accent"
           />
+        </Field>
+
+        {/* Account password — deliberately has NO `name` attribute so it is
+            never serialized into the Formspree submission. It is hashed and
+            stored on the entrant's device only (see ../profile.ts). */}
+        <Field label="Create a password — for your entrant dashboard">
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="At least 8 characters"
+            required
+            minLength={8}
+            autoComplete="new-password"
+            className="w-full border-b border-border bg-transparent py-3 text-[16px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:outline-none"
+          />
+        </Field>
+        <Field label="Confirm password">
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Type it again"
+            required
+            minLength={8}
+            autoComplete="new-password"
+            className="w-full border-b border-border bg-transparent py-3 text-[16px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:outline-none"
+          />
+          {pwError && (
+            <span className="mt-2 block text-[13px] text-accent">{pwError}</span>
+          )}
+          <span className="mt-2 block text-[12px] text-ink-muted leading-relaxed">
+            You&apos;ll use this to sign in to your dashboard. It&apos;s stored
+            only on this device as a salted hash — never sent to us.
+          </span>
         </Field>
 
         {isUnder18 && (

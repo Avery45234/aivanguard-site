@@ -4,16 +4,17 @@ import { useState, useSyncExternalStore } from "react";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import {
-  clearProfile,
   daysUntilDeadline,
   getChecklistSnapshot,
   getProfileSnapshot,
   getServerChecklistSnapshot,
   getServerProfileSnapshot,
   saveChecklist,
-  saveProfile,
+  signIn,
+  signOut,
   subscribeEntrant,
   type EntrantProfile,
+  type SignInResult,
 } from "./profile";
 
 const DEADLINE = new Date("2026-09-25T23:59:59");
@@ -68,27 +69,14 @@ export function PortalHome() {
     getChecklistSnapshot,
     getServerChecklistSnapshot,
   );
-  const [lookupEmail, setLookupEmail] = useState("");
   const [tab, setTab] = useState<DashboardTab>("competitions");
-
-  const openDashboard = (e: React.FormEvent) => {
-    e.preventDefault();
-    const p: EntrantProfile = { email: lookupEmail };
-    saveProfile(p);
-  };
 
   const toggle = (key: string) => {
     saveChecklist({ ...checklist, [key]: !checklist[key] });
   };
 
   if (!profile) {
-    return (
-      <AuthGate
-        lookupEmail={lookupEmail}
-        setLookupEmail={setLookupEmail}
-        onOpen={openDashboard}
-      />
-    );
+    return <AuthGate />;
   }
 
   const daysLeft = daysUntilDeadline(DEADLINE);
@@ -110,7 +98,7 @@ export function PortalHome() {
           </div>
           <button
             type="button"
-            onClick={clearProfile}
+            onClick={signOut}
             className="flex items-center gap-2 text-[13.5px] text-ink-dim hover:text-ink transition-colors"
           >
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden>
@@ -492,10 +480,10 @@ function ProfileTab({
           </div>
           <button
             type="button"
-            onClick={clearProfile}
+            onClick={signOut}
             className="mt-7 w-full rounded-full border border-border-strong h-11 text-[14px] text-ink hover:bg-surface transition-colors"
           >
-            Sign out of this device
+            Sign out
           </button>
           <p className="mt-4 text-[12px] text-ink-muted text-center leading-relaxed">
             Need to correct your details?{" "}
@@ -548,16 +536,22 @@ function ProfileRow({ k, v }: { k: string; v: string }) {
 
 /* ---------- Auth gate ---------- */
 
-function AuthGate({
-  lookupEmail,
-  setLookupEmail,
-  onOpen,
-}: {
-  lookupEmail: string;
-  setLookupEmail: (v: string) => void;
-  onOpen: (e: React.FormEvent) => void;
-}) {
-  const [tab, setTab] = useState<"signin" | "signup">("signup");
+function AuthGate() {
+  const [tab, setTab] = useState<"signin" | "signup">("signin");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPw, setShowPw] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<SignInResult | null>(null);
+
+  const onSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setBusy(true);
+    setError(null);
+    const result = await signIn(email, password);
+    if (result !== "ok") setError(result);
+    setBusy(false);
+  };
 
   return (
     <section className="py-14 md:py-24">
@@ -576,29 +570,16 @@ function AuthGate({
               </h1>
               <p className="mt-4 text-[13.5px] text-ink-dim leading-relaxed">
                 Registration for the 2026 AI Vanguard Open Competition is now
-                open. Sign up to enter, or sign in to access your entrant
-                dashboard.
+                open. Sign in to your entrant dashboard — or sign up first if
+                you haven&apos;t entered yet.
               </p>
             </div>
 
             <div
               className="mt-7 rounded-full bg-surface-2 p-1 grid grid-cols-2"
               role="tablist"
-              aria-label="Sign up or sign in"
+              aria-label="Sign in or sign up"
             >
-              <button
-                type="button"
-                role="tab"
-                aria-selected={tab === "signup" ? "true" : "false"}
-                onClick={() => setTab("signup")}
-                className={`h-10 rounded-full text-[13px] tracking-tight transition-all ${
-                  tab === "signup"
-                    ? "bg-bg text-ink font-medium shadow-[0_1px_6px_rgba(60,34,116,0.15)]"
-                    : "text-ink-muted hover:text-ink"
-                }`}
-              >
-                Sign up
-              </button>
               <button
                 type="button"
                 role="tab"
@@ -612,10 +593,23 @@ function AuthGate({
               >
                 Sign in
               </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={tab === "signup" ? "true" : "false"}
+                onClick={() => setTab("signup")}
+                className={`h-10 rounded-full text-[13px] tracking-tight transition-all ${
+                  tab === "signup"
+                    ? "bg-bg text-ink font-medium shadow-[0_1px_6px_rgba(60,34,116,0.15)]"
+                    : "text-ink-muted hover:text-ink"
+                }`}
+              >
+                Sign up
+              </button>
             </div>
 
             {tab === "signin" ? (
-              <form onSubmit={onOpen} className="mt-7">
+              <form onSubmit={onSignIn} className="mt-7 space-y-5">
                 <label className="block">
                   <span className="block text-[13px] font-medium text-ink mb-2">
                     Email
@@ -646,24 +640,112 @@ function AuthGate({
                     </span>
                     <input
                       type="email"
-                      value={lookupEmail}
-                      onChange={(e) => setLookupEmail(e.target.value)}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="you@school.edu"
                       required
                       autoFocus
+                      autoComplete="email"
                       className="w-full rounded-lg border border-border bg-surface pl-11 pr-4 py-3 text-[15px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:bg-bg focus:outline-none"
                     />
                   </span>
                 </label>
-                <Button type="submit" size="lg" className="mt-6 w-full">
-                  Sign in
+
+                <label className="block">
+                  <span className="block text-[13px] font-medium text-ink mb-2">
+                    Password
+                  </span>
+                  <span className="relative block">
+                    <span
+                      className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted"
+                      aria-hidden
+                    >
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <rect
+                          x="3"
+                          y="7"
+                          width="10"
+                          height="6.5"
+                          rx="1.5"
+                          stroke="currentColor"
+                          strokeWidth="1.2"
+                        />
+                        <path
+                          d="M5.5 7V5a2.5 2.5 0 015 0v2"
+                          stroke="currentColor"
+                          strokeWidth="1.2"
+                        />
+                      </svg>
+                    </span>
+                    <input
+                      type={showPw ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Your password"
+                      required
+                      autoComplete="current-password"
+                      className="w-full rounded-lg border border-border bg-surface pl-11 pr-12 py-3 text-[15px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:bg-bg focus:outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPw((v) => !v)}
+                      aria-label={showPw ? "Hide password" : "Show password"}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-ink-muted hover:text-ink transition-colors"
+                    >
+                      {showPw ? (
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                          <path
+                            d="M1.5 8s2.5-4.5 6.5-4.5S14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z"
+                            stroke="currentColor"
+                            strokeWidth="1.2"
+                          />
+                          <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.2" />
+                          <path d="M3 13L13 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+                        </svg>
+                      ) : (
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                          <path
+                            d="M1.5 8s2.5-4.5 6.5-4.5S14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z"
+                            stroke="currentColor"
+                            strokeWidth="1.2"
+                          />
+                          <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.2" />
+                        </svg>
+                      )}
+                    </button>
+                  </span>
+                </label>
+
+                {error === "no-account" && (
+                  <div className="rounded-lg border border-accent/40 bg-accent/5 px-4 py-3 text-[13px] text-ink-dim leading-relaxed">
+                    We couldn&apos;t find an account with that email on this
+                    device — you need to{" "}
+                    <button
+                      type="button"
+                      onClick={() => setTab("signup")}
+                      className="text-accent underline underline-offset-4"
+                    >
+                      sign up first
+                    </button>
+                    . Registered on a different device? Your dashboard stays on
+                    the device where you registered until full accounts launch.
+                  </div>
+                )}
+                {error === "wrong-password" && (
+                  <div className="rounded-lg border border-accent/40 bg-accent/5 px-4 py-3 text-[13px] text-ink-dim">
+                    Incorrect password for that email. Try again.
+                  </div>
+                )}
+
+                <Button type="submit" size="lg" className="w-full" disabled={busy}>
+                  {busy ? "Signing in…" : "Sign in"}
                 </Button>
-                <p className="mt-5 text-[12.5px] text-ink-muted leading-relaxed text-center">
-                  No password needed yet — signing in restores your dashboard
-                  on this device. Full entrant accounts arrive with the
-                  submission window.
+                <p className="text-[12.5px] text-ink-muted leading-relaxed text-center">
+                  Your password unlocks your dashboard on this device. It&apos;s
+                  stored only on this device as a salted hash — never sent to
+                  us.
                 </p>
-                <p className="mt-4 text-[13px] text-ink-dim text-center">
+                <p className="text-[13px] text-ink-dim text-center">
                   New here?{" "}
                   <button
                     type="button"
@@ -678,8 +760,8 @@ function AuthGate({
               <div className="mt-7">
                 <p className="text-[14px] text-ink-dim leading-relaxed text-center">
                   Registration is your sign-up — free, a few minutes, one entry
-                  per person or team. You&apos;ll get your dashboard the moment
-                  you finish.
+                  per person or team. You&apos;ll create your password as part
+                  of it and get your dashboard the moment you finish.
                 </p>
                 <Button href="/portal/register" size="lg" className="mt-6 w-full">
                   Start registration
