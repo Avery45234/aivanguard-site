@@ -12,7 +12,7 @@ export function Footer() {
               AI Vanguard
             </div>
             <p className="mt-4 max-w-sm text-sm text-ink-dim leading-relaxed">
-              A student-led nonprofit shaping how AI is used in education —
+              A student-led nonprofit shaping how AI is used in education
               through research, advocacy, and collaboration with schools across
               Southern California.
             </p>
