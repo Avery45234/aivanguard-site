@@ -12,8 +12,13 @@ export const metadata: Metadata = {
     "The AI Vanguard Open Competition: design an AI-era classroom you'd actually want to learn in — and defend one thing you'd refuse to automate. Any format. $1,000 in prizes. Deadline September 25, 2026.",
 };
 
-const enterHref = `mailto:${site.email}?subject=Competition%20Entry`;
 const questionHref = `mailto:${site.email}?subject=Competition%20Question`;
+
+const keyDates = [
+  { date: "Open now", label: "Registration", note: "Free, two minutes, through this website." },
+  { date: "September 25, 2026", label: "Submission deadline", note: "Registered entrants receive submission instructions by email." },
+  { date: "October 3, 2026", label: "Results announced", note: "Winners published and featured on aivanguard.org." },
+];
 
 const quickFacts = [
   { k: "Prize pool", v: "$1,000" },
@@ -260,6 +265,10 @@ const prizes = [
 
 const faq = [
   {
+    q: "How do I enter?",
+    a: "Register through this website first — it's free and takes two minutes. You'll receive confirmation and submission instructions by email, and your completed entry is due September 25, 2026.",
+  },
+  {
     q: "Can I use AI to build my submission?",
     a: "Yes — it's encouraged. Disclose how you used it. We judge your thinking and your choices.",
   },
@@ -289,7 +298,7 @@ export default function CompetitionPage() {
   return (
     <>
       <PageHeader
-        eyebrow="AI Vanguard Open Competition"
+        eyebrow="AI Vanguard Open Competition · 2026"
         title={
           <>
             Design a classroom{" "}
@@ -301,8 +310,8 @@ export default function CompetitionPage() {
         blurb="AI is entering classrooms faster than anyone can evaluate it — and most of the conversation is happening about students, not with them. So here's the prompt: what would you automate, and what would you refuse to automate?"
         meta={
           <div className="flex flex-wrap gap-3">
-            <Button href={enterHref} size="md">
-              Enter the competition
+            <Button href="/competition/register" size="md">
+              Register to enter
             </Button>
             <Button href="#brief" variant="secondary" size="md">
               Read the brief ↓
@@ -324,9 +333,22 @@ export default function CompetitionPage() {
               </div>
             ))}
           </div>
+          <ul className="mt-6 divide-y divide-border border-y border-border">
+            {keyDates.map((d) => (
+              <li
+                key={d.label}
+                className="py-4 grid gap-1 md:grid-cols-[220px_220px_1fr] md:gap-8 items-baseline"
+              >
+                <span className="fig text-[15px] text-ink">{d.date}</span>
+                <span className="text-[11px] uppercase tracking-[0.22em] text-accent">
+                  {d.label}
+                </span>
+                <span className="text-[13.5px] text-ink-muted">{d.note}</span>
+              </li>
+            ))}
+          </ul>
           <p className="mt-4 text-[13px] text-ink-muted">
-            Submissions are open now and close September 25, 2026. Results will
-            be announced October 3, 2026. Questions?{" "}
+            Questions before you register?{" "}
             <a
               href={questionHref}
               className="underline underline-offset-4 decoration-accent/60 hover:decoration-accent text-ink-dim hover:text-ink"
@@ -454,7 +476,7 @@ export default function CompetitionPage() {
                   <span className="serif-italic">four things.</span>
                 </>
               }
-              blurb="Whatever format you choose, your submission must include all four parts below."
+              blurb="Register through the website first — then, whatever format you choose, your completed submission must include all four parts below."
             />
           </Reveal>
 
@@ -798,13 +820,13 @@ export default function CompetitionPage() {
                 <span className="serif-italic">Prove it.</span>
               </h2>
               <p className="mt-6 text-[16px] md:text-[17px] text-ink-dim leading-relaxed max-w-xl">
-                Send your entry — or any questions about format, eligibility,
-                or the brief — to {site.email} by September 25, 2026. Results
-                will be announced October 3, 2026.
+                Registration is open now and takes two minutes. Completed
+                entries are due September 25, 2026, and results will be
+                announced October 3, 2026.
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
-                <Button href={enterHref} size="lg">
-                  Enter the competition
+                <Button href="/competition/register" size="lg">
+                  Register to enter
                 </Button>
                 <Button href="/contact" variant="secondary" size="lg">
                   Ask a question first

@@ -9,6 +9,7 @@ const routes = [
   "/policy-brief",
   "/get-involved",
   "/competition",
+  "/competition/register",
   "/contact",
   "/press",
 ];
