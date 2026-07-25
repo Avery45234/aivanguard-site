@@ -26,6 +26,7 @@ export type SubmissionRecord = {
   format: string;
   workUrl: string;
   extraUrl?: string;
+  fileName?: string;
   submittedAt: string;
   updatedAt?: string;
 };

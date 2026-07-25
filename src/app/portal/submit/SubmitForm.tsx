@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useForm, ValidationError } from "@formspree/react";
 import { Button } from "@/components/Button";
@@ -23,7 +23,18 @@ const formats = [
   "Other",
 ];
 
+// Formats where the work itself is (or can be) a PDF, so a direct file
+// attachment makes sense. Apps and film still need hosted links.
+const pdfFormats = ["Essay / written work", "Design / visual work", "Other"];
+
+const rationaleQuestions = [
+  "What problem does your classroom design solve, and for whom?",
+  "What can be improved in classrooms through AI?",
+  "What is the one thing you refuse to automate, and why?",
+];
+
 const RATIONALE_LIMIT = 300;
+const MAX_PDF_MB = 10;
 
 function wordCount(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
@@ -65,6 +76,44 @@ export function SubmitForm() {
   const [agreedOriginal, setAgreedOriginal] = useState(false);
   const [agreedConsent, setAgreedConsent] = useState(false);
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
+  const [dragOver, setDragOver] = useState(false);
+
+  // Put the picked/dropped file into the real input so Formspree
+  // receives it as an attachment when the form submits.
+  const acceptFile = (f: File | undefined | null) => {
+    if (!f) return;
+    const isPdf = f.type === "application/pdf" || /\.pdf$/i.test(f.name);
+    if (!isPdf) {
+      setFileError("That file isn't a PDF. Export your work as a PDF and try again, or host it and paste a link below.");
+      return;
+    }
+    if (f.size > MAX_PDF_MB * 1024 * 1024) {
+      setFileError(`That PDF is over ${MAX_PDF_MB} MB. Compress it, or host it and paste a link below instead.`);
+      return;
+    }
+    if (fileInputRef.current) {
+      const dt = new DataTransfer();
+      dt.items.add(f);
+      fileInputRef.current.files = dt.files;
+    }
+    setFileError(null);
+    setFile(f);
+  };
+
+  const clearFile = () => {
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    setFile(null);
+    setFileError(null);
+  };
+
+  const changeFormat = (next: string) => {
+    setFormat(next);
+    if (!pdfFormats.includes(next)) clearFile();
+  };
+
   // Prefill from the previous submission and switch into update mode.
   const beginUpdate = () => {
     if (existing) {
@@ -81,6 +130,7 @@ export function SubmitForm() {
   const overLimit = words > RATIONALE_LIMIT;
   const allAgreed = agreedAccess && agreedOriginal && agreedConsent;
   const closed = isPastDeadline(SUBMISSION_DEADLINE);
+  const pdfFriendly = pdfFormats.includes(format);
 
   // Record the submission on this device the moment Formspree accepts it,
   // so the dashboard flips to submitted state.
@@ -92,6 +142,7 @@ export function SubmitForm() {
       format,
       workUrl,
       extraUrl: extraUrl || undefined,
+      fileName: file?.name,
       submittedAt: isUpdate && existing ? existing.submittedAt : now,
       updatedAt: isUpdate ? now : undefined,
     });
@@ -144,9 +195,19 @@ export function SubmitForm() {
         <div className="mt-6 space-y-4 text-[15px] text-ink-dim leading-relaxed max-w-xl">
           <p>
             <strong className="text-ink">{title}</strong> has been delivered to
-            the organizers. Keep your links live and viewable through{" "}
-            <strong className="text-ink">October 3, 2026</strong>: judges score
-            what they can open.
+            the organizers{file ? `, ${file.name} included` : ""}.{" "}
+            {workUrl || extraUrl ? (
+              <>
+                Keep your links live and viewable through{" "}
+                <strong className="text-ink">October 3, 2026</strong>: judges
+                score what they can open.
+              </>
+            ) : (
+              <>
+                Results are announced{" "}
+                <strong className="text-ink">October 3, 2026</strong>.
+              </>
+            )}
           </p>
           <p>
             Need to change something? You can resubmit from your dashboard any
@@ -309,7 +370,7 @@ export function SubmitForm() {
             required
             aria-label="Format"
             value={format}
-            onChange={(e) => setFormat(e.target.value)}
+            onChange={(e) => changeFormat(e.target.value)}
             className="w-full border-b border-border bg-transparent py-3 text-[16px] text-ink transition-colors focus:border-accent focus:outline-none"
           >
             <option value="" disabled className="bg-bg text-ink-muted">
@@ -323,14 +384,87 @@ export function SubmitForm() {
           </select>
         </Field>
 
-        <Field label="Primary link — the work itself">
+        {pdfFriendly && (
+          <div>
+            <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-muted mb-3">
+              Your PDF · drag &amp; drop or browse
+            </span>
+            <input
+              ref={fileInputRef}
+              type="file"
+              name="pdfUpload"
+              accept="application/pdf,.pdf"
+              className="hidden"
+              aria-label="Attach your PDF"
+              onChange={(e) => acceptFile(e.target.files?.[0])}
+            />
+            {file ? (
+              <div className="flex items-center justify-between gap-4 rounded-xl border border-accent/50 bg-accent/5 px-5 py-4">
+                <div className="min-w-0">
+                  <div className="text-[14px] text-ink truncate">{file.name}</div>
+                  <div className="fig mt-0.5 text-[12px] text-ink-muted">
+                    {(file.size / 1024 / 1024).toFixed(1)} MB · attached
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={clearFile}
+                  className="shrink-0 text-[13px] text-ink-dim hover:text-ink underline underline-offset-4 transition-colors"
+                >
+                  Remove
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setDragOver(true);
+                }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setDragOver(false);
+                  acceptFile(e.dataTransfer.files?.[0]);
+                }}
+                className={`w-full rounded-xl border border-dashed px-6 py-8 text-center transition-colors ${
+                  dragOver
+                    ? "border-accent bg-accent/5"
+                    : "border-border-strong hover:border-ink/40"
+                }`}
+              >
+                <span className="block text-[14px] text-ink">
+                  Drag your PDF here, or click to browse
+                </span>
+                <span className="mt-1 block text-[12px] text-ink-muted">
+                  Up to {MAX_PDF_MB} MB. Prefer a link? Leave this empty and
+                  paste one below.
+                </span>
+              </button>
+            )}
+            {fileError && (
+              <span className="mt-2 block text-[13px] text-accent">
+                {fileError}
+              </span>
+            )}
+          </div>
+        )}
+
+        <Field
+          label={
+            file
+              ? "Primary link (optional, your PDF is attached)"
+              : "Primary link — the work itself"
+          }
+        >
           <Input
             name="workUrl"
             type="url"
             value={workUrl}
             onChange={setWorkUrl}
             placeholder="https://…"
-            required
+            required={!file}
           />
           <Hint>
             Public repo or hosted demo for apps, PDF link for written and
@@ -359,18 +493,24 @@ export function SubmitForm() {
         <SectionTitle n="03" title="The Rationale" />
 
         <Field label={`Max ${RATIONALE_LIMIT} words · judged with equal weight for every entrant`}>
+          <div className="mb-4 space-y-2.5">
+            {rationaleQuestions.map((q, i) => (
+              <p
+                key={q}
+                className="flex gap-3 text-[14px] text-ink-dim leading-relaxed"
+              >
+                <span className="fig shrink-0 text-accent">{i + 1}.</span>
+                <span>{q}</span>
+              </p>
+            ))}
+          </div>
           <textarea
             name="rationale"
             value={rationale}
             onChange={(e) => setRationale(e.target.value)}
             rows={10}
             required
-            placeholder={
-              "Three questions, one statement:\n" +
-              "· What problem does your classroom design solve, and for whom?\n" +
-              "· What can be improved in classrooms through AI?\n" +
-              "· What is the one thing you refuse to automate, and why?"
-            }
+            placeholder="One statement that answers all three."
             className="w-full border-b border-border bg-transparent py-3 text-[16px] text-ink placeholder:text-ink-muted transition-colors focus:border-accent focus:outline-none resize-y leading-relaxed"
           />
           <span
@@ -409,9 +549,9 @@ export function SubmitForm() {
           checked={agreedAccess}
           onChange={setAgreedAccess}
         >
-          I have opened every link above in a private browsing window and it
-          works without signing in. I understand judges score what they can
-          open, and I&apos;ll keep the links live through October 3, 2026.
+          Judges can open my work: every link above works in a private
+          browsing window without signing in, and any attached PDF is the
+          final version. I&apos;ll keep my links live through October 3, 2026.
         </Declaration>
 
         <Declaration

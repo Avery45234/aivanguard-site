@@ -412,17 +412,22 @@ function EntryTab({
             </div>
             <div className="sm:col-span-2">
               <div className="text-[11px] uppercase tracking-[0.18em] text-ink-muted">
-                Links on file
+                Work on file
               </div>
               <div className="mt-1 flex flex-col gap-1">
-                <a
-                  href={submission.workUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-accent underline underline-offset-4 break-all"
-                >
-                  {submission.workUrl}
-                </a>
+                {submission.fileName && (
+                  <span className="text-ink">PDF · {submission.fileName}</span>
+                )}
+                {submission.workUrl && (
+                  <a
+                    href={submission.workUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent underline underline-offset-4 break-all"
+                  >
+                    {submission.workUrl}
+                  </a>
+                )}
                 {submission.extraUrl && (
                   <a
                     href={submission.extraUrl}
