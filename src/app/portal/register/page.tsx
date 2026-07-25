@@ -24,7 +24,7 @@ const steps = [
   {
     n: "03",
     title: "Submit by September 25, 2026",
-    body: "The submission window opens here in the portal. Results are announced October 3, 2026.",
+    body: "Submit your finished entry from your portal dashboard, any time before the deadline. Results are announced October 3, 2026.",
   },
 ];
 

@@ -97,9 +97,9 @@ export function RegisterForm() {
         </h3>
         <div className="mt-6 space-y-4 text-[15px] text-ink-dim leading-relaxed max-w-xl">
           <p>
-            You&apos;ll receive confirmation and submission instructions from
-            AI Vanguard by email. Your completed entry — the work, the
-            300-word Rationale, and the AI Use Disclosure — is due{" "}
+            You&apos;ll receive confirmation from AI Vanguard by email. When
+            your entry is ready, submit it from your dashboard: the work, the
+            300-word Rationale, and the AI Use Disclosure, due{" "}
             <strong className="text-ink">September 25, 2026</strong>. Results
             are announced October 3, 2026.
           </p>
@@ -350,8 +350,8 @@ export function RegisterForm() {
 
       <div className="flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-border">
         <p className="text-xs text-ink-muted max-w-xs">
-          Registration is free. You&apos;ll receive confirmation and submission
-          instructions from AI Vanguard by email.
+          Registration is free. When your entry is ready, you&apos;ll submit
+          it from your portal dashboard.
         </p>
         <Button type="submit" size="lg" disabled={!allAgreed || state.submitting}>
           {state.submitting ? "Registering…" : "Submit registration"}

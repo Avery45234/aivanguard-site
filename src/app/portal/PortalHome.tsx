@@ -10,15 +10,18 @@ import {
   getProfileSnapshot,
   getServerChecklistSnapshot,
   getServerProfileSnapshot,
+  getServerSubmissionSnapshot,
+  getSubmissionSnapshot,
+  isPastDeadline,
   saveChecklist,
   signIn,
   signOut,
   subscribeEntrant,
   type EntrantProfile,
   type SignInResult,
+  type SubmissionRecord,
 } from "./profile";
-
-const DEADLINE = new Date("2026-09-25T23:59:59");
+import { SUBMISSION_DEADLINE } from "@/lib/competition";
 
 const checklistItems = [
   {
@@ -70,6 +73,11 @@ export function PortalHome() {
     getChecklistSnapshot,
     getServerChecklistSnapshot,
   );
+  const submission = useSyncExternalStore(
+    subscribeEntrant,
+    getSubmissionSnapshot,
+    getServerSubmissionSnapshot,
+  );
   const [tab, setTab] = useState<DashboardTab>("competitions");
 
   const toggle = (key: string) => {
@@ -80,7 +88,8 @@ export function PortalHome() {
     return <AuthGate />;
   }
 
-  const daysLeft = daysUntilDeadline(DEADLINE);
+  const daysLeft = daysUntilDeadline(SUBMISSION_DEADLINE);
+  const closed = isPastDeadline(SUBMISSION_DEADLINE);
   const done = checklistItems.filter((i) => checklist[i.key]).length;
   const firstName = profile.name?.split(" ")[0];
 
@@ -159,7 +168,12 @@ export function PortalHome() {
           </div>
 
           {tab === "competitions" && (
-            <CompetitionsTab profile={profile} daysLeft={daysLeft} />
+            <CompetitionsTab
+              profile={profile}
+              daysLeft={daysLeft}
+              submission={submission}
+              closed={closed}
+            />
           )}
           {tab === "entry" && (
             <EntryTab
@@ -167,10 +181,12 @@ export function PortalHome() {
               checklist={checklist}
               done={done}
               toggle={toggle}
+              submission={submission}
+              closed={closed}
             />
           )}
           {tab === "profile" && (
-            <ProfileTab profile={profile} done={done} />
+            <ProfileTab profile={profile} done={done} submission={submission} />
           )}
           {tab === "organizer" && profile.isAdmin && <OrganizerTab />}
         </Container>
@@ -184,9 +200,13 @@ export function PortalHome() {
 function CompetitionsTab({
   profile,
   daysLeft,
+  submission,
+  closed,
 }: {
   profile: EntrantProfile;
   daysLeft: number;
+  submission: SubmissionRecord | null;
+  closed: boolean;
 }) {
   return (
     <div className="mt-10">
@@ -216,12 +236,32 @@ function CompetitionsTab({
         </div>
 
         <div className="mt-7 flex flex-wrap items-center gap-3">
-          <Button disabled className="opacity-50 cursor-not-allowed">
-            Submit entry
-          </Button>
-          <span className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent/10 px-3.5 h-9 text-[13px] text-accent-deep">
-            Submission window opens ahead of the deadline
-          </span>
+          {closed ? (
+            <>
+              <Button disabled className="opacity-50 cursor-not-allowed">
+                Submit entry
+              </Button>
+              <span className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent/10 px-3.5 h-9 text-[13px] text-accent-deep">
+                Submissions closed September 25, 2026
+              </span>
+            </>
+          ) : submission ? (
+            <>
+              <Button href="/portal/submit" variant="secondary">
+                Update entry
+              </Button>
+              <span className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent/10 px-3.5 h-9 text-[13px] text-accent-deep">
+                Entry submitted ✓
+              </span>
+            </>
+          ) : (
+            <>
+              <Button href="/portal/submit">Submit entry</Button>
+              <span className="inline-flex items-center gap-2 rounded-md border border-accent/40 bg-accent/10 px-3.5 h-9 text-[13px] text-accent-deep">
+                Submissions are open · {daysLeft} days left
+              </span>
+            </>
+          )}
         </div>
 
         <div className="mt-8 rounded-xl border border-accent/25 bg-accent/5 px-6 py-9 text-center">
@@ -236,14 +276,31 @@ function CompetitionsTab({
               />
             </svg>
           </span>
-          <p className="mt-4 font-display text-lg md:text-xl text-ink">
-            You&apos;re registered for the Vanguard Open 2026.
-          </p>
-          <p className="mt-2 text-[13.5px] text-ink-dim">
-            Submission instructions will arrive at{" "}
-            <span className="text-ink">{profile.email}</span> before the window
-            opens.
-          </p>
+          {submission ? (
+            <>
+              <p className="mt-4 font-display text-lg md:text-xl text-ink">
+                &ldquo;{submission.title}&rdquo; is in.
+              </p>
+              <p className="mt-2 text-[13.5px] text-ink-dim">
+                Submitted {formatDate(submission.submittedAt)}
+                {submission.updatedAt
+                  ? `, last updated ${formatDate(submission.updatedAt)}`
+                  : ""}
+                . Keep your links live through results day, October 3, 2026.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="mt-4 font-display text-lg md:text-xl text-ink">
+                You&apos;re registered for the Vanguard Open 2026.
+              </p>
+              <p className="mt-2 text-[13.5px] text-ink-dim">
+                Submit your finished entry here in the portal any time before
+                September 25, 2026. Confirmation goes to{" "}
+                <span className="text-ink">{profile.email}</span>.
+              </p>
+            </>
+          )}
         </div>
       </div>
 
@@ -273,11 +330,15 @@ function EntryTab({
   checklist,
   done,
   toggle,
+  submission,
+  closed,
 }: {
   profile: EntrantProfile;
   checklist: Record<string, boolean>;
   done: number;
   toggle: (key: string) => void;
+  submission: SubmissionRecord | null;
+  closed: boolean;
 }) {
   const steps = [
     {
@@ -287,10 +348,16 @@ function EntryTab({
     },
     {
       label: "Entry submitted",
-      sub: "Due September 25, 2026",
-      state: "current" as const,
+      sub: submission
+        ? formatDate(submission.updatedAt ?? submission.submittedAt)
+        : "Due September 25, 2026",
+      state: submission ? ("done" as const) : ("current" as const),
     },
-    { label: "Screening", sub: "Completeness check", state: "todo" as const },
+    {
+      label: "Screening",
+      sub: "Completeness check",
+      state: submission ? ("current" as const) : ("todo" as const),
+    },
     { label: "Judging", sub: "Two judges per entry", state: "todo" as const },
     { label: "Results", sub: "October 3, 2026", state: "todo" as const },
   ];
@@ -301,9 +368,19 @@ function EntryTab({
         <h2 className="font-display text-2xl md:text-[28px] tracking-tight text-ink">
           My Submissions
         </h2>
-        <Button disabled variant="secondary" className="opacity-50 cursor-not-allowed">
-          + New submission
-        </Button>
+        {closed ? (
+          <Button
+            disabled
+            variant="secondary"
+            className="opacity-50 cursor-not-allowed"
+          >
+            Submissions closed
+          </Button>
+        ) : (
+          <Button href="/portal/submit" variant="secondary">
+            {submission ? "Update submission" : "+ New submission"}
+          </Button>
+        )}
       </div>
 
       <div className="mt-5 rounded-2xl border border-border bg-bg shadow-[0_2px_16px_rgba(60,34,116,0.05)] p-7 md:p-9">
@@ -311,8 +388,55 @@ function EntryTab({
           Vanguard Open 2026
         </span>
         <h3 className="mt-4 font-display text-xl md:text-2xl tracking-tight text-ink">
-          Your entry
+          {submission ? `"${submission.title}"` : "Your entry"}
         </h3>
+
+        {submission && (
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 text-[13.5px]">
+            <div>
+              <div className="text-[11px] uppercase tracking-[0.18em] text-ink-muted">
+                Format
+              </div>
+              <div className="mt-1 text-ink">{submission.format}</div>
+            </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-[0.18em] text-ink-muted">
+                Submitted
+              </div>
+              <div className="mt-1 text-ink">
+                {formatDate(submission.submittedAt)}
+                {submission.updatedAt
+                  ? ` · updated ${formatDate(submission.updatedAt)}`
+                  : ""}
+              </div>
+            </div>
+            <div className="sm:col-span-2">
+              <div className="text-[11px] uppercase tracking-[0.18em] text-ink-muted">
+                Links on file
+              </div>
+              <div className="mt-1 flex flex-col gap-1">
+                <a
+                  href={submission.workUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent underline underline-offset-4 break-all"
+                >
+                  {submission.workUrl}
+                </a>
+                {submission.extraUrl && (
+                  <a
+                    href={submission.extraUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent underline underline-offset-4 break-all"
+                  >
+                    {submission.extraUrl}
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Progress stepper */}
         <div className="mt-8 overflow-x-auto pb-2">
@@ -348,7 +472,7 @@ function EntryTab({
         <div className="mt-6 flex items-center gap-3 border-t border-border pt-6">
           <span className="text-[13.5px] text-ink-dim">Result status:</span>
           <span className="inline-flex items-center rounded-full bg-surface-2 px-3.5 h-7 text-[12px] font-medium text-ink">
-            In progress
+            {submission ? "Submitted · awaiting screening" : "Not submitted yet"}
           </span>
         </div>
       </div>
@@ -400,6 +524,9 @@ function EntryTab({
         </ul>
 
         <div className="mt-6 flex flex-wrap gap-3">
+          {!submission && !closed && (
+            <Button href="/portal/submit">Submit your entry →</Button>
+          )}
           <Button href="/competition/rubric" external variant="secondary">
             Official judging rubric ↗
           </Button>
@@ -447,9 +574,11 @@ function StepCircle({ state, n }: { state: "done" | "current" | "todo"; n: numbe
 function ProfileTab({
   profile,
   done,
+  submission,
 }: {
   profile: EntrantProfile;
   done: number;
+  submission: SubmissionRecord | null;
 }) {
   const initials = profile.name
     ? profile.name
@@ -515,21 +644,25 @@ function ProfileTab({
             Entry Information
           </h3>
           <div className="mt-6 text-center">
-            <div className="fig text-4xl text-accent">0</div>
+            <div className="fig text-4xl text-accent">{submission ? 1 : 0}</div>
             <div className="mt-1 text-[12px] uppercase tracking-[0.18em] text-ink-muted">
               Entries submitted
             </div>
           </div>
           <div className="mt-6 space-y-3">
             <ProfileRow k="Competition" v="Vanguard Open 2026" />
-            <ProfileRow k="Status" v="Registered ✓" />
+            <ProfileRow
+              k="Status"
+              v={submission ? "Entry submitted ✓" : "Registered ✓"}
+            />
+            {submission && <ProfileRow k="Entry" v={submission.title} />}
             <ProfileRow k="Checklist" v={`${done}/${checklistItems.length} ready`} />
             <ProfileRow k="Submission deadline" v="September 25, 2026" />
             <ProfileRow k="Results released" v="October 3, 2026" />
           </div>
           <p className="mt-6 text-[12px] text-ink-muted leading-relaxed">
-            Full entrant accounts — with password sign-in and entries stored
-            across devices — arrive with the submission window.
+            Your account and entry status live on this device; the submission
+            itself goes to the organizers the moment you submit.
           </p>
         </div>
       </div>
@@ -674,9 +807,9 @@ function AuthGate() {
                 Vanguard Open 2026
               </h1>
               <p className="mt-4 text-[13.5px] text-ink-dim leading-relaxed">
-                Registration for the Vanguard Open 2026 is now open. Sign in
-                to your entrant dashboard, or sign up first if you
-                haven&apos;t entered yet.
+                Registration and submissions for the Vanguard Open 2026 are
+                open. Sign in to your entrant dashboard, or sign up first if
+                you haven&apos;t entered yet.
               </p>
             </div>
 

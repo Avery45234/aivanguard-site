@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const keyDates = [
   { date: "Open now", label: "Registration", note: "Free, a few minutes, in the Entrant Portal." },
-  { date: "September 25, 2026", label: "Submission deadline", note: "Entries close 11:59 PM Pacific. Registered entrants receive submission instructions by email." },
+  { date: "September 25, 2026", label: "Submission deadline", note: "Entries close 11:59 PM Pacific. Registered entrants submit through the Entrant Portal." },
   { date: "October 3, 2026", label: "Results announced", note: "Winners published and featured on aivanguard.org." },
 ];
 
@@ -130,7 +130,7 @@ const prizes = [
 const faq = [
   {
     q: "How do I enter?",
-    a: "Open the Entrant Portal (it opens in a new tab) and register. It's free and takes a few minutes. You'll receive confirmation and submission instructions by email, and your completed entry is due September 25, 2026.",
+    a: "Open the Entrant Portal (it opens in a new tab) and register. It's free and takes a few minutes. When your entry is ready, submit it in the portal: the work, the 300-word Rationale, and the AI Use Disclosure, any time before September 25, 2026.",
   },
   {
     q: "Can I use AI to build my submission?",

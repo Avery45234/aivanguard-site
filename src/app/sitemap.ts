@@ -12,6 +12,7 @@ const routes = [
   "/competition/rubric",
   "/portal",
   "/portal/register",
+  "/portal/submit",
   "/portal/help",
   "/contact",
   "/press",

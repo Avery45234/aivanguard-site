@@ -2,6 +2,10 @@
 // Used by /competition (web presentation) and /competition/rubric
 // (formal document view) so the rubric can't drift between the two.
 
+// Entries close 11:59 PM Pacific on September 25, 2026. Shared so the
+// public pages and the portal can't disagree about when the window shuts.
+export const SUBMISSION_DEADLINE = new Date("2026-09-25T23:59:59-07:00");
+
 export type RubricCriterion = {
   n: string;
   title: string;

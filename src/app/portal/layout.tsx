@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     template: "%s · Entrant Portal · AI Vanguard",
   },
   description:
-    "The official entrant portal for the Vanguard Open. Register, track your entry, and find submission instructions.",
+    "The official entrant portal for the Vanguard Open. Register, track your entry, and submit your work.",
 };
 
 export default function PortalLayout({

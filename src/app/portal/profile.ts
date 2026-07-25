@@ -17,6 +17,20 @@ export type EntrantProfile = {
 export type SignInResult = "ok" | "no-account" | "wrong-password" | "admin-setup";
 
 /**
+ * The entry as submitted through /portal/submit. Stored on the device so
+ * the dashboard can show submitted state; the submission itself goes to
+ * the organizers via Formspree at the moment of submit.
+ */
+export type SubmissionRecord = {
+  title: string;
+  format: string;
+  workUrl: string;
+  extraUrl?: string;
+  submittedAt: string;
+  updatedAt?: string;
+};
+
+/**
  * SHA-256 of the organizer's email (lowercased). Comparing hashes keeps
  * the address itself out of the public bundle and repo.
  */
@@ -26,6 +40,7 @@ const ADMIN_EMAIL_SHA256 =
 const PROFILE_KEY = "aiv-competition-profile";
 const CHECKLIST_KEY = "aiv-competition-checklist";
 const SESSION_KEY = "aiv-competition-session";
+const SUBMISSION_KEY = "aiv-competition-submission";
 
 /**
  * Tiny external store over localStorage so components can read entrant
@@ -40,6 +55,7 @@ const SESSION_KEY = "aiv-competition-session";
 let profileCache: EntrantProfile | null | undefined;
 let sessionCache: boolean | undefined;
 let checklistCache: Record<string, boolean> | undefined;
+let submissionCache: SubmissionRecord | null | undefined;
 let signedInCache: EntrantProfile | null | undefined;
 const listeners = new Set<() => void>();
 
@@ -81,6 +97,17 @@ function readChecklist(): Record<string, boolean> {
   }
 }
 
+function readSubmission(): SubmissionRecord | null {
+  try {
+    const raw = localStorage.getItem(SUBMISSION_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed.title === "string" ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
 function profileSnap(): EntrantProfile | null {
   if (profileCache === undefined) profileCache = readProfile();
   return profileCache;
@@ -112,6 +139,26 @@ export function getChecklistSnapshot(): Record<string, boolean> {
 
 export function getServerChecklistSnapshot(): Record<string, boolean> {
   return EMPTY_CHECKLIST;
+}
+
+export function getSubmissionSnapshot(): SubmissionRecord | null {
+  if (submissionCache === undefined) submissionCache = readSubmission();
+  return submissionCache;
+}
+
+export function getServerSubmissionSnapshot(): SubmissionRecord | null {
+  return null;
+}
+
+/** Record (or overwrite) the entry submitted through /portal/submit. */
+export function saveSubmission(record: SubmissionRecord) {
+  submissionCache = record;
+  try {
+    localStorage.setItem(SUBMISSION_KEY, JSON.stringify(record));
+  } catch {
+    // Storage unavailable — the dashboard just won't reflect it.
+  }
+  emit();
 }
 
 function persistProfile(profile: EntrantProfile) {
@@ -146,14 +193,16 @@ export function signOut() {
   emit();
 }
 
-/** Full wipe — account, password hash, and checklist. */
+/** Full wipe — account, password hash, checklist, and submission record. */
 export function clearProfile() {
   profileCache = null;
   checklistCache = EMPTY_CHECKLIST;
+  submissionCache = null;
   setSession(false);
   try {
     localStorage.removeItem(PROFILE_KEY);
     localStorage.removeItem(CHECKLIST_KEY);
+    localStorage.removeItem(SUBMISSION_KEY);
   } catch {
     // ignore
   }
@@ -173,6 +222,11 @@ export function saveChecklist(checklist: Record<string, boolean>) {
 /** Whole days from now to the deadline, clamped at zero. */
 export function daysUntilDeadline(deadline: Date): number {
   return Math.max(0, Math.ceil((deadline.getTime() - Date.now()) / 86_400_000));
+}
+
+/** True once the deadline has passed on this device's clock. */
+export function isPastDeadline(deadline: Date): boolean {
+  return Date.now() > deadline.getTime();
 }
 
 /* ---------- Password hashing (WebCrypto, device-local only) ---------- */
