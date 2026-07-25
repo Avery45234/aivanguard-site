@@ -72,6 +72,7 @@ export function SubmitForm() {
   const [extraUrl, setExtraUrl] = useState("");
   const [rationale, setRationale] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
+  const [wasTried, setWasTried] = useState(false);
   const [agreedAccess, setAgreedAccess] = useState(false);
   const [agreedOriginal, setAgreedOriginal] = useState(false);
   const [agreedConsent, setAgreedConsent] = useState(false);
@@ -129,7 +130,6 @@ export function SubmitForm() {
   const isUpdate = !!existing;
   const words = wordCount(rationale);
   const overLimit = words > RATIONALE_LIMIT;
-  const allAgreed = agreedAccess && agreedOriginal && agreedConsent;
   const closed = isPastDeadline(SUBMISSION_DEADLINE);
   const pdfFriendly = pdfFormats.includes(format);
 
@@ -276,7 +276,23 @@ export function SubmitForm() {
   const isTeam = (profile.entryType ?? "").toLowerCase().includes("team");
 
   return (
-    <form onSubmit={onSubmit} className="space-y-12">
+    <form
+      onSubmit={onSubmit}
+      // Fires (capture phase) when any required field fails native
+      // validation on a submit attempt: the browser jumps to and flags
+      // the first one; we highlight all of them and explain below.
+      onInvalidCapture={() => {
+        setWasTried(true);
+        setFormError(
+          "Some required fields are still empty or unchecked. They're highlighted above, and your browser has jumped to the first one.",
+        );
+      }}
+      className={`space-y-12 ${
+        wasTried
+          ? "[&_input:invalid]:border-accent [&_select:invalid]:border-accent [&_textarea:invalid]:border-accent"
+          : ""
+      }`}
+    >
       <input type="hidden" name="division" value={profile.division ?? ""} />
       <input type="hidden" name="entryType" value={profile.entryType ?? ""} />
       <input
@@ -609,11 +625,7 @@ export function SubmitForm() {
           Due September 25, 2026, 11:59 PM Pacific. You can resubmit until
           then; the newest submission is the one judged.
         </p>
-        <Button
-          type="submit"
-          size="lg"
-          disabled={!allAgreed || overLimit || state.submitting}
-        >
+        <Button type="submit" size="lg" disabled={state.submitting}>
           {state.submitting
             ? "Submitting…"
             : isUpdate

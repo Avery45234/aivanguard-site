@@ -35,15 +35,17 @@ export function RegisterForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [pwError, setPwError] = useState<string | null>(null);
+  const [formWarn, setFormWarn] = useState<string | null>(null);
+  const [wasTried, setWasTried] = useState(false);
   const [agreedRules, setAgreedRules] = useState(false);
   const [agreedOriginal, setAgreedOriginal] = useState(false);
   const [agreedOneEntry, setAgreedOneEntry] = useState(false);
 
   const isTeam = entryType !== entryTypes[0];
   const isUnder18 = division === divisions[0];
-  const allAgreed = agreedRules && agreedOriginal && agreedOneEntry;
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    setFormWarn(null);
     if (password.length < 8) {
       e.preventDefault();
       setPwError("Your password needs at least 8 characters.");
@@ -118,7 +120,23 @@ export function RegisterForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-12">
+    <form
+      onSubmit={onSubmit}
+      // Fires (capture phase) when any required field fails native
+      // validation on a submit attempt, so the entrant is always told
+      // why nothing happened instead of guessing.
+      onInvalidCapture={() => {
+        setWasTried(true);
+        setFormWarn(
+          "Some required fields are still empty or unchecked. They're highlighted above, and your browser has jumped to the first one.",
+        );
+      }}
+      className={`space-y-12 ${
+        wasTried
+          ? "[&_input:invalid]:border-accent [&_select:invalid]:border-accent [&_textarea:invalid]:border-accent"
+          : ""
+      }`}
+    >
       <input type="hidden" name="division" value={division} />
       <input type="hidden" name="entryType" value={entryType} />
       <input type="hidden" name="role" value={role} />
@@ -343,6 +361,9 @@ export function RegisterForm() {
         </Declaration>
       </fieldset>
 
+      {formWarn && (
+        <p className="text-[14px] text-accent leading-relaxed">{formWarn}</p>
+      )}
       <ValidationError
         errors={state.errors}
         className="block text-[14px] text-accent"
@@ -353,7 +374,7 @@ export function RegisterForm() {
           Registration is free. When your entry is ready, you&apos;ll submit
           it from your portal dashboard.
         </p>
-        <Button type="submit" size="lg" disabled={!allAgreed || state.submitting}>
+        <Button type="submit" size="lg" disabled={state.submitting}>
           {state.submitting ? "Registering…" : "Submit registration"}
         </Button>
       </div>
