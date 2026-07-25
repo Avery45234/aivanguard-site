@@ -100,6 +100,7 @@ export function SubmitForm() {
       fileInputRef.current.files = dt.files;
     }
     setFileError(null);
+    setFormError(null);
     setFile(f);
   };
 
@@ -151,6 +152,13 @@ export function SubmitForm() {
   }, [state.succeeded]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    if (pdfFriendly && !file && !workUrl.trim()) {
+      e.preventDefault();
+      setFormError(
+        "Your entry needs the work itself: attach your PDF above, or paste a hosted link.",
+      );
+      return;
+    }
     if (overLimit) {
       e.preventDefault();
       setFormError(
@@ -387,7 +395,9 @@ export function SubmitForm() {
         {pdfFriendly && (
           <div>
             <span className="block text-[11px] uppercase tracking-[0.18em] text-ink-muted mb-3">
-              Your PDF · drag &amp; drop or browse
+              {format === "Essay / written work"
+                ? "Your PDF · the work itself"
+                : "Your PDF · drag & drop or browse"}
             </span>
             <input
               ref={fileInputRef}
@@ -454,8 +464,10 @@ export function SubmitForm() {
         <Field
           label={
             file
-              ? "Primary link (optional, your PDF is attached)"
-              : "Primary link — the work itself"
+              ? "Hosted link (optional, your PDF is attached)"
+              : pdfFriendly
+                ? "Hosted link (optional if you attach your PDF above)"
+                : "Primary link — the work itself"
           }
         >
           <Input
@@ -464,12 +476,12 @@ export function SubmitForm() {
             value={workUrl}
             onChange={setWorkUrl}
             placeholder="https://…"
-            required={!file}
+            required={!pdfFriendly}
           />
           <Hint>
-            Public repo or hosted demo for apps, PDF link for written and
-            visual work, unlisted YouTube for film. Judges must be able to open
-            it without asking for access.
+            {pdfFriendly
+              ? "Only needed if your work lives online instead of (or besides) the PDF. Judges must be able to open it without asking for access."
+              : "Public repo or hosted demo for apps, unlisted YouTube for film. Judges must be able to open it without asking for access."}
           </Hint>
         </Field>
 
