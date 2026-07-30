@@ -106,10 +106,11 @@ export const leadership = [
   { name: "Nolan Ream", role: "Director of Research", image: "/img/team/nolan.jpg" },
   { name: "Yuming “Eunice” Zhang", role: "Director of Marketing", image: "/img/team/eunice.jpg" },
   { name: "Suhana Gharib", role: "Director of Event Planning", image: null },
+  { name: "Emily Liu", role: "Research & Evaluation Director", image: null },
   { name: "Bihmanji “Bee” Acho", role: "Director of Outreach · Minnesota State Director", image: null },
   { name: "Tristan Tjetjep", role: "Director of National Expansion · Tennessee State Director", image: null },
-  { name: "Emily Liu", role: "Research & Evaluation Director", image: null },
   { name: "Anthony Darbilli", role: "Connecticut State Director", image: null },
+  { name: "Benjamin Zhou", role: "New Jersey State Director", image: null },
 ];
 
 export const schools = [

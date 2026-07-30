@@ -205,8 +205,8 @@ export default function AboutPage() {
                 eyebrow="Leadership cabinet"
                 title={
                   <>
-                    Twelve student leaders,{" "}
-                    <span className="serif-italic">four states.</span>
+                    Thirteen student leaders,{" "}
+                    <span className="serif-italic">five states.</span>
                   </>
                 }
                 blurb="A cabinet of students from California to Connecticut — steering research, operations, outreach, and national expansion."
