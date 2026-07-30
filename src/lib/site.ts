@@ -107,7 +107,7 @@ export const leadership = [
   { name: "Yuming “Eunice” Zhang", role: "Director of Marketing", image: "/img/team/eunice.jpg" },
   { name: "Suhana Gharib", role: "Director of Event Planning", image: null },
   { name: "Emily Liu", role: "Research & Evaluation Director", image: "/img/team/emily.jpg" },
-  { name: "Bihmanji “Bee” Acho", role: "Director of Outreach · Minnesota State Director", image: null },
+  { name: "Bihmanji “Bee” Acho", role: "Director of Outreach · Minnesota State Director", image: "/img/team/bee.jpg" },
   { name: "Tristan Tjetjep", role: "Director of National Expansion · Tennessee State Director", image: "/img/team/tristan.jpg" },
   { name: "Anthony Darbilli", role: "Connecticut State Director", image: null },
   { name: "Benjamin Zhou", role: "New Jersey State Director", image: "/img/team/benjamin.jpg" },
