@@ -101,7 +101,7 @@ export const leadership = [
   { name: "Avery Updike", role: "Founder & President", image: "/img/team/avery.png" },
   { name: "Timothy Yang", role: "Chief Financial Officer & Treasurer", image: "/img/team/timothy.jpg" },
   { name: "Aadhitya Narayanan", role: "Vice President", image: "/img/team/aadhitya.jpg" },
-  { name: "Parisa Mabrooka", role: "Chief of Staff", image: null },
+  { name: "Parisa Mabrooka", role: "Chief of Staff", image: "/img/team/parisa.jpg" },
   { name: "Makaela Wei", role: "Secretary", image: null },
   { name: "Nolan Ream", role: "Director of Research", image: "/img/team/nolan.jpg" },
   { name: "Yuming “Eunice” Zhang", role: "Director of Marketing", image: "/img/team/eunice.jpg" },
