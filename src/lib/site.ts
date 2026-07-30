@@ -44,7 +44,7 @@ export const pillars = [
     ],
     image: "/img/pillars/research.jpg",
     imageAlt:
-      "Laptop and notebook with data charts on a desk — research workspace.",
+      "A student reviewing AI Vanguard Policy Survey responses in a spreadsheet.",
   },
   {
     slug: "advocacy",
