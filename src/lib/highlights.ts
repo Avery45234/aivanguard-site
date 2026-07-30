@@ -40,6 +40,11 @@ export const highlights: StudentHighlight[] = [
         alt: "Tristan Tjetjep holding the microphone as a student speaker at the Day of AI festival, surrounded by fellow students.",
         aspect: "aspect-[556/433]",
       },
+      {
+        src: "/img/highlights/day-of-ai-02.jpg",
+        alt: "Tristan Tjetjep speaking into a microphone at the Day of AI festival.",
+        aspect: "aspect-[4/5]",
+      },
     ],
   },
 ];
