@@ -58,8 +58,8 @@ export default function AboutPage() {
               <Reveal>
                 <figure className="photo-frame photo-duotone aspect-[4/3]">
                   <Image
-                    src="/img/feature/focus.jpg"
-                    alt="A student focused on a laptop — quiet, deep work."
+                    src="/img/feature/chamber.jpg"
+                    alt="Students seated at desks in a Senate-style chamber, taking notes during a policy session."
                     fill
                     sizes="(max-width: 768px) 100vw, 60vw"
                     className="object-cover"
