@@ -110,7 +110,7 @@ export const leadership = [
   { name: "Bihmanji “Bee” Acho", role: "Director of Outreach · Minnesota State Director", image: null },
   { name: "Tristan Tjetjep", role: "Director of National Expansion · Tennessee State Director", image: "/img/team/tristan.jpg" },
   { name: "Anthony Darbilli", role: "Connecticut State Director", image: null },
-  { name: "Benjamin Zhou", role: "New Jersey State Director", image: null },
+  { name: "Benjamin Zhou", role: "New Jersey State Director", image: "/img/team/benjamin.jpg" },
 ];
 
 export const schools = [
