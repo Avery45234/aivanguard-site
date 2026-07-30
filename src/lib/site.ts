@@ -15,6 +15,7 @@ export const nav = [
   { label: "About", href: "/about" },
   { label: "Our Work", href: "/our-work" },
   { label: "Impact", href: "/impact" },
+  { label: "Highlights", href: "/highlights" },
   { label: "Policy Brief", href: "/policy-brief" },
   { label: "Get Involved", href: "/get-involved" },
   { label: "Vanguard Open", href: "/competition" },
@@ -98,14 +99,17 @@ export const objectives = [
 
 export const leadership = [
   { name: "Avery Updike", role: "Founder & President", image: "/img/team/avery.png" },
-  { name: "Timothy Yang", role: "Vice President", image: "/img/team/timothy.jpg" },
-  { name: "Rachel Hawara", role: "Secretary", image: "/img/team/rachel.jpg" },
-  { name: "Arya Bhakta", role: "Chief Financial Officer", image: "/img/team/arya.jpg" },
-  { name: "Connor Lee", role: "VP of Marketing", image: "/img/team/connor.jpg" },
-  { name: "Jayden Rios", role: "VP of Marketing", image: "/img/team/jayden.jpg" },
-  { name: "Hayven Yang", role: "VP of Research & Opportunities", image: "/img/team/hayven.jpg" },
-  { name: "Parisa Mabrooka", role: "VP of Outreach", image: null },
-  { name: "Aadhitya Sankaranarayanan", role: "Director of Administration", image: null },
+  { name: "Timothy Yang", role: "Chief Financial Officer & Treasurer", image: "/img/team/timothy.jpg" },
+  { name: "Aadhitya Narayanan", role: "Vice President", image: null },
+  { name: "Parisa Mabrooka", role: "Chief of Staff", image: null },
+  { name: "Makaela Wei", role: "Secretary", image: null },
+  { name: "Nolan Ream", role: "Director of Research", image: "/img/team/nolan.jpg" },
+  { name: "Yuming “Eunice” Zhang", role: "Director of Marketing", image: "/img/team/eunice.jpg" },
+  { name: "Suhana Gharib", role: "Director of Event Planning", image: null },
+  { name: "Bihmanji “Bee” Acho", role: "Director of Outreach · Minnesota State Director", image: null },
+  { name: "Tristan Tjetjep", role: "Director of National Expansion · Tennessee State Director", image: null },
+  { name: "Emily Liu", role: "Research & Evaluation Director", image: null },
+  { name: "Anthony Darbilli", role: "Connecticut State Director", image: null },
 ];
 
 export const schools = [

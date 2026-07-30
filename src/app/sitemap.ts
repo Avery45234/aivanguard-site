@@ -6,6 +6,7 @@ const routes = [
   "/about",
   "/our-work",
   "/impact",
+  "/highlights",
   "/policy-brief",
   "/get-involved",
   "/competition",

@@ -205,11 +205,11 @@ export default function AboutPage() {
                 eyebrow="Leadership cabinet"
                 title={
                   <>
-                    Nine student leaders,{" "}
-                    <span className="serif-italic">eight schools.</span>
+                    Twelve student leaders,{" "}
+                    <span className="serif-italic">four states.</span>
                   </>
                 }
-                blurb="A cabinet of students across Southern California — steering research, operations, outreach, and strategy."
+                blurb="A cabinet of students from California to Connecticut — steering research, operations, outreach, and national expansion."
               />
               <div className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">
                 Cohort · 2024 – present
