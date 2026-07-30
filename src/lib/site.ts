@@ -108,7 +108,7 @@ export const leadership = [
   { name: "Suhana Gharib", role: "Director of Event Planning", image: null },
   { name: "Emily Liu", role: "Research & Evaluation Director", image: null },
   { name: "Bihmanji “Bee” Acho", role: "Director of Outreach · Minnesota State Director", image: null },
-  { name: "Tristan Tjetjep", role: "Director of National Expansion · Tennessee State Director", image: null },
+  { name: "Tristan Tjetjep", role: "Director of National Expansion · Tennessee State Director", image: "/img/team/tristan.jpg" },
   { name: "Anthony Darbilli", role: "Connecticut State Director", image: null },
   { name: "Benjamin Zhou", role: "New Jersey State Director", image: null },
 ];

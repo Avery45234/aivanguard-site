@@ -83,7 +83,11 @@ export default function HighlightsPage() {
               </div>
 
               {/* Photos */}
-              <div className="md:col-span-7 grid gap-5 sm:grid-cols-[1.4fr_1fr] items-start">
+              <div
+                className={`md:col-span-7 grid gap-5 items-start ${
+                  h.photos.length > 1 ? "sm:grid-cols-[1.4fr_1fr]" : ""
+                }`}
+              >
                 {h.photos.map((photo, i) => (
                   <Reveal key={photo.src} delay={i * 60}>
                     <figure
