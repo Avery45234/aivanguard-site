@@ -100,6 +100,7 @@ export const objectives = [
 
 export const leadership = [
   { name: "Avery Updike", role: "Founder & President", image: "/img/team/avery.png" },
+  { name: "Aadhitya Narayanan", role: "Vice President", image: null },
   { name: "Timothy Yang", role: "Chief Financial Officer & Treasurer", image: "/img/team/timothy.jpg" },
   { name: "Parisa Mabrooka", role: "Chief of Staff", image: "/img/team/parisa.jpg" },
   { name: "Makaela Wei", role: "Secretary", image: "/img/team/makaela.jpg" },
