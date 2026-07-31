@@ -59,7 +59,8 @@ export const pillars = [
       "Recommendations grounded in student voice",
     ],
     image: "/img/pillars/advocacy.jpg",
-    imageAlt: "A hand raising a megaphone at an outdoor rally.",
+    imageAlt:
+      "Students holding yes and no signs during an AI Vanguard policy session in a school library.",
   },
   {
     slug: "community",
@@ -75,7 +76,7 @@ export const pillars = [
     ],
     image: "/img/pillars/community.jpg",
     imageAlt:
-      "University building with an open courtyard — a place for gathering.",
+      "Students gathered beneath the Student Senate on AI Policy final-vote board showing 83 to 15.",
   },
 ];
 
