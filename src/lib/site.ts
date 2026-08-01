@@ -100,7 +100,7 @@ export const objectives = [
 
 export const leadership = [
   { name: "Avery Updike", role: "Founder & President", image: "/img/team/avery.png" },
-  { name: "Aadhitya Narayanan", role: "Vice President", image: null },
+  { name: "Aadhitya Narayanan", role: "Vice President", image: "/img/team/aadhitya.jpg" },
   { name: "Timothy Yang", role: "Chief Financial Officer & Treasurer", image: "/img/team/timothy.jpg" },
   { name: "Parisa Mabrooka", role: "Chief of Staff", image: "/img/team/parisa.jpg" },
   { name: "Makaela Wei", role: "Secretary", image: "/img/team/makaela.jpg" },
@@ -112,6 +112,7 @@ export const leadership = [
   { name: "Tristan Tjetjep", role: "Director of National Expansion · Tennessee State Director", image: "/img/team/tristan.jpg" },
   { name: "Anthony Darbilli", role: "Connecticut State Director", image: "/img/team/anthony.jpg" },
   { name: "Benjamin Zhou", role: "New Jersey State Director", image: "/img/team/benjamin.jpg" },
+  { name: "Riley Puder", role: "California State Director", image: "/img/team/riley.jpg" },
 ];
 
 export const schools = [

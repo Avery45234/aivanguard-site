@@ -278,7 +278,7 @@ export default function HomePage() {
                     <span className="serif-italic">not for them.</span>
                   </>
                 }
-                blurb="A thirteen-person cabinet of student leaders, steering research, operations, outreach, and national expansion."
+                blurb="A fourteen-person cabinet of student leaders, steering research, operations, outreach, and national expansion."
               />
               <Link
                 href="/about"

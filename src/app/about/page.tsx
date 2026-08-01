@@ -205,7 +205,7 @@ export default function AboutPage() {
                 eyebrow="Leadership cabinet"
                 title={
                   <>
-                    Thirteen student leaders,{" "}
+                    Fourteen student leaders,{" "}
                     <span className="serif-italic">five states.</span>
                   </>
                 }
