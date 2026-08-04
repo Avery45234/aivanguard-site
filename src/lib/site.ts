@@ -3,7 +3,7 @@ export const site = {
   tagline: "Student voice on AI in education",
   description:
     "AI Vanguard is a student-led nonprofit shaping how AI is used in education through research, advocacy, and collaboration with schools across Southern California.",
-  applyUrl: "https://forms.gle/RZivFEcA685Majyy5",
+  applyUrl: "https://docs.google.com/forms/d/1E1pd88uwjVkYcleIY26gL4_LdkUd2fVZuawffTH-QPU/viewform",
   email: "info@aivanguard.org",
   social: {
     instagram: "https://www.instagram.com/aivanguardorg/",
