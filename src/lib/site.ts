@@ -164,8 +164,8 @@ export const milestones = [
   },
   {
     year: "2026",
-    title: "Building the next cohort",
-    body: "Applications open for a new class of student representatives, with a focus on more schools and deeper policy work.",
+    title: "Going national",
+    body: "Leadership applications open across the country — State Directors and Chapter Directors bringing AI Vanguard to new states and schools.",
     current: true,
   },
 ];

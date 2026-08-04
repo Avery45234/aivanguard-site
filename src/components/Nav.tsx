@@ -101,7 +101,7 @@ export function Nav() {
             ))}
             <div className="mt-5">
               <Button href={site.applyUrl} external className="w-full">
-                Apply as a student rep
+                Apply for a leadership role
                 <Arrow />
               </Button>
             </div>

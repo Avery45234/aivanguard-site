@@ -10,7 +10,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Get Involved",
   description:
-    "Apply as a student representative, bring AI Vanguard to your school, or partner with us on research and policy work.",
+    "Apply for a national student leadership role, bring AI Vanguard to your school, or partner with us on research and policy work.",
 };
 
 export default function GetInvolvedPage() {
@@ -45,14 +45,14 @@ export default function GetInvolvedPage() {
                   </span>
                 </div>
                 <h2 className="mt-6 font-display text-4xl md:text-6xl lg:text-[72px] leading-[1.02] tracking-tight text-ink">
-                  Become a Student{" "}
-                  <span className="serif-italic">Representative.</span>
+                  Join the National{" "}
+                  <span className="serif-italic">Leadership Team.</span>
                 </h2>
                 <p className="mt-8 text-[16px] md:text-[17px] text-ink-dim leading-relaxed max-w-lg">
-                  Reps are the backbone of AI Vanguard. You&apos;ll lead
-                  research, host conversations, shape policy briefs, and
-                  represent your school inside a growing network of students
-                  doing the same thing across Southern California.
+                  State Directors and Chapter Directors are the backbone of AI
+                  Vanguard. You&apos;ll lead research, host conversations,
+                  shape policy briefs, and build the student voice movement in
+                  your own state — inside a network growing across the country.
                 </p>
                 <div className="mt-10 flex flex-wrap gap-3">
                   <Button href={site.applyUrl} external size="lg">
@@ -89,15 +89,15 @@ export default function GetInvolvedPage() {
             {[
               {
                 t: "Who should apply",
-                b: "High school students in Southern California who care about how AI lands in their school — you don't need to be a 'tech person,' just someone willing to lead.",
+                b: "High school students anywhere in the U.S. who care about how AI lands in their school — you don't need to be a 'tech person,' just someone willing to lead.",
               },
               {
-                t: "What reps do",
-                b: "Run campus surveys and focus groups, attend rep meetings, contribute to policy briefs, and host conversations at your school.",
+                t: "What leaders do",
+                b: "Lead AI Vanguard in your state or school as a State or Chapter Director — running research, policy, events, marketing, and outreach with support from the national cabinet.",
               },
               {
                 t: "Time commitment",
-                b: "A few hours a month during normal cycles, with more around major research or advocacy pushes.",
+                b: "A few hours a week, including evening virtual meetings, with more around major research or advocacy pushes.",
               },
               {
                 t: "What you get",
@@ -290,12 +290,12 @@ export default function GetInvolvedPage() {
           <div className="mt-14 max-w-3xl">
             {[
               {
-                q: "Do I need to be in California to apply as a rep?",
-                a: "Our current network is concentrated in Southern California, so reps in that region will have the most immediate in-person opportunities. That said, we welcome applications from students elsewhere — reach out if you're interested in helping us expand.",
+                q: "Do I need to be in California to apply?",
+                a: "No — leadership roles are open to students nationwide. State Director and Chapter Director roles exist specifically to bring AI Vanguard to new states and schools, and we already have state directors in Minnesota, Tennessee, Connecticut, and New Jersey.",
               },
               {
                 q: "Is there a fee to join or partner?",
-                a: "No. AI Vanguard is a student-led nonprofit. Participation as a rep or school partner is free.",
+                a: "No. AI Vanguard is a student-led nonprofit. Participation as a student leader or school partner is free.",
               },
               {
                 q: "How do you handle student data in your research?",

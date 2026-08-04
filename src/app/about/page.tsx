@@ -292,7 +292,8 @@ export default function AboutPage() {
                   </span>
                 </h3>
                 <p className="mt-4 text-ink-dim max-w-lg">
-                  Student rep applications are open. Partners, mentors, and
+                  National leadership applications are open — State Directors,
+                  Chapter Directors, and more. Partners, mentors, and
                   supporters — we&apos;d also love to talk.
                 </p>
               </div>
