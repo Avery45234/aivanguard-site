@@ -113,6 +113,7 @@ export const leadership = [
   { name: "Anthony Darbilli", role: "Connecticut State Director", image: "/img/team/anthony.jpg" },
   { name: "Benjamin Zhou", role: "New Jersey State Director", image: "/img/team/benjamin.jpg" },
   { name: "Riley Puder", role: "California State Director", image: "/img/team/riley.jpg" },
+  { name: "LaMarea Taya Tooson", role: "Michigan State Director", image: "/img/team/lamarea.jpg" },
 ];
 
 export const schools = [
