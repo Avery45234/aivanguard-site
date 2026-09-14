@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
-import { highlights } from "@/lib/highlights";
+import { highlights, updates } from "@/lib/highlights";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -72,12 +72,12 @@ export default function HighlightsPage() {
                     ))}
                   </div>
                   <a
-                    href={site.social.instagram}
+                    href={h.link?.href ?? site.social.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-8 inline-block text-sm text-ink hover:text-accent transition-colors underline underline-offset-[6px] decoration-accent/50"
                   >
-                    More from this day on Instagram →
+                    {h.link?.label ?? "More from this day on Instagram →"}
                   </a>
                 </Reveal>
               </div>
@@ -109,6 +109,55 @@ export default function HighlightsPage() {
           </Container>
         </section>
       ))}
+
+      {/* RECENT UPDATES — dated organizational notes beneath the series */}
+      <section
+        className="py-14 md:py-20 border-t border-border"
+        data-rail-section="Updates"
+      >
+        <Container size="wide">
+          <Reveal>
+            <div className="flex items-baseline justify-between gap-6 flex-wrap">
+              <h2 className="font-display text-3xl md:text-[40px] tracking-tight text-ink">
+                Recent updates
+              </h2>
+              <div className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">
+                Newest first
+              </div>
+            </div>
+          </Reveal>
+          <ol className="mt-10 divide-y divide-border border-y border-border">
+            {updates.map((u, i) => (
+              <Reveal key={u.title} delay={i * 30}>
+                <li className="py-7 md:py-8 grid gap-3 md:grid-cols-[190px_1fr] md:gap-12 items-baseline">
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">
+                    {u.date}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-xl md:text-2xl tracking-tight text-ink">
+                      {u.title}
+                    </h3>
+                    <p className="mt-2 text-[15px] text-ink-dim leading-relaxed max-w-2xl">
+                      {u.body}
+                    </p>
+                    {u.href && (
+                      <a
+                        href={u.href}
+                        {...(u.external
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                        className="mt-3 inline-block text-sm text-ink hover:text-accent transition-colors underline underline-offset-[6px] decoration-accent/50"
+                      >
+                        {u.external ? "Read the story →" : "See more →"}
+                      </a>
+                    )}
+                  </div>
+                </li>
+              </Reveal>
+            ))}
+          </ol>
+        </Container>
+      </section>
 
       {/* NOMINATE */}
       <section className="py-14 md:py-20 border-t border-border" data-rail-section="Nominate">

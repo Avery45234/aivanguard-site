@@ -2,13 +2,28 @@ export const site = {
   name: "AI Vanguard",
   tagline: "Student voice on AI in education",
   description:
-    "AI Vanguard is a student-led nonprofit shaping how AI is used in education through research, advocacy, and collaboration with schools across Southern California.",
+    "AI Vanguard is a student-led nonprofit shaping how AI is used in education through research, advocacy, and a network of student representatives and state directors across six states.",
   applyUrl: "https://docs.google.com/forms/d/1E1pd88uwjVkYcleIY26gL4_LdkUd2fVZuawffTH-QPU/viewform",
   email: "info@aivanguard.org",
   social: {
     instagram: "https://www.instagram.com/aivanguardorg/",
     linkedin: "https://www.linkedin.com/company/ai-vanguard-org/",
   },
+};
+
+// Organizational footprint. Every reach figure on the site should read
+// from here so the numbers can't drift between pages.
+export const reach = {
+  founded: "Southern California",
+  states: ["California", "Minnesota", "Tennessee", "Connecticut", "New Jersey", "Michigan"],
+  statesWord: "six",
+  // Reported as "approximately 10" in September 2026.
+  districts: 10,
+  // Avery's estimate, Sept 2026: the 8 rep-roster campuses plus one school
+  // per State Director (6). Assumes every director attends a school outside
+  // those 8; Riley Puder is in ABC Unified, which already holds three of
+  // them, so this is 13 if Riley is at Cerritos, Gahr, or Whitney.
+  schools: 14,
 };
 
 export const nav = [
@@ -24,8 +39,8 @@ export const nav = [
 
 export const metrics = [
   { value: "18,000+", label: "Students represented", hint: "Across partner campuses" },
-  { value: "8", label: "Schools", hint: "Active rep presence" },
-  { value: "5", label: "Districts", hint: "Southern California" },
+  { value: `${reach.schools}`, label: "Schools", hint: "Reps and state directors" },
+  { value: `${reach.districts}`, label: "Districts", hint: `Across ${reach.statesWord} states` },
   { value: "20+", label: "Student leaders", hint: "Cabinet & reps" },
 ];
 
@@ -166,7 +181,7 @@ export const milestones = [
   {
     year: "2026",
     title: "Going national",
-    body: "Leadership applications open across the country — State Directors and Chapter Directors bringing AI Vanguard to new states and schools.",
+    body: "State Directors take AI Vanguard to six states, and national leadership applications open for the next cohort of State and Chapter Directors.",
     current: true,
   },
 ];

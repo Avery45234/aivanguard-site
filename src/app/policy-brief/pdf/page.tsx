@@ -126,7 +126,7 @@ export default function PolicyBriefDocumentPage() {
           </p>
           <p>
             AI Vanguard exists to change that. We organize students across
-            Southern California into a serious policy voice — with research,
+            six states into a serious policy voice — with research,
             with recommendations, and with standing relationships to the
             schools and districts we work with. This brief is our summary of
             what students are telling us a good AI policy looks like, and an

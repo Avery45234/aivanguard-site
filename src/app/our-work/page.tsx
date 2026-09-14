@@ -121,26 +121,31 @@ export default function OurWorkPage() {
                   <span className="serif-italic">right now.</span>
                 </>
               }
-              blurb="Concrete projects the cabinet and rep network are driving this cycle."
+              blurb="Concrete projects the cabinet and rep network are driving this cycle, described at the stage they are actually at."
             />
           </Reveal>
 
           <ul className="mt-14 divide-y divide-border border-y border-border">
             {[
               {
-                tag: "Research",
-                title: "AI-in-classroom survey",
-                body: "A multi-campus survey on how students actually use AI at school, what they worry about, and where teacher policies diverge from student reality.",
+                tag: "Advocacy",
+                title: "District policy work",
+                body: "Two live proposals with district leaders in Los Angeles County. The Student AI Pulse is a small, voluntary, LACOE-supported pilot that would measure how students actually experience AI at school; it has been circulated to superintendents across the county and is being refined with the districts that responded. Alongside it, a proposal for a standing student AI leadership body in ABC Unified, built around mentorship and year-to-year continuity, is in review with district administrators.",
               },
               {
-                tag: "Advocacy",
-                title: "School-policy briefs",
-                body: "Short, district-ready documents translating our research into specific, implementable policy recommendations.",
+                tag: "Research",
+                title: "AI governance research",
+                body: "An early-stage study of how districts govern AI after adoption: how changes to already-approved AI tools and vendor terms get tracked, and whether students hold any formal role in generative-AI policy development. We are working from conversations with district technology and privacy leads, and from public-records requests to districts outside California.",
+              },
+              {
+                tag: "Partnership",
+                title: "Project Tomorrow collaboration (in development)",
+                body: "Project Tomorrow runs Speak Up, one of the longest-running national surveys of students on education and technology. Together with the Youth Civics Think Tank, we are in active conversation with their research team about adding a student-led qualitative dimension to the survey instruments: the why behind students' answers. A proposal is with their leadership, and the next step under discussion is a student focus group on the survey questions.",
               },
               {
                 tag: "Community",
-                title: "Regional rep network",
-                body: "Expanding the student-representative cohort to more schools across Southern California, with structured onboarding and shared resources.",
+                title: "National rep network",
+                body: "Expanding the student-representative cohort to more schools and more states, with State Directors now in six states and structured onboarding and shared resources for every new rep.",
               },
             ].map((x) => (
               <li
@@ -196,8 +201,8 @@ export default function OurWorkPage() {
 
 function pillarFocus(slug: string): string {
   if (slug === "research")
-    return "a multi-campus survey on student AI use and perception, being compiled for district-level briefs.";
+    return "an early-stage study of how districts govern AI after adoption, alongside a proposed district pilot measuring how students experience AI at school.";
   if (slug === "advocacy")
-    return "meeting with school and district leaders across Southern California, and contributing to local policy events.";
+    return "bringing student-authored proposals to district leaders in Los Angeles County, and building the State Director network nationally.";
   return "onboarding a new cohort of student representatives and connecting them into a working network.";
 }

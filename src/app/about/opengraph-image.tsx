@@ -10,6 +10,6 @@ export default function OG() {
     eyebrow: "About",
     title: "Run by students —",
     titleItalic: "not for them.",
-    footerRight: "501(c)(3) · Southern California",
+    footerRight: "501(c)(3) · Six states",
   });
 }

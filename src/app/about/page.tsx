@@ -5,7 +5,17 @@ import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
-import { objectives, leadership, representatives, site } from "@/lib/site";
+import { objectives, leadership, reach, representatives, site } from "@/lib/site";
+
+// Spell out small counts so the headlines read as prose ("Fourteen reps,
+// eight campuses") while still being derived from the data below them.
+const words = [
+  "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
+  "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+  "sixteen", "seventeen", "eighteen", "nineteen", "twenty",
+];
+const spell = (n: number) => words[n] ?? String(n);
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export const metadata: Metadata = {
   title: "About",
@@ -14,6 +24,7 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const campuses = new Set(representatives.map((r) => r.school)).size;
   return (
     <>
       <PageHeader
@@ -29,8 +40,8 @@ export default function AboutPage() {
         blurb="AI is moving faster than schools can keep up with, and the people most affected — students — are almost never in the room when policy gets written. AI Vanguard exists to change that."
         meta={
           <div className="flex flex-col gap-2 text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-            <span>Est. 2024 · Southern California</span>
-            <span>501(c)(3) nonprofit · Student-led</span>
+            <span>Est. 2024 · Founded in {reach.founded}</span>
+            <span>501(c)(3) nonprofit · Student-led · {cap(reach.statesWord)} states</span>
           </div>
         }
       />
@@ -205,8 +216,8 @@ export default function AboutPage() {
                 eyebrow="Leadership cabinet"
                 title={
                   <>
-                    Fifteen student leaders,{" "}
-                    <span className="serif-italic">six states.</span>
+                    {cap(spell(leadership.length))} student leaders,{" "}
+                    <span className="serif-italic">{reach.statesWord} states.</span>
                   </>
                 }
                 blurb="A cabinet of students from California to Connecticut — steering research, operations, outreach, and national expansion."
@@ -244,14 +255,14 @@ export default function AboutPage() {
                 eyebrow="Student representatives"
                 title={
                   <>
-                    Fourteen reps,{" "}
-                    <span className="serif-italic">nine campuses.</span>
+                    {cap(spell(representatives.length))} reps,{" "}
+                    <span className="serif-italic">{spell(campuses)} campuses.</span>
                   </>
                 }
                 blurb="Each representative is the bridge between their school and AI Vanguard — running campus conversations, gathering student perspectives, and shaping the policy we bring to districts."
               />
               <div className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-                Roster · 2025 – 2026
+                Roster · 2026 – 2027
               </div>
             </div>
           </Reveal>

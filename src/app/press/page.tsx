@@ -97,9 +97,9 @@ export default function PressPage() {
             {[
               { label: "Founded", value: "2024" },
               { label: "Legal status", value: "501(c)(3) nonprofit" },
-              { label: "Based", value: "Southern California" },
-              { label: "Leadership", value: "9-person student cabinet" },
-              { label: "Representatives", value: "14 reps · 9 campuses" },
+              { label: "Based", value: "Southern California · six states" },
+              { label: "Leadership", value: "15-person student cabinet" },
+              { label: "Representatives", value: "14 reps · 8 campuses" },
               { label: "Students surveyed (2025)", value: `${survey2025.meta.totalResponses}` },
               { label: "Teachers surveyed (2026 pilot)", value: `${teacherSurvey2026.meta.totalResponses}` },
               { label: "Reach", value: "18,000+ students" },
@@ -261,15 +261,15 @@ export default function PressPage() {
 const boilerplate = [
   {
     label: "1 sentence",
-    text: "AI Vanguard is a student-led 501(c)(3) nonprofit organizing students across Southern California around how AI is used in their classrooms.",
+    text: "AI Vanguard is a student-led 501(c)(3) nonprofit organizing students across six states around how AI is used in their classrooms.",
   },
   {
     label: "3 sentences",
-    text: "AI Vanguard is a student-led 501(c)(3) nonprofit founded in 2024 to ensure students have a voice in how AI enters K–12 education. The organization runs research, advocacy, and community-building through a network of student representatives at partner campuses across Southern California. In its first research cycle it surveyed 447 students across six schools; in 2026 it launched a companion teacher survey and qualitative field studies on AI-generated work.",
+    text: "AI Vanguard is a student-led 501(c)(3) nonprofit founded in 2024 to ensure students have a voice in how AI enters K–12 education. The organization runs research, advocacy, and community-building through a network of student representatives at partner campuses and State Directors in six states. In its first research cycle it surveyed 447 students across six schools; in 2026 it launched a companion teacher survey and qualitative field studies on AI-generated work.",
   },
   {
     label: "5 sentences",
-    text: "AI Vanguard is a youth-led 501(c)(3) nonprofit founded in 2024 to give students a direct voice in how AI is used in their classrooms. Its leadership cabinet of fifteen students steers research, policy advocacy, and community building across Southern California schools, with state directors extending the model to Minnesota, Tennessee, Connecticut, New Jersey, and Michigan. Fourteen student representatives across nine campuses run ground-level research — the 2025 policy survey gathered 447 responses showing that 74% of students want schools to teach responsible AI use rather than ban it, and 35% explicitly asked to be involved in shaping school AI policy. A 2026 companion survey of 10 educators found that 80% feel pressure to integrate AI and 80% suspect frequent unauthorized use, but detection confidence averages just 3.3 out of 5 — findings that converge with the students' call for guidance over prohibition. The organization's policy brief translates these findings into six concrete asks for schools and districts.",
+    text: "AI Vanguard is a youth-led 501(c)(3) nonprofit founded in 2024 to give students a direct voice in how AI is used in their classrooms. Its leadership cabinet of fifteen students steers research, policy advocacy, and community building from its Southern California base, with State Directors in California, Minnesota, Tennessee, Connecticut, New Jersey, and Michigan. Fourteen student representatives across eight campuses run ground-level research — the 2025 policy survey gathered 447 responses showing that 74% of students want schools to teach responsible AI use rather than ban it, and 35% explicitly asked to be involved in shaping school AI policy. A 2026 companion survey of 10 educators found that 80% feel pressure to integrate AI and 80% suspect frequent unauthorized use, but detection confidence averages just 3.3 out of 5 — findings that converge with the students' call for guidance over prohibition. The organization's policy brief translates these findings into six concrete asks for schools and districts.",
   },
 ];
 

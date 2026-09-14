@@ -24,7 +24,7 @@ export default function OG() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
           <div style={{ fontSize: 26, letterSpacing: -0.5 }}>AI Vanguard</div>
           <div style={{ fontSize: 14, letterSpacing: 3, textTransform: "uppercase", color: "#9c9a94" }}>
-            Est. 2024 · Southern California
+            Est. 2024 · Active in six states
           </div>
         </div>
 

@@ -340,7 +340,7 @@ export default function HomePage() {
                       <span className="serif-italic">Real reach.</span>
                     </>
                   }
-                  blurb="Still early — and already in rooms across Southern California. The numbers reflect where we are today, not where we&apos;re stopping."
+                  blurb="Still early — and already in rooms across six states. The numbers reflect where we are today, not where we&apos;re stopping."
                 />
                 <div className="mt-10">
                   <Button href="/impact" variant="secondary" size="lg">

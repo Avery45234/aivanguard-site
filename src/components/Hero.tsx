@@ -4,7 +4,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Container } from "./Container";
 import { Button } from "./Button";
 import { Monogram } from "./Monogram";
-import { site } from "@/lib/site";
+import { reach, site } from "@/lib/site";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -88,7 +88,7 @@ export function Hero() {
             >
               A student-led nonprofit organizing the people most affected by AI
               in the classroom &mdash; with research, advocacy, and a network of
-              representatives across Southern California schools.
+              representatives and state directors across six states.
             </motion.p>
 
             <motion.div
@@ -154,8 +154,8 @@ export function Hero() {
           {[
             { k: "Est.", v: "2024" },
             { k: "Reach", v: "18,000+ students" },
-            { k: "Schools", v: "8 campuses" },
-            { k: "Districts", v: "5 in SoCal" },
+            { k: "Schools", v: `${reach.schools} campuses` },
+            { k: "Districts", v: `${reach.districts} · ${reach.statesWord} states` },
           ].map((x) => (
             <motion.div
               key={x.k}

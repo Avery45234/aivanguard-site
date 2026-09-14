@@ -13,8 +13,8 @@ export function Footer() {
             </div>
             <p className="mt-4 max-w-sm text-sm text-ink-dim leading-relaxed">
               A student-led nonprofit shaping how AI is used in education
-              through research, advocacy, and collaboration with schools across
-              Southern California.
+              through research, advocacy, and a network of student
+              representatives and state directors across six states.
             </p>
             <div className="mt-6 flex items-center gap-3">
               <SocialLink href={site.social.instagram} label="Instagram">Instagram</SocialLink>
@@ -69,7 +69,8 @@ export function Footer() {
                 {site.email}
               </a>
             </li>
-            <li className="text-sm text-ink-muted">Southern California</li>
+            <li className="text-sm text-ink-muted">Founded in Southern California</li>
+            <li className="text-sm text-ink-muted">Active in six states</li>
           </FooterCol>
         </div>
 

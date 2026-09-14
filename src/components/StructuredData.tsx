@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { reach, site } from "@/lib/site";
 
 /**
  * JSON-LD structured data for the whole site. Rendered once in the root
@@ -45,14 +45,8 @@ export function StructuredData() {
       addressCountry: "US",
     },
     areaServed: [
-      {
-        "@type": "Place",
-        name: "Southern California",
-      },
-      {
-        "@type": "AdministrativeArea",
-        name: "California",
-      },
+      { "@type": "Country", name: "United States" },
+      ...reach.states.map((name) => ({ "@type": "AdministrativeArea", name })),
     ],
     email: site.email,
     sameAs: [site.social.instagram, site.social.linkedin],
@@ -66,7 +60,7 @@ export function StructuredData() {
       "AI literacy",
     ],
     keywords:
-      "AI in education, student voice, AI policy, K-12 nonprofit, youth-led, Southern California schools",
+      "AI in education, student voice, AI policy, K-12 nonprofit, youth-led, student representatives, state directors",
     audience: {
       "@type": "EducationalAudience",
       educationalRole: "student",

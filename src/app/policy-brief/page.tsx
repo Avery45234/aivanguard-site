@@ -89,10 +89,10 @@ export default function PolicyBriefPage() {
                 <div className="mt-8 space-y-5 text-[16px] md:text-[17px] leading-[1.7] text-ink-dim">
                   <p>
                     AI Vanguard exists to change that. We are a student-led
-                    501(c)(3) nonprofit working across Southern California
-                    campuses to ensure that school, district, and policy
-                    conversations about AI include the people whose learning
-                    they define.
+                    501(c)(3) nonprofit, founded in Southern California and
+                    now organizing students in six states, working to ensure
+                    that school, district, and policy conversations about AI
+                    include the people whose learning they define.
                   </p>
                   <p>
                     This brief summarizes what we are hearing. Our 2025 policy
