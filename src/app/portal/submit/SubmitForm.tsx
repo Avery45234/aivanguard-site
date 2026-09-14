@@ -78,6 +78,7 @@ export function SubmitForm() {
   const [agreedConsent, setAgreedConsent] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
@@ -150,6 +151,13 @@ export function SubmitForm() {
     // Snapshot the entry at the moment of success only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.succeeded]);
+
+  // A rejected submit must never look like "nothing happened": bring the
+  // failure callout into view the moment Formspree or validation reports one.
+  useEffect(() => {
+    if (!state.errors && !formError) return;
+    errorRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [state.errors, formError]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     if (pdfFriendly && !file && !workUrl.trim()) {
@@ -612,13 +620,37 @@ export function SubmitForm() {
         </Declaration>
       </fieldset>
 
-      {formError && (
-        <p className="text-[14px] text-accent leading-relaxed">{formError}</p>
+      {(formError || state.errors) && (
+        <div
+          ref={errorRef}
+          role="alert"
+          className="rounded-xl border border-accent bg-accent/5 px-5 py-4"
+        >
+          <div className="text-[11px] uppercase tracking-[0.22em] text-accent">
+            Your entry did not send
+          </div>
+          {formError && (
+            <p className="mt-2 text-[15px] text-ink leading-relaxed">{formError}</p>
+          )}
+          <ValidationError
+            errors={state.errors}
+            className="mt-2 block text-[15px] text-ink leading-relaxed"
+          />
+          {state.errors && (
+            <p className="mt-3 text-[13px] text-ink-dim leading-relaxed">
+              Nothing was submitted. Fix the issue above and press submit
+              again. If it keeps failing,{" "}
+              <Link
+                href="/portal/help"
+                className="text-accent underline underline-offset-4"
+              >
+                tell us what happened
+              </Link>{" "}
+              and we will take your entry directly.
+            </p>
+          )}
+        </div>
       )}
-      <ValidationError
-        errors={state.errors}
-        className="block text-[14px] text-accent"
-      />
 
       <div className="flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-border">
         <p className="text-xs text-ink-muted max-w-xs">

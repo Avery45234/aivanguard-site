@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { Button } from "@/components/Button";
 import { cn } from "@/lib/cn";
@@ -40,6 +40,13 @@ export function RegisterForm() {
   const [agreedRules, setAgreedRules] = useState(false);
   const [agreedOriginal, setAgreedOriginal] = useState(false);
   const [agreedOneEntry, setAgreedOneEntry] = useState(false);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  // Surface a rejected registration instead of leaving the entrant guessing.
+  useEffect(() => {
+    if (!state.errors && !formWarn) return;
+    errorRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [state.errors, formWarn]);
 
   const isTeam = entryType !== entryTypes[0];
   const isUnder18 = division === divisions[0];
@@ -107,7 +114,9 @@ export function RegisterForm() {
           </p>
           <p>
             You can sign back in to your dashboard on this device anytime with
-            your email and password.
+            your email and password. Switching to another device? Register
+            there again with the same email. It will not count as a second
+            entry.
           </p>
         </div>
         <div className="mt-8">
@@ -359,15 +368,38 @@ export function RegisterForm() {
           This is my only entry — I understand that one entry per person or
           team is permitted, and that no person may appear on multiple teams.
         </Declaration>
+        <p className="text-[13px] text-ink-muted leading-relaxed max-w-xl">
+          Already registered on another device? Registering again here with
+          the same email is fine and does not count as a second entry. Your
+          dashboard lives on the device you register from, and we match
+          entries by email.
+        </p>
       </fieldset>
 
-      {formWarn && (
-        <p className="text-[14px] text-accent leading-relaxed">{formWarn}</p>
+      {(formWarn || state.errors) && (
+        <div
+          ref={errorRef}
+          role="alert"
+          className="rounded-xl border border-accent bg-accent/5 px-5 py-4"
+        >
+          <div className="text-[11px] uppercase tracking-[0.22em] text-accent">
+            Your registration did not send
+          </div>
+          {formWarn && (
+            <p className="mt-2 text-[15px] text-ink leading-relaxed">{formWarn}</p>
+          )}
+          <ValidationError
+            errors={state.errors}
+            className="mt-2 block text-[15px] text-ink leading-relaxed"
+          />
+          {state.errors && (
+            <p className="mt-3 text-[13px] text-ink-dim leading-relaxed">
+              Nothing was submitted. Fix the issue above and try again, or
+              email {"info@aivanguard.org"} and we will register you by hand.
+            </p>
+          )}
+        </div>
       )}
-      <ValidationError
-        errors={state.errors}
-        className="block text-[14px] text-accent"
-      />
 
       <div className="flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-border">
         <p className="text-xs text-ink-muted max-w-xs">

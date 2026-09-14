@@ -1022,8 +1022,11 @@ function AuthGate() {
                     >
                       sign up first
                     </button>
-                    . Registered on a different device? Your dashboard stays on
-                    the device where you registered until full accounts launch.
+                    . Registered on a different device? Your dashboard lives
+                    only on the device you registered from, so register again
+                    here with the same email. That does not count as a second
+                    entry: we match entries by email and judge only your newest
+                    submission.
                   </div>
                 )}
                 {error === "wrong-password" && (
