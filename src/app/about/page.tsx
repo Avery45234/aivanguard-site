@@ -91,6 +91,14 @@ export default function AboutPage() {
                     recommendations, and with real relationships across schools
                     and districts.
                   </p>
+                  <p>
+                    In practice, right now, that means a preregistered study of
+                    whether student voice has ever changed AI policy in the
+                    largest U.S. districts, a proposal for a standing student AI
+                    body in our home district, and a conversation with Project
+                    Tomorrow about strengthening the student side of Speak Up,
+                    its national research program.
+                  </p>
                   <p className="text-ink font-display italic text-2xl md:text-3xl leading-snug pt-4 border-t border-border">
                     Technology should empower every learner, not leave anyone
                     behind.
@@ -220,7 +228,7 @@ export default function AboutPage() {
                     <span className="serif-italic">{reach.statesWord} states.</span>
                   </>
                 }
-                blurb="A cabinet of students from California to Connecticut — steering research, operations, outreach, and national expansion."
+                blurb="A cabinet of students from California to Connecticut, steering research, governance work, outreach, and national expansion. Several of our State Directors first met as student senators at America's Youth AI Festival in Boston, where 98 students from all fifty states wrote the Students First Act."
               />
               <div className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">
                 Cohort · 2024 – present

@@ -86,9 +86,9 @@ export function Hero() {
               variants={rise}
               className="mt-8 max-w-xl text-[17px] md:text-[19px] leading-[1.55] text-ink-dim"
             >
-              A student-led nonprofit organizing the people most affected by AI
-              in the classroom &mdash; with research, advocacy, and a network of
-              representatives and state directors across six states.
+              A student-led nonprofit advancing student participation in AI
+              education policy &mdash; through research, district
+              collaboration, and a national network of student leaders.
             </motion.p>
 
             <motion.div
@@ -153,9 +153,9 @@ export function Hero() {
         >
           {[
             { k: "Est.", v: "2024" },
-            { k: "Reach", v: "18,000+ students" },
-            { k: "Schools", v: `${reach.schools} campuses` },
-            { k: "Districts", v: `${reach.districts} · ${reach.statesWord} states` },
+            { k: "Surveyed", v: "447 students" },
+            { k: "Campuses", v: "8 with reps" },
+            { k: "States", v: `${reach.states.length} with leadership` },
           ].map((x) => (
             <motion.div
               key={x.k}

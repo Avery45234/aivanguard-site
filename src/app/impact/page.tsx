@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
@@ -6,14 +7,145 @@ import { StatTile } from "@/components/StatTile";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
-import { metrics, milestones, schools, site } from "@/lib/site";
-import { survey2025, teacherSurvey2026, perceptionStudy } from "@/lib/research";
+import {
+  leadership,
+  milestones,
+  reach,
+  representatives,
+  schools,
+  site,
+} from "@/lib/site";
+import { press } from "@/lib/highlights";
+import { survey2025, teacherSurvey2026 } from "@/lib/research";
+import { study } from "@/lib/study";
 
 export const metadata: Metadata = {
   title: "Impact",
   description:
-    "AI Vanguard's reach so far — students represented, schools engaged, districts seen, and the milestones on the way.",
+    "AI Vanguard's impact in four parts: research, policy, reach, and public engagement. Specific, sourced numbers, updated September 2026.",
 };
+
+// Impact in four kinds, not one pile of numbers. Every figure here is
+// either on this site's research pages or backed by district
+// correspondence; if a number can't be sourced, it doesn't go here.
+const categories = [
+  {
+    n: "01",
+    title: "Research",
+    blurb: "Primary evidence, gathered and now analyzed by students.",
+    href: "/research",
+    cta: "All the research",
+    items: [
+      {
+        value: `${survey2025.meta.totalResponses}`,
+        label: "Student responses",
+        hint: "2025 AI policy survey",
+      },
+      {
+        value: `${survey2025.meta.schoolCount}`,
+        label: "Schools in the first survey",
+        hint: "Southern California, fall 2025",
+      },
+      {
+        value: `${teacherSurvey2026.meta.totalResponses}`,
+        label: "Educators in the 2026 pilot",
+        hint: "Companion teacher survey",
+      },
+      {
+        value: `${study.sample.count}`,
+        label: "Districts in the current study",
+        hint: `Preregistered · records requests to ${study.records.count}`,
+      },
+    ],
+  },
+  {
+    n: "02",
+    title: "Policy",
+    blurb: "Evidence carried into rooms where AI decisions get made.",
+    href: "/our-work#abcusd",
+    cta: "The district work",
+    items: [
+      {
+        value: "3",
+        label: "District AI roundtables addressed",
+        hint: "ABC Unified · as of June 2026",
+      },
+      {
+        value: "2",
+        label: "Proposals with district leaders",
+        hint: "Student AI body · Student AI Pulse",
+      },
+      {
+        value: "12+",
+        label: "L.A. County districts briefed",
+        hint: "Student AI Pulse pilot, Aug 2026",
+      },
+      {
+        value: "6",
+        label: "Asks in the policy brief",
+        hint: "For schools and districts, 2026",
+      },
+    ],
+  },
+  {
+    n: "03",
+    title: "Reach",
+    blurb: "A network built to outlast any one student.",
+    href: "/about",
+    cta: "Meet the network",
+    items: [
+      {
+        value: `${new Set(representatives.map((r) => r.school)).size}`,
+        label: "Campuses with representatives",
+        hint: "Southern California",
+      },
+      {
+        value: `${representatives.length}`,
+        label: "Student representatives",
+        hint: "2026–27 roster",
+      },
+      {
+        value: `${reach.states.length}`,
+        label: "States with student leadership",
+        hint: reach.states.map((s) => s.slice(0, 2).toUpperCase()).join(" · "),
+      },
+      {
+        value: `${leadership.length}`,
+        label: "Leadership cabinet",
+        hint: "Students, coast to coast",
+      },
+    ],
+  },
+  {
+    n: "04",
+    title: "Public engagement",
+    blurb: "Students speaking for themselves, in public.",
+    href: "/highlights",
+    cta: "News and highlights",
+    items: [
+      {
+        value: "400+",
+        label: "Educators addressed",
+        hint: "ABC IGNITE Ed Tech Symposium",
+      },
+      {
+        value: "4",
+        label: "Student senators",
+        hint: "America's Youth AI Festival, July 2026",
+      },
+      {
+        value: `${press.length}`,
+        label: "News stories in 2026",
+        hint: "NPR, MPR News, WDIV, El Estoque, more",
+      },
+      {
+        value: "1",
+        label: "National collaboration in development",
+        hint: "Project Tomorrow · Speak Up",
+      },
+    ],
+  },
+];
 
 export default function ImpactPage() {
   return (
@@ -26,49 +158,79 @@ export default function ImpactPage() {
             <span className="serif-italic">has already reached.</span>
           </>
         }
-        blurb="A snapshot of AI Vanguard today — the campuses we're on, the districts we're engaging, and the milestones we've hit on the way."
+        blurb="AI Vanguard's impact in four parts: the research we've produced, the policy rooms we've entered, the network we've built, and the public conversations students have led."
         meta={
           <p className="max-w-sm text-[11px] uppercase tracking-[0.2em] text-ink-muted leading-relaxed">
-            Last updated · April 2026 <br />
+            Last updated · September 2026 <br />
             We only publish numbers we can stand behind.
           </p>
         }
       />
 
-      {/* METRICS */}
-      <section className="py-12 md:py-16" data-rail-section="Numbers">
-        <Container size="wide">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 md:gap-x-12">
-            {metrics.map((m) => (
-              <Reveal key={m.label}>
-                <StatTile value={m.value} label={m.label} hint={m.hint} />
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
+      {/* FOUR KINDS OF IMPACT */}
+      {categories.map((c, idx) => (
+        <section
+          key={c.title}
+          id={c.title.toLowerCase().replace(/\s+/g, "-")}
+          className={`py-14 md:py-20 scroll-mt-28 ${
+            idx > 0 ? "border-t border-border" : ""
+          } ${idx % 2 === 1 ? "surface-panel" : ""}`}
+          data-rail-section={c.title}
+        >
+          <Container size="wide">
+            <div className="grid gap-12 md:grid-cols-12 md:gap-16 items-start">
+              <div className="md:col-span-4 md:sticky md:top-28">
+                <Reveal>
+                  <div className="flex items-baseline gap-4">
+                    <span className="fig text-2xl text-accent">{c.n}</span>
+                    <div className="h-px flex-1 bg-border" />
+                  </div>
+                  <h2 className="mt-6 font-display text-4xl md:text-[52px] leading-[1.04] tracking-tight text-ink">
+                    {c.title}
+                  </h2>
+                  <p className="mt-4 font-display italic text-xl md:text-2xl text-ink-dim leading-snug">
+                    {c.blurb}
+                  </p>
+                  <Link
+                    href={c.href}
+                    className="mt-8 inline-block text-sm text-ink hover:text-accent transition-colors underline underline-offset-[6px] decoration-accent/50"
+                  >
+                    {c.cta} →
+                  </Link>
+                </Reveal>
+              </div>
+              <div className="md:col-span-8">
+                <div className="grid grid-cols-2 gap-x-8 md:gap-x-12 gap-y-6">
+                  {c.items.map((m, i) => (
+                    <Reveal key={m.label} delay={i * 60}>
+                      <StatTile value={m.value} label={m.label} hint={m.hint} />
+                    </Reveal>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
+      ))}
 
-      {/* SCHOOLS — editorial index */}
+      {/* CAMPUSES — the evidence behind the "8" */}
       <section
         className="py-14 md:py-20 border-t border-border"
-        data-rail-section="Schools"
+        data-rail-section="Campuses"
       >
         <Container size="wide">
           <Reveal>
             <SectionHeading
-              eyebrow="Schools represented"
+              eyebrow="Campuses with representatives"
               title={
                 <>
                   Active on {schools.length} campuses{" "}
-                  <span className="serif-italic">
-                    across Southern California.
-                  </span>
+                  <span className="serif-italic">across Southern California.</span>
                 </>
               }
-              blurb="Our representatives run research and policy conversations at the schools below — with more campuses onboarding each cycle."
+              blurb="Our representatives run research and policy conversations at the schools below. State Directors extend the model to five more states."
             />
           </Reveal>
-
           <Reveal>
             <ul className="mt-14 divide-y divide-border border-y border-border">
               {schools.map((s, i) => (
@@ -92,273 +254,9 @@ export default function ImpactPage() {
         </Container>
       </section>
 
-      {/* RESEARCH FINDINGS — 2025 policy survey */}
+      {/* MILESTONES */}
       <section
         className="py-14 md:py-20 border-t border-border surface-panel"
-        data-rail-section="Research"
-      >
-        <Container size="wide">
-          <Reveal>
-            <div className="flex items-end justify-between gap-8 flex-wrap">
-              <SectionHeading
-                eyebrow="Research · 2025 policy survey"
-                title={
-                  <>
-                    {survey2025.meta.totalResponses} students.{" "}
-                    {survey2025.meta.schoolCount} schools.{" "}
-                    <span className="serif-italic">One clear message.</span>
-                  </>
-                }
-                blurb="Our first student-voice research cycle. Run through campus reps at partner schools — the raw data behind the policy conversations we bring to districts."
-              />
-              <div className="text-[11px] uppercase tracking-[0.2em] text-ink-muted leading-relaxed text-right">
-                <div>{survey2025.meta.cycle}</div>
-                <div className="mt-1">{survey2025.meta.window}</div>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Headline stat grid */}
-          <div className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-x-8 md:gap-x-12 gap-y-10">
-            {survey2025.headline.map((s, i) => (
-              <Reveal key={s.label} delay={i * 60}>
-                <StatTile value={s.value} label={s.label} hint={s.hint} />
-              </Reveal>
-            ))}
-          </div>
-
-          {/* What students want schools to do — horizontal bar list */}
-          <Reveal>
-            <div className="mt-20 md:mt-28 grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16 items-start">
-              <div>
-                <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted mb-4">
-                  What students want schools to do
-                </div>
-                <h3 className="font-display text-2xl md:text-[34px] leading-[1.08] tracking-tight text-ink">
-                  The dominant preference isn&apos;t a ban.{" "}
-                  <span className="serif-italic text-ink-dim">
-                    It&apos;s guidance.
-                  </span>
-                </h3>
-                <p className="mt-5 text-[15.5px] text-ink-dim leading-relaxed max-w-md">
-                  Only 4% of students called AI use outright cheating. 74% asked
-                  schools to teach responsible use, and 35% explicitly asked to
-                  be involved in shaping the policies themselves — the core
-                  justification for our representative model.
-                </p>
-              </div>
-
-              <ol className="divide-y divide-border border-y border-border">
-                {survey2025.policyPreferences.map((p, i) => (
-                  <li
-                    key={p.label}
-                    className="py-5 md:py-6 grid grid-cols-[auto_1fr_auto] gap-5 md:gap-8 items-center"
-                  >
-                    <span className="fig text-xs md:text-sm text-ink-muted w-7">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <div className="font-display text-[17px] md:text-xl tracking-tight text-ink">
-                        {p.label}
-                      </div>
-                      <div className="mt-2 h-[3px] w-full bg-border/50 overflow-hidden">
-                        <div
-                          className="h-full bg-accent"
-                          style={{ width: `${p.pct}%` }}
-                        />
-                      </div>
-                    </div>
-                    <span className="fig text-sm md:text-base text-accent tabular-nums">
-                      {p.pct}%
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </Reveal>
-
-          {/* Methodology note */}
-          <Reveal>
-            <div className="mt-20 pt-8 border-t border-border grid gap-4 md:grid-cols-[auto_1fr] md:gap-12 text-[12.5px] text-ink-muted leading-relaxed">
-              <div className="uppercase tracking-[0.22em] text-[11px]">
-                Methodology
-              </div>
-              <p className="max-w-3xl">
-                {survey2025.meta.totalResponses} responses collected via Google
-                Form,{" "}
-                {survey2025.schoolDistribution
-                  .filter((s) => s.n > 1)
-                  .map((s) => `${s.school} (${s.pct}%)`)
-                  .join(", ")}{" "}
-                representing the bulk of responses. Multi-select questions total
-                more than 100%. Raw data retained by AI Vanguard; percentages
-                above are computed from every submitted response, not a sample.
-              </p>
-            </div>
-          </Reveal>
-        </Container>
-      </section>
-
-      {/* TEACHER SURVEY — the other side of the desk */}
-      <section
-        className="py-14 md:py-20 border-t border-border"
-        data-rail-section="Teachers"
-      >
-        <Container size="wide">
-          <Reveal>
-            <div className="flex items-end justify-between gap-8 flex-wrap">
-              <SectionHeading
-                eyebrow="Research · Teacher pilot"
-                title={
-                  <>
-                    The other side{" "}
-                    <span className="serif-italic">of the desk.</span>
-                  </>
-                }
-                blurb={`A companion pilot survey of ${teacherSurvey2026.meta.totalResponses} educators in January 2026. Small sample by design — a read on where teachers sit before we broaden distribution. The findings hang together with the 447-student data.`}
-              />
-              <div className="text-[11px] uppercase tracking-[0.2em] text-ink-muted leading-relaxed text-right">
-                <div>{teacherSurvey2026.meta.cycle}</div>
-                <div className="mt-1">{teacherSurvey2026.meta.window}</div>
-              </div>
-            </div>
-          </Reveal>
-
-          <div className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-x-8 md:gap-x-12 gap-y-10">
-            {teacherSurvey2026.headline.map((s, i) => (
-              <Reveal key={s.label} delay={i * 60}>
-                <StatTile value={s.value} label={s.label} hint={s.hint} />
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal>
-            <div className="mt-20 grid gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16 items-start">
-              <div>
-                <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted mb-4">
-                  The gap this exposes
-                </div>
-                <h3 className="font-display text-2xl md:text-[34px] leading-[1.08] tracking-tight text-ink">
-                  Pressure to adopt.{" "}
-                  <span className="serif-italic text-ink-dim">
-                    Confident detection. Wrong answers.
-                  </span>
-                </h3>
-                <p className="mt-5 text-[15.5px] text-ink-dim leading-relaxed max-w-md">
-                  The survey asked teachers to classify three unlabeled
-                  paragraphs as student-written, AI-assisted, or AI-generated.
-                  Teachers averaged 30% accuracy — below the 33% you&apos;d
-                  expect from guessing. Most striking: every single teacher
-                  misidentified the paragraph that was actually written by a
-                  student, calling it AI or AI-assisted.
-                </p>
-              </div>
-
-              <div className="border-y border-border divide-y divide-border">
-                {teacherSurvey2026.detectionQuiz.perParagraph.map((p) => (
-                  <div
-                    key={p.id}
-                    className="py-5 md:py-6 grid grid-cols-[auto_1fr_auto] gap-5 md:gap-8 items-center"
-                  >
-                    <span className="fig text-sm md:text-base text-ink-muted w-7">
-                      {p.id}
-                    </span>
-                    <div>
-                      <div className="font-display text-[17px] md:text-xl tracking-tight text-ink">
-                        Actually: {p.truth}
-                      </div>
-                      <div className="mt-2 h-[3px] w-full bg-border/50 overflow-hidden">
-                        <div
-                          className="h-full bg-accent"
-                          style={{ width: `${p.pct}%` }}
-                        />
-                      </div>
-                      <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-ink-muted">
-                        {p.correct} of {p.total} teachers correctly identified
-                      </div>
-                    </div>
-                    <span className="fig text-sm md:text-base text-accent tabular-nums">
-                      {p.pct}%
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Attitudes breakdown — moved below the detection quiz */}
-          <Reveal>
-            <div className="mt-16 pt-8 border-t border-border grid gap-6 md:grid-cols-3">
-              {teacherSurvey2026.viewBreakdown.map((v) => (
-                <div key={v.label}>
-                  <div className="fig text-3xl md:text-4xl text-ink tabular-nums">
-                    {v.pct}%
-                  </div>
-                  <div className="mt-2 text-[13px] text-ink-dim leading-snug">
-                    {v.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </Container>
-      </section>
-
-      {/* PERCEPTION STUDY — separate qualitative rep-led research */}
-      <section
-        className="py-14 md:py-20 border-t border-border surface-panel"
-        data-rail-section="Perception"
-      >
-        <Container size="wide">
-          <Reveal>
-            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-16 items-start">
-              <div className="md:sticky md:top-28">
-                <SectionHeading
-                  eyebrow="Separate study · rep-led field research"
-                  title={
-                    <>
-                      Can teachers{" "}
-                      <span className="serif-italic">actually tell?</span>
-                    </>
-                  }
-                  blurb="A distinct qualitative study — not part of the teacher survey above. An AI Vanguard representative asked five teachers to compare an AI-assisted paper against a student's original work, first blind, then with the source revealed, and measured how their grading shifted."
-                />
-                <div className="mt-8 divide-y divide-border border-y border-border">
-                  {perceptionStudy.findings.map((f) => (
-                    <div
-                      key={f.label}
-                      className="py-4 flex items-baseline justify-between gap-6"
-                    >
-                      <span className="text-[12.5px] uppercase tracking-[0.18em] text-ink-muted leading-snug max-w-[260px]">
-                        {f.label}
-                      </span>
-                      <span className="fig text-xl md:text-2xl text-accent tabular-nums">
-                        {f.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <Reveal>
-                <article className="font-display text-[17px] md:text-[19px] leading-[1.62] text-ink-dim max-w-none">
-                  <h3 className="font-display text-2xl md:text-[32px] leading-[1.1] tracking-tight text-ink mb-6">
-                    {perceptionStudy.title}
-                  </h3>
-                  <p>{perceptionStudy.report}</p>
-                  <p className="mt-8 text-[13.5px] tracking-wide text-ink-dim">
-                    Written by {perceptionStudy.by}
-                  </p>
-                </article>
-              </Reveal>
-            </div>
-          </Reveal>
-        </Container>
-      </section>
-
-      {/* MILESTONES — timeline with imagery */}
-      <section
-        className="py-14 md:py-20 border-t border-border"
         data-rail-section="Milestones"
       >
         <Container size="wide">
@@ -398,9 +296,7 @@ export default function ImpactPage() {
                         aria-hidden
                       />
                       <div className="flex items-baseline gap-3">
-                        <span className="fig text-sm text-accent">
-                          {m.year}
-                        </span>
+                        <span className="fig text-sm text-accent">{m.year}</span>
                         {m.current && (
                           <span className="text-[10px] uppercase tracking-[0.2em] text-accent px-2 py-0.5 border border-accent">
                             Current
@@ -422,7 +318,7 @@ export default function ImpactPage() {
         </Container>
       </section>
 
-      {/* VOICES — real student quotes pulled from the 2025 survey */}
+      {/* VOICES */}
       <section
         className="py-14 md:py-20 border-t border-border"
         data-rail-section="Voices"
@@ -440,14 +336,11 @@ export default function ImpactPage() {
               blurb="Verbatim responses from the 2025 policy survey comments field. Attribution by grade and campus only — the students who wrote them are protected."
             />
           </Reveal>
-
           <div className="mt-14 space-y-12 md:space-y-16">
             {survey2025.quotes.map((v, i) => (
               <Reveal key={v.attribution + i}>
                 <figure
-                  className={`max-w-4xl ${
-                    i % 2 === 1 ? "md:ml-auto md:text-right" : ""
-                  }`}
+                  className={`max-w-4xl ${i % 2 === 1 ? "md:ml-auto md:text-right" : ""}`}
                 >
                   <p className="font-display text-2xl md:text-3xl lg:text-[40px] leading-[1.18] tracking-tight text-ink">
                     <span className="serif-italic text-accent">&ldquo;</span>
@@ -479,8 +372,8 @@ export default function ImpactPage() {
                 </span>
               </h3>
               <div className="flex gap-3 flex-wrap">
-                <Button href="/policy-brief" size="lg">
-                  Read the policy brief
+                <Button href="/research" size="lg">
+                  See the research
                 </Button>
                 <Button href={site.applyUrl} external variant="secondary" size="lg">
                   Apply as a rep

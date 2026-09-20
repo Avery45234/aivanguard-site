@@ -6,6 +6,10 @@
 // public pages and the portal can't disagree about when the window shuts.
 export const SUBMISSION_DEADLINE = new Date("2026-09-25T23:59:59-07:00");
 
+// Results are announced October 3, 2026. Used by the site-wide banner to
+// move from "judging underway" to "meet the winners".
+export const RESULTS_DATE = new Date("2026-10-03T00:00:00-07:00");
+
 export type RubricCriterion = {
   n: string;
   title: string;

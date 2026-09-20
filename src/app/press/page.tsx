@@ -7,6 +7,8 @@ import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { site } from "@/lib/site";
 import { survey2025, teacherSurvey2026 } from "@/lib/research";
+import { study } from "@/lib/study";
+import { press } from "@/lib/highlights";
 import CopyButton from "./CopyButtonClient";
 
 export const metadata: Metadata = {
@@ -102,7 +104,7 @@ export default function PressPage() {
               { label: "Representatives", value: "14 reps · 8 campuses" },
               { label: "Students surveyed (2025)", value: `${survey2025.meta.totalResponses}` },
               { label: "Teachers surveyed (2026 pilot)", value: `${teacherSurvey2026.meta.totalResponses}` },
-              { label: "Reach", value: "18,000+ students" },
+              { label: "Current study", value: `${study.sample.count} districts · preregistered` },
               { label: "Founder & President", value: "Avery Updike" },
             ].map((f) => (
               <Reveal key={f.label}>
@@ -117,6 +119,51 @@ export default function PressPage() {
               </Reveal>
             ))}
           </div>
+        </Container>
+      </section>
+
+      {/* In the news — coverage of AI Vanguard students */}
+      <section className="py-12 md:py-16 border-t border-border" data-rail-section="Coverage">
+        <Container size="wide">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Recent coverage"
+              title={
+                <>
+                  Where AI Vanguard students{" "}
+                  <span className="serif-italic">have appeared.</span>
+                </>
+              }
+              blurb="Most of this coverage is of our founder and State Directors as student senators on the Students First Act, in their home states. Each line says only what the piece says."
+            />
+          </Reveal>
+          <ul className="mt-12 divide-y divide-border border-y border-border">
+            {press.map((p) => (
+              <li key={p.href + p.who}>
+                <a
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group py-5 md:py-6 grid gap-2 md:grid-cols-[200px_1fr_auto] md:gap-10 items-baseline"
+                >
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-ink-muted">
+                    {p.outlet} · {p.date}
+                  </span>
+                  <span>
+                    <span className="font-display text-lg md:text-xl tracking-tight text-ink group-hover:text-accent transition-colors">
+                      {p.title}
+                    </span>
+                    <span className="block mt-1 text-[13px] text-ink-dim">
+                      {p.who} · {p.role}
+                    </span>
+                  </span>
+                  <span className="text-sm text-ink-dim group-hover:text-ink transition-colors whitespace-nowrap">
+                    Read ↗
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 
@@ -243,7 +290,7 @@ export default function PressPage() {
                 </p>
               </div>
               <div className="flex gap-3 flex-wrap">
-                <Button href="/impact" variant="secondary" size="lg">
+                <Button href="/research" variant="secondary" size="lg">
                   See the research
                 </Button>
                 <Button href="/policy-brief" size="lg">
@@ -261,17 +308,18 @@ export default function PressPage() {
 const boilerplate = [
   {
     label: "1 sentence",
-    text: "AI Vanguard is a student-led 501(c)(3) nonprofit organizing students across six states around how AI is used in their classrooms.",
+    text: site.description,
   },
   {
     label: "3 sentences",
-    text: "AI Vanguard is a student-led 501(c)(3) nonprofit founded in 2024 to ensure students have a voice in how AI enters K–12 education. The organization runs research, advocacy, and community-building through a network of student representatives at partner campuses and State Directors in six states. In its first research cycle it surveyed 447 students across six schools; in 2026 it launched a companion teacher survey and qualitative field studies on AI-generated work.",
+    text: "AI Vanguard is a student-led 501(c)(3) nonprofit founded to give students a voice in how AI enters K–12 education. It runs student-voice research, works inside district processes on AI governance, and builds structures that keep students involved over time, through campus representatives in Southern California and State Directors in six states. Its first research cycle surveyed 447 students across six schools; its current work includes a preregistered study of student influence on AI policy in the twelve largest U.S. districts and a proposed standing student AI body in ABC Unified School District.",
   },
   {
     label: "5 sentences",
-    text: "AI Vanguard is a youth-led 501(c)(3) nonprofit founded in 2024 to give students a direct voice in how AI is used in their classrooms. Its leadership cabinet of fifteen students steers research, policy advocacy, and community building from its Southern California base, with State Directors in California, Minnesota, Tennessee, Connecticut, New Jersey, and Michigan. Fourteen student representatives across eight campuses run ground-level research — the 2025 policy survey gathered 447 responses showing that 74% of students want schools to teach responsible AI use rather than ban it, and 35% explicitly asked to be involved in shaping school AI policy. A 2026 companion survey of 10 educators found that 80% feel pressure to integrate AI and 80% suspect frequent unauthorized use, but detection confidence averages just 3.3 out of 5 — findings that converge with the students' call for guidance over prohibition. The organization's policy brief translates these findings into six concrete asks for schools and districts.",
+    text: "AI Vanguard is a youth-led 501(c)(3) nonprofit advancing student participation in AI education policy. Its leadership cabinet of fifteen students steers research, AI governance work, and community building from its Southern California base, with State Directors in California, Minnesota, Tennessee, Connecticut, New Jersey, and Michigan. Fourteen student representatives across eight campuses run ground-level research: the 2025 policy survey gathered 447 responses showing that 74% of students want schools to teach responsible AI use rather than ban it, and 35% explicitly asked to be involved in shaping school AI policy. In 2026 the organization moved from surveys to governance, with a preregistered public-records study of whether student recommendations changed AI policy in the twelve largest U.S. districts, a proposal for a standing student AI body in ABC Unified School District, and a collaboration in development with Project Tomorrow's Speak Up research program. Its policy brief translates the research into six concrete asks for schools and districts.",
   },
 ];
+
 
 const talkingPoints = [
   {

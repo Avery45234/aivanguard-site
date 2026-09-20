@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     template: "%s · AI Vanguard",
   },
   description:
-    "AI Vanguard is a student-led nonprofit shaping how AI is used in education through research, advocacy, and a network of student representatives and state directors across six states.",
+    "AI Vanguard is a student-led nonprofit advancing student participation in AI education policy through research, district collaboration, and a national network of student leaders.",
   keywords: [
     "AI in education",
     "student voice",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AI Vanguard — Student voice on AI in education",
     description:
-      "Student-led 501(c)(3) shaping how AI is used in education. Research, policy advocacy, and a network of student representatives and state directors across six states.",
+      "AI Vanguard is a student-led nonprofit advancing student participation in AI education policy through research, district collaboration, and a national network of student leaders.",
   },
   icons: {
     icon: [

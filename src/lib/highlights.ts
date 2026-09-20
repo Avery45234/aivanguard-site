@@ -111,3 +111,104 @@ export const updates: Update[] = [
     href: "/competition",
   },
 ];
+
+// Press coverage of AI Vanguard students. Each item links to the piece
+// and says only what the piece says. Most of this coverage is about the
+// students' work as Day of AI student senators rather than about AI
+// Vanguard by name; the notes are written to be honest about that.
+export type PressItem = {
+  outlet: string;
+  date: string;
+  title: string;
+  href: string;
+  who: string;
+  role: string;
+  image: string;
+  note: string;
+};
+
+export const press: PressItem[] = [
+  {
+    outlet: "El Estoque",
+    date: "September 2, 2026",
+    title: "Students advocate for changes in educational AI policies through the Students First Act",
+    href: "https://elestoque.org/2026/09/02/news/students-advocate-for-changes-in-educational-ai-policies-through-the-students-first-act/",
+    who: "Avery Updike",
+    role: "Founder & President",
+    image: "/img/team/avery.png",
+    note: "Interviewed as one of California's two student senators, on the committee that wrote the act's student provisions.",
+  },
+  {
+    outlet: "MPR News · Minnesota Now",
+    date: "August 13, 2026",
+    title: "\u2018We have a voice\u2019: Minnesota students help craft national AI policy",
+    href: "https://www.mprnews.org/episode/2026/08/13/minnesota-students-help-craft-national-ai-policy",
+    who: "Bihmanji \u201cBee\u201d Acho",
+    role: "Minnesota State Director",
+    image: "/img/team/bee.jpg",
+    note: "On the provision she drafted requiring a second look when AI is used to allege academic dishonesty, and why students at a school where most families live near the poverty line need a say.",
+  },
+  {
+    outlet: "NPR",
+    date: "July 30, 2026",
+    title: "Adults have struggled to set rules for AI in school. These teens figured it out",
+    href: "https://www.npr.org/2026/07/30/nx-s1-5853571/students-set-ai-policy",
+    who: "Tristan Tjetjep",
+    role: "Tennessee State Director",
+    image: "/img/team/tristan.jpg",
+    note: "Quoted on whether under-resourced schools could afford the AI literacy instruction the Students First Act calls for.",
+  },
+  {
+    outlet: "WDIV Local 4 Detroit",
+    date: "June 22, 2026",
+    title: "Students weigh in on AI in schools",
+    href: "https://www.clickondetroit.com/video/news/2026/06/22/students-weigh-in-on-ai-in-schools/",
+    who: "LaMarea Taya Tooson",
+    role: "Michigan State Director",
+    image: "/img/team/lamarea.jpg",
+    note: "Interviewed alongside the superintendent of Ypsilanti Community Schools on how students see AI in the classroom.",
+  },
+  {
+    outlet: "KNSI Radio",
+    date: "May 26, 2026",
+    title: "Tech High School Students Headed to National AI Festival in Boston",
+    href: "https://knsiradio.com/2026/05/26/tech-high-school-students-headed-to-national-ai-festival-in-boston/",
+    who: "Bihmanji \u201cBee\u201d Acho",
+    role: "Minnesota State Director",
+    image: "/img/team/bee.jpg",
+    note: "Selected from St. Cloud Tech High School to represent Minnesota at America's Youth AI Festival.",
+  },
+  {
+    outlet: "Patch · Stratford, CT",
+    date: "May 15, 2026",
+    title: "Stratford Students Selected To Help Shape National K-12 AI Policy",
+    href: "https://patch.com/connecticut/stratford/stratford-students-selected-help-shape-national-k-12-ai-policy",
+    who: "Anthony Darbilli",
+    role: "Connecticut State Director",
+    image: "/img/team/anthony.jpg",
+    note: "Selected to represent Connecticut at the 2026 Day of AI & AASA Leadership Fellowship and America's Youth AI Festival.",
+  },
+];
+
+// Developments: organizational work worth following that is not a single
+// student's story. Each carries its real stage in the tag.
+export const developments = [
+  {
+    tag: "Partnership · In development",
+    title: "Project Tomorrow \u00d7 AI Vanguard",
+    body: "In active conversation with Project Tomorrow's research team about adding a student-led qualitative dimension to Speak Up, its national survey of students, educators, and parents. A proposal is with their leadership; a student focus group on the survey questions is the next step under discussion.",
+    href: "/our-work#project-tomorrow",
+  },
+  {
+    tag: "Research · Underway",
+    title: "When Does Student Voice Change AI Policy?",
+    body: "A preregistered study of the twelve largest U.S. school districts, tracing whether student recommendations on generative AI received a documented response. Public-records requests are out to twenty large systems; coding is underway.",
+    href: "/research#study",
+  },
+  {
+    tag: "Governance · Proposed",
+    title: "A standing student AI body in ABC Unified",
+    body: "Working with district instructional-technology leaders on a proposal for a durable student AI leadership structure with mentorship and year-to-year continuity. Under review, with the district's January 2027 AI-Ignite event as the first proving ground if approved.",
+    href: "/our-work#abcusd",
+  },
+];

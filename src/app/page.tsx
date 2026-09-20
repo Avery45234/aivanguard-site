@@ -18,6 +18,7 @@ import {
   schools,
   pullQuote,
   leadership,
+  initiatives,
 } from "@/lib/site";
 
 export default function HomePage() {
@@ -25,6 +26,58 @@ export default function HomePage() {
     <>
       <ScrollSeal />
       <Hero />
+
+      {/* NOW — what AI Vanguard is doing right now, before how it works */}
+      <section
+        className="border-b border-border surface-panel"
+        data-rail-section="Now"
+      >
+        <Container size="wide" className="py-12 md:py-16">
+          <Reveal>
+            <div className="flex items-end justify-between gap-8 flex-wrap">
+              <SectionHeading
+                eyebrow="Right now"
+                title={
+                  <>
+                    What we&apos;re doing{" "}
+                    <span className="serif-italic text-ink-dim">this month.</span>
+                  </>
+                }
+              />
+              <Link
+                href="/highlights"
+                className="text-sm text-ink hover:text-accent transition-colors underline underline-offset-[6px] decoration-accent/50"
+              >
+                All developments →
+              </Link>
+            </div>
+          </Reveal>
+          <div className="mt-12 grid gap-px bg-border md:grid-cols-3">
+            {initiatives.map((x, i) => (
+              <Reveal key={x.title} delay={i * 60}>
+                <Link
+                  href={x.href}
+                  className="group flex h-full flex-col bg-bg p-7 md:p-8 hover:bg-surface/60 transition-colors"
+                >
+                  <div className="flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em]">
+                    <span className="text-ink-muted">{x.tag}</span>
+                    <span className="text-accent">{x.status}</span>
+                  </div>
+                  <h3 className="mt-5 font-display text-2xl md:text-[28px] leading-[1.1] tracking-tight text-ink group-hover:text-accent transition-colors">
+                    {x.title}
+                  </h3>
+                  <p className="mt-4 text-[14.5px] text-ink-dim leading-relaxed flex-1">
+                    {x.body}
+                  </p>
+                  <span className="mt-6 text-sm text-ink-dim group-hover:text-ink transition-colors">
+                    More →
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
 
       {/* MARQUEE — schools we work with */}
       <section
@@ -110,7 +163,7 @@ export default function HomePage() {
                     Three programs.
                     <br />
                     <span className="serif-italic text-ink-dim">
-                      One loop from student voice to policy.
+                      One loop from student voice to governance.
                     </span>
                   </>
                 }
@@ -392,24 +445,31 @@ export default function HomePage() {
             {[
               {
                 tag: "For students",
-                title: "Become a representative",
-                body: "Bring AI Vanguard to your campus. Lead research, run events, shape how AI lands in your school.",
+                title: "Become a representative or researcher",
+                body: "Bring AI Vanguard to your campus, or work on the studies themselves. Lead research, run conversations, shape how AI lands in your school.",
                 href: site.applyUrl,
                 external: true,
                 cta: "Apply to join",
               },
               {
-                tag: "For schools",
-                title: "Partner with us",
-                body: "Work with us on student-voice research at your school, or host a policy conversation.",
-                href: "/get-involved#partner",
-                cta: "Start a partnership",
+                tag: "For schools & districts",
+                title: "Bring student input into your AI decisions",
+                body: "A student-voice study, a student advisory structure, or students in front of your staff and board. Structured, repeatable, and grounded in evidence.",
+                href: "/get-involved#districts",
+                cta: "Work with us",
+              },
+              {
+                tag: "For researchers",
+                title: "Collaborate on student-centered research",
+                body: "Students who can review instruments, sit on focus groups, and explain the why behind the numbers.",
+                href: "/get-involved#researchers",
+                cta: "Propose a collaboration",
               },
               {
                 tag: "For supporters",
-                title: "Back the movement",
-                body: "Mentor students, sponsor research, amplify the work. Student voice on AI needs adult allies.",
-                href: "/contact",
+                title: "Mentor, sponsor, invite, or connect",
+                body: "Student voice on AI in education needs adult allies: educators, funders, and press.",
+                href: "/get-involved#supporters",
                 cta: "Get in touch",
               },
             ].map((a) => (
@@ -472,11 +532,11 @@ export default function HomePage() {
                     Apply as a student rep
                   </Button>
                   <Button
-                    href="/get-involved#partner"
+                    href="/get-involved#districts"
                     variant="secondary"
                     size="lg"
                   >
-                    Partner with us
+                    Work with us
                   </Button>
                 </div>
               </div>

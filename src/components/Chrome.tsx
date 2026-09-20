@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
+import { VanguardOpenBanner } from "./VanguardOpenBanner";
 
 /**
  * Site chrome switcher. The Entrant Portal (/portal) is a standalone
@@ -19,7 +20,10 @@ export function Chrome({ children }: { children: React.ReactNode }) {
       <Nav />
       {/* pt matches the fixed Nav's height (60px mobile, 64px ≥md) so
           page content doesn't slide under the bar on first render. */}
-      <main className="flex-1 pt-[60px] md:pt-[64px]">{children}</main>
+      <main className="flex-1 pt-[60px] md:pt-[64px]">
+        <VanguardOpenBanner />
+        {children}
+      </main>
       <Footer />
     </>
   );

@@ -5,12 +5,12 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { PortraitPlate } from "@/components/PortraitPlate";
-import { site } from "@/lib/site";
+import { reach, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Get Involved",
   description:
-    "Apply for a national student leadership role, bring AI Vanguard to your school, or partner with us on research and policy work.",
+    "Four ways in: become a student representative or researcher, bring structured student AI input into your district's policymaking, collaborate on student-centered research, or support the work.",
 };
 
 export default function GetInvolvedPage() {
@@ -24,12 +24,20 @@ export default function GetInvolvedPage() {
             <span className="serif-italic">with your name on it.</span>
           </>
         }
-        blurb="Students, schools, and supporters each have a way to plug in. Pick the path that fits — and start."
+        blurb="Students, schools and districts, researchers, and supporters each have a way to plug in. Pick the path that fits — and start."
+        meta={
+          <ol className="flex flex-col gap-2 text-[11px] uppercase tracking-[0.2em] text-ink-muted">
+            <li><a href="#students" className="hover:text-ink">01 · Students</a></li>
+            <li><a href="#districts" className="hover:text-ink">02 · Schools &amp; districts</a></li>
+            <li><a href="#researchers" className="hover:text-ink">03 · Researchers &amp; organizations</a></li>
+            <li><a href="#supporters" className="hover:text-ink">04 · Supporters</a></li>
+          </ol>
+        }
       />
 
-      {/* STUDENT PATH */}
+      {/* 01 STUDENTS */}
       <section
-        id="student"
+        id="students"
         className="py-14 md:py-20 scroll-mt-28"
         data-rail-section="Students"
       >
@@ -41,18 +49,21 @@ export default function GetInvolvedPage() {
                   <span className="fig text-2xl text-accent">01</span>
                   <div className="h-px flex-1 bg-border" />
                   <span className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                    Primary path · Students
+                    Students
                   </span>
                 </div>
                 <h2 className="mt-6 font-display text-4xl md:text-6xl lg:text-[72px] leading-[1.02] tracking-tight text-ink">
-                  Join the National{" "}
-                  <span className="serif-italic">Leadership Team.</span>
+                  Become a student representative{" "}
+                  <span className="serif-italic">or researcher.</span>
                 </h2>
                 <p className="mt-8 text-[16px] md:text-[17px] text-ink-dim leading-relaxed max-w-lg">
-                  State Directors and Chapter Directors are the backbone of AI
-                  Vanguard. You&apos;ll lead research, host conversations,
-                  shape policy briefs, and build the student voice movement in
-                  your own state — inside a network growing across the country.
+                  Representatives are the bridge between their campus and AI
+                  Vanguard: they run the surveys and conversations, and carry
+                  what students say into the rooms where AI decisions get made.
+                  Student researchers work on the studies themselves, from
+                  coding public records to designing survey questions. State
+                  and Chapter Director roles are open for students who want to
+                  build the model where they live.
                 </p>
                 <div className="mt-10 flex flex-wrap gap-3">
                   <Button href={site.applyUrl} external size="lg">
@@ -89,11 +100,11 @@ export default function GetInvolvedPage() {
             {[
               {
                 t: "Who should apply",
-                b: "High school students anywhere in the U.S. who care about how AI lands in their school — you don't need to be a 'tech person,' just someone willing to lead.",
+                b: "High school students anywhere in the U.S. who care about how AI lands in their school. You don't need to be a 'tech person,' just someone willing to listen carefully and speak up.",
               },
               {
-                t: "What leaders do",
-                b: "Lead AI Vanguard in your state or school as a State or Chapter Director — running research, policy, events, marketing, and outreach with support from the national cabinet.",
+                t: "The roles",
+                b: "Campus Representative: run research and conversations at your school. Student Researcher: work on our studies. State or Chapter Director: bring AI Vanguard to your state or school, with support from the national cabinet.",
               },
               {
                 t: "Time commitment",
@@ -101,7 +112,7 @@ export default function GetInvolvedPage() {
               },
               {
                 t: "What you get",
-                b: "Real leadership experience, a cross-school network of student leaders, and ownership over work that schools actually look at.",
+                b: "Real research and governance experience, a cross-state network of student leaders, and ownership over work that districts actually look at.",
               },
             ].map((x, i) => (
               <Reveal key={x.t} delay={i * 60}>
@@ -124,11 +135,11 @@ export default function GetInvolvedPage() {
         </Container>
       </section>
 
-      {/* PARTNER PATH */}
+      {/* 02 SCHOOLS & DISTRICTS */}
       <section
-        id="partner"
-        className="py-14 md:py-20 border-t border-border scroll-mt-28"
-        data-rail-section="Schools"
+        id="districts"
+        className="py-14 md:py-20 border-t border-border scroll-mt-28 surface-panel"
+        data-rail-section="Schools & districts"
       >
         <Container size="wide">
           <Reveal>
@@ -136,18 +147,17 @@ export default function GetInvolvedPage() {
               <span className="fig text-2xl text-accent">02</span>
               <div className="h-px flex-1 bg-border" />
               <span className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                For schools &amp; districts
+                Schools &amp; districts
               </span>
             </div>
             <SectionHeading
-              eyebrow=""
               title={
                 <>
-                  Partner with{" "}
-                  <span className="serif-italic">AI Vanguard.</span>
+                  Bring structured student AI input{" "}
+                  <span className="serif-italic">into your policymaking.</span>
                 </>
               }
-              blurb="Bring student voice into your school's approach to AI — with research, presentations, or a standing rep on your campus."
+              blurb="Not a one-time student panel. A repeatable way to hear from students before AI guidance is written, while tools are being chosen, and after they roll out. We have done this inside a district; we can help you do it in yours."
             />
           </Reveal>
 
@@ -156,17 +166,17 @@ export default function GetInvolvedPage() {
               {
                 tag: "Research",
                 title: "Run a student-voice study",
-                body: "We'll design and execute a survey or focus group on your campus and deliver findings your leadership can use.",
+                body: "We design and run a survey or focus group on your campuses and deliver findings your leadership can use, with student privacy protected throughout.",
+              },
+              {
+                tag: "Advisory",
+                title: "Stand up a student AI advisory structure",
+                body: "A standing student liaison, an advisory group, or a council with a mentorship pipeline, built to survive graduation. Modeled on the structure we are developing with ABC Unified.",
               },
               {
                 tag: "Presentation",
-                title: "Host a student-led talk",
-                body: "Bring AI Vanguard reps to speak to your staff, school board, or student body on AI in education.",
-              },
-              {
-                tag: "Ongoing",
-                title: "Place a rep on your campus",
-                body: "Onboard one of our reps as a standing liaison between your school and the AI Vanguard network.",
+                title: "Put students in front of your staff or board",
+                body: "Student-led sessions for professional-learning days, board meetings, or family events, grounded in what students actually report about AI.",
               },
             ].map((x) => (
               <li
@@ -191,24 +201,24 @@ export default function GetInvolvedPage() {
           <Reveal>
             <div className="mt-10 flex flex-wrap items-center gap-3">
               <Button
-                href={`mailto:${site.email}?subject=Partnership%20with%20AI%20Vanguard`}
+                href={`mailto:${site.email}?subject=Student%20AI%20input%20for%20our%20district`}
                 size="lg"
               >
-                Email us about a partnership
+                Email us about your district
               </Button>
-              <Button href="/contact" variant="secondary" size="lg">
-                All contact options
+              <Button href="/our-work#abcusd" variant="secondary" size="lg">
+                See the ABC Unified case study
               </Button>
             </div>
           </Reveal>
         </Container>
       </section>
 
-      {/* SUPPORTERS */}
+      {/* 03 RESEARCHERS & ORGANIZATIONS */}
       <section
-        id="supporters"
+        id="researchers"
         className="py-14 md:py-20 border-t border-border scroll-mt-28"
-        data-rail-section="Supporters"
+        data-rail-section="Researchers"
       >
         <Container size="wide">
           <div className="grid gap-12 md:grid-cols-12 md:gap-16">
@@ -218,18 +228,90 @@ export default function GetInvolvedPage() {
                   <span className="fig text-2xl text-accent">03</span>
                   <div className="h-px flex-1 bg-border" />
                   <span className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                    For supporters
+                    Researchers &amp; education organizations
                   </span>
                 </div>
                 <SectionHeading
-                  eyebrow=""
                   title={
                     <>
-                      Back the{" "}
-                      <span className="serif-italic">movement.</span>
+                      Collaborate on{" "}
+                      <span className="serif-italic">student-centered research.</span>
                     </>
                   }
-                  blurb="Student voice on AI in education needs adult allies — educators, mentors, funders, and press."
+                  blurb="We bring students who can help design instruments, sit on focus groups, and explain the why behind survey answers. We are in conversation with Project Tomorrow's Speak Up program about exactly this, and open to more."
+                />
+              </Reveal>
+            </div>
+            <div className="md:col-span-7">
+              <Reveal>
+                <ul className="divide-y divide-border border-y border-border">
+                  {[
+                    {
+                      t: "Instruments",
+                      b: "Student review of survey questions before they go to the field, so the wording matches how students actually experience AI at school.",
+                    },
+                    {
+                      t: "Qualitative depth",
+                      b: "Student focus groups and interviews that add context to quantitative findings.",
+                    },
+                    {
+                      t: "Methods",
+                      b: "Our preregistered public-records approach to studying student influence on district policy, shared openly with anyone studying the same question.",
+                    },
+                  ].map((x) => (
+                    <li
+                      key={x.t}
+                      className="py-8 grid grid-cols-[130px_1fr] gap-6 items-baseline"
+                    >
+                      <h4 className="font-display text-xl md:text-2xl tracking-tight text-ink">
+                        {x.t}
+                      </h4>
+                      <p className="text-[15px] text-ink-dim leading-relaxed max-w-md">
+                        {x.b}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8">
+                  <Button
+                    href={`mailto:${site.email}?subject=Research%20collaboration%20with%20AI%20Vanguard`}
+                    variant="secondary"
+                    size="lg"
+                  >
+                    Propose a collaboration
+                  </Button>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* 04 SUPPORTERS */}
+      <section
+        id="supporters"
+        className="py-14 md:py-20 border-t border-border scroll-mt-28 surface-panel"
+        data-rail-section="Supporters"
+      >
+        <Container size="wide">
+          <div className="grid gap-12 md:grid-cols-12 md:gap-16">
+            <div className="md:col-span-5">
+              <Reveal>
+                <div className="flex items-baseline gap-4 mb-6">
+                  <span className="fig text-2xl text-accent">04</span>
+                  <div className="h-px flex-1 bg-border" />
+                  <span className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
+                    Supporters
+                  </span>
+                </div>
+                <SectionHeading
+                  title={
+                    <>
+                      Mentor, sponsor,{" "}
+                      <span className="serif-italic">invite, or connect.</span>
+                    </>
+                  }
+                  blurb="Student voice on AI in education needs adult allies — educators, researchers, funders, and press."
                 />
               </Reveal>
             </div>
@@ -239,15 +321,19 @@ export default function GetInvolvedPage() {
                   {[
                     {
                       t: "Mentor",
-                      b: "Connect with our leadership cabinet to advise on research methodology, policy work, or organizational strategy.",
+                      b: "Advise the cabinet on research methods, district process, or organizational strategy.",
                     },
                     {
                       t: "Sponsor",
-                      b: "Fund specific research cycles, events, or expansion to new districts.",
+                      b: "Fund a research cycle, the Vanguard Open prize pool, or onboarding for a new state.",
                     },
                     {
-                      t: "Amplify",
-                      b: "Cover our work, invite reps to speak, or help us reach new schools and audiences.",
+                      t: "Invite",
+                      b: "Put a student on your panel, in front of your staff, or at your board meeting.",
+                    },
+                    {
+                      t: "Connect",
+                      b: "Introduce us to a district leader, a researcher, or a reporter who should know this work exists.",
                     },
                   ].map((x) => (
                     <li
@@ -263,6 +349,14 @@ export default function GetInvolvedPage() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button href="/contact" size="lg">
+                    Get in touch
+                  </Button>
+                  <Button href="/press" variant="secondary" size="lg">
+                    Press kit
+                  </Button>
+                </div>
               </Reveal>
             </div>
           </div>
@@ -291,19 +385,19 @@ export default function GetInvolvedPage() {
             {[
               {
                 q: "Do I need to be in California to apply?",
-                a: "No — leadership roles are open to students nationwide. State Director and Chapter Director roles exist specifically to bring AI Vanguard to new states and schools, and we already have state directors in Minnesota, Tennessee, Connecticut, and New Jersey.",
+                a: `No. Student roles are open nationwide. We currently have student leadership in ${reach.states.length} states: ${reach.states.join(", ")}. State and Chapter Director roles exist to bring the model to more.`,
               },
               {
                 q: "Is there a fee to join or partner?",
-                a: "No. AI Vanguard is a student-led nonprofit. Participation as a student leader or school partner is free.",
+                a: "No. AI Vanguard is a student-led nonprofit. Participation as a student leader or district partner is free.",
               },
               {
                 q: "How do you handle student data in your research?",
-                a: "Research participation is voluntary, and surveys and focus groups are designed to protect student privacy. We don't publish anything that identifies individual students.",
+                a: "Research participation is voluntary, and surveys and focus groups are designed to protect student privacy. We publish nothing that identifies an individual student, and our records study uses only public or legally obtained documents.",
               },
               {
                 q: "Can I get in touch about something that isn't listed here?",
-                a: "Yes — the contact page has the right channels for general questions, press, and school inquiries.",
+                a: "Yes. The contact page has the right channels for general questions, press, and district inquiries.",
               },
             ].map((f) => (
               <details

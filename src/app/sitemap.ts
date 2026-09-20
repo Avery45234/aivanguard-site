@@ -6,6 +6,7 @@ const routes = [
   "/about",
   "/our-work",
   "/impact",
+  "/research",
   "/highlights",
   "/policy-brief",
   "/get-involved",
@@ -20,7 +21,7 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const highValue = new Set(["", "/impact", "/policy-brief"]);
+  const highValue = new Set(["", "/impact", "/research", "/policy-brief"]);
   return routes.map((r) => ({
     url: `${base}${r}`,
     lastModified: new Date(),

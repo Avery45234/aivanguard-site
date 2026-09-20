@@ -12,9 +12,9 @@ export function Footer() {
               AI Vanguard
             </div>
             <p className="mt-4 max-w-sm text-sm text-ink-dim leading-relaxed">
-              A student-led nonprofit shaping how AI is used in education
-              through research, advocacy, and a network of student
-              representatives and state directors across six states.
+              A student-led nonprofit advancing student participation in AI
+              education policy through research, district collaboration, and
+              a national network of student leaders.
             </p>
             <div className="mt-6 flex items-center gap-3">
               <SocialLink href={site.social.instagram} label="Instagram">Instagram</SocialLink>

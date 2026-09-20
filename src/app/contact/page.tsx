@@ -71,7 +71,7 @@ export default function ContactPage() {
                   <ContactBlock
                     label="Based in"
                     value="Southern California"
-                    hint="Founded here. Now organizing across 14 schools and 10 districts in six states."
+                    hint="Founded here. Student leadership in six states."
                   />
                 </div>
               </Reveal>
