@@ -16,6 +16,7 @@ export const site = {
 export const reach = {
   founded: "Southern California",
   states: ["California", "Minnesota", "Tennessee", "Connecticut", "New Jersey", "Michigan"],
+  stateCodes: ["CA", "MN", "TN", "CT", "NJ", "MI"],
   statesWord: "six",
   // Reported as "approximately 10" in September 2026.
   districts: 10,
@@ -38,11 +39,12 @@ export const nav = [
 
 // Headline numbers. Each one is specific and sourced on the site: no
 // "students represented" style reach claims that are hard to defend.
+// Each metric links to the page that shows where the number comes from.
 export const metrics = [
-  { value: "447", label: "Students surveyed", hint: "First AI policy study, 2025" },
-  { value: "8", label: "Campuses with representatives", hint: "Southern California" },
-  { value: `${reach.states.length}`, label: "States with student leadership", hint: reach.states.map((s) => s.slice(0, 2).toUpperCase()).join(" · ") },
-  { value: "12", label: "Largest U.S. districts under study", hint: "Preregistered · led by our founder" },
+  { value: "447", label: "Students surveyed", hint: "First AI policy study, 2025", href: "/research/student-ai-survey" },
+  { value: "8", label: "Campuses with representatives", hint: "Southern California", href: "/about#representatives" },
+  { value: `${reach.states.length}`, label: "States with student leadership", hint: reach.stateCodes.join(" · "), href: "/about#cabinet" },
+  { value: "12", label: "Largest U.S. districts under study", hint: "Preregistered · led by our founder", href: "/research#study" },
 ];
 
 export const pillars = [
@@ -58,6 +60,11 @@ export const pillars = [
       "2025 policy survey: 447 students across six campuses",
       "A companion teacher pilot and rep-led field studies",
       "A preregistered study of student influence in the twelve largest U.S. districts",
+    ],
+    links: [
+      { label: "2025 survey: 447 students, every count", href: "/research/student-ai-survey" },
+      { label: "Teacher pilot: detection quiz", href: "/research#teachers-2026" },
+      { label: "Preregistered 12-district study", href: "/research#study" },
     ],
     image: "/img/pillars/research.jpg",
     imageAlt:
@@ -76,6 +83,11 @@ export const pillars = [
       "The Student AI Pulse pilot proposal to Los Angeles County districts",
       "A proposed standing student AI body, under district review",
     ],
+    links: [
+      { label: "ABC Unified case study", href: "/our-work#abcusd" },
+      { label: "Policy brief: six asks", href: "/policy-brief" },
+      { label: "Student AI Pulse proposal", href: "/our-work#underway" },
+    ],
     image: "/img/pillars/advocacy.jpg",
     imageAlt:
       "Students holding yes and no signs during an AI Vanguard policy session in a school library.",
@@ -92,6 +104,11 @@ export const pillars = [
       "Fourteen representatives across eight campuses",
       "State Directors in six states",
       "The Vanguard Open, a national student competition",
+    ],
+    links: [
+      { label: "Fourteen reps, eight campuses", href: "/about#representatives" },
+      { label: "State Directors in six states", href: "/about#cabinet" },
+      { label: "The Vanguard Open", href: "/competition" },
     ],
     image: "/img/pillars/community.jpg",
     imageAlt:
@@ -209,6 +226,7 @@ export const initiatives = [
     tone: "governance",
     status: "Proposed",
     title: "A standing student AI body in ABC Unified",
+    short: "Recurring student input into district AI decisions, under review. First test: AI-Ignite, January 2027, if approved.",
     body: "Working with district instructional-technology leaders on a recurring structure for student input into AI decisions, with mentorship and year-to-year continuity built in. Under review, with the district's January 2027 AI-Ignite event as the first proving ground if approved.",
     href: "/our-work#abcusd",
   },
@@ -217,6 +235,7 @@ export const initiatives = [
     tone: "research",
     status: "Underway",
     title: "Tracing when student voice actually changes AI policy",
+    short: "Public records from the twelve largest U.S. districts. Requests out to twenty systems; coding has begun.",
     body: "A preregistered study of the twelve largest U.S. school districts, built on public records rather than press releases. Records requests are out to twenty large systems and coding has begun.",
     href: "/research#study",
   },
@@ -225,6 +244,7 @@ export const initiatives = [
     tone: "community",
     status: "In development",
     title: "In conversation with Project Tomorrow's Speak Up",
+    short: "A student-led qualitative layer for the Speak Up national survey. A proposal is with their leadership.",
     body: "Exploring a student-led qualitative layer for the national research program that heard from more than 100,000 students, educators, and parents in its last cycle. A proposal is with their leadership.",
     href: "/our-work#project-tomorrow",
   },
@@ -241,21 +261,25 @@ export const districtWork = {
     {
       n: "01",
       t: "Listen",
+      short: "Student voice at the district's AI Community Roundtables since spring 2025, plus a standing student liaison.",
       b: "Student voice at the district's recurring AI Community Roundtables since spring 2025, and a standing student-liaison role with the district's technology leadership.",
     },
     {
       n: "02",
       t: "Advise",
+      short: "Input as tools and guidance are considered, including a review standard for AI changes to approved products.",
       b: "Student input as AI tools and guidance are considered, including a proposed review standard for material AI changes to products the district has already approved.",
     },
     {
       n: "03",
       t: "Present",
+      short: "Student perspectives to 400+ educators at ABC IGNITE and to families at the 2026 Parent Symposium.",
       b: "Student perspectives brought to more than 400 educators at the ABC IGNITE Ed Tech Symposium, and to families at the district's 2026 Parent Symposium.",
     },
     {
       n: "04",
       t: "Institutionalize",
+      short: "A standing student AI body, with mentorship and year-to-year continuity, proposed and under review.",
       b: "A proposal for a standing student AI leadership body, with mentorship, a middle-school entry point, and year-to-year continuity, now under review with district leaders. If approved, the district's January 2027 AI-Ignite event is the first proving ground.",
     },
   ],
@@ -269,6 +293,7 @@ export const partnerships = [
     id: "project-tomorrow",
     name: "Project Tomorrow · Speak Up",
     status: "In development",
+    short: "Speak Up has gathered student, parent, and educator views on technology since 2003. With the Youth Civics Think Tank, we are proposing a student-led qualitative layer on AI: the why behind the survey answers.",
     body: "Project Tomorrow runs Speak Up, a national research program that has gathered the views of K-12 students, parents, and educators on technology and learning since 2003. AI Vanguard is in active conversation with its research team, together with the Youth Civics Think Tank, about strengthening how the program captures student perspectives on AI: a qualitative layer that gets at the why behind survey answers. A proposal is with Project Tomorrow's leadership, and a student focus group on the survey questions is the next step under discussion.",
     disclaimer: "Speak Up's reach is Project Tomorrow's, not AI Vanguard's.",
   },
