@@ -10,13 +10,24 @@
   --color-border: rgba(230, 220, 255, 0.08);
   --color-border-strong: rgba(230, 220, 255, 0.18);
   --color-ink: #f0ebf8;
-  --color-ink-dim: #a49cbf;
-  --color-ink-muted: #6e6685;
+  --color-ink-dim: #aea7bd;
+  --color-ink-muted: #787187;
   --color-accent: #9571db;
   --color-accent-soft: #b69ae6;
   --color-accent-deep: #6b4cb5;
   --color-accent-ink: #120826;
   --color-highlight: #f6d7a0;
+
+  /* Domain tones. The brand accent stays purple; research reads warm and
+     governance reads cool. A section opts in with .tone-research or
+     .tone-governance, which re-scopes --color-accent for everything inside
+     it, so existing accent utilities pick up the tone without new classes. */
+  --color-tone-research: #c07f2b;
+  --color-tone-research-soft: #d9a45a;
+  --color-tone-research-deep: #9a6420;
+  --color-tone-governance: #1f9c7c;
+  --color-tone-governance-soft: #4dbf9f;
+  --color-tone-governance-deep: #157a60;
 
   --font-display: var(--font-display), ui-serif, "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
@@ -26,6 +37,27 @@
   --radius-md: 8px;
   --radius-lg: 14px;
   --radius-xl: 22px;
+}
+
+/* Domain tones (see @theme). Community/leadership keeps the brand purple and
+   is declared explicitly so it can reset a toned parent. */
+.tone-research {
+  --color-accent: var(--color-tone-research);
+  --color-accent-soft: var(--color-tone-research-soft);
+  --color-accent-deep: var(--color-tone-research-deep);
+  --color-accent-ink: #1b1206;
+}
+.tone-governance {
+  --color-accent: var(--color-tone-governance);
+  --color-accent-soft: var(--color-tone-governance-soft);
+  --color-accent-deep: var(--color-tone-governance-deep);
+  --color-accent-ink: #061a15;
+}
+.tone-community {
+  --color-accent: #9571db;
+  --color-accent-soft: #b69ae6;
+  --color-accent-deep: #6b4cb5;
+  --color-accent-ink: #120826;
 }
 
 html {
@@ -51,7 +83,7 @@ body::before {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.58 0 0 0 0 0.44 0 0 0 0 0.86 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.72 0 0 0 0 0.68 0 0 0 0 0.74 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   opacity: 0.06;
   mix-blend-mode: overlay;
 }
@@ -65,8 +97,8 @@ body::after {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(60% 60% at 10% 0%, rgba(149, 113, 219, 0.14), transparent 65%),
-    radial-gradient(50% 60% at 100% 0%, rgba(107, 76, 181, 0.12), transparent 60%);
+    radial-gradient(60% 60% at 10% 0%, rgba(149, 113, 219, 0.10), transparent 65%),
+    radial-gradient(50% 60% at 100% 0%, rgba(192, 127, 43, 0.07), transparent 60%);
 }
 
 ::selection {

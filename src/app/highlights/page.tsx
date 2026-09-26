@@ -58,7 +58,7 @@ export default function HighlightsPage() {
               <Reveal key={d.title} delay={i * 60}>
                 <Link
                   href={d.href}
-                  className="group flex h-full flex-col bg-bg p-7 md:p-8 hover:bg-surface/60 transition-colors"
+                  className={`tone-${d.tone} group flex h-full flex-col bg-bg p-7 md:p-8 hover:bg-surface/60 transition-colors`}
                 >
                   <span className="text-[11px] uppercase tracking-[0.22em] text-accent">
                     {d.tag}

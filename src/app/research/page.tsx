@@ -8,6 +8,7 @@ import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
 import { site } from "@/lib/site";
 import { study } from "@/lib/study";
+import { survey2025 as surveyMeta } from "@/lib/research";
 import { survey2025, teacherSurvey2026, perceptionStudy } from "@/lib/research";
 
 export const metadata: Metadata = {
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function ResearchPage() {
   return (
-    <>
+    <div className="tone-research">
       <PageHeader
         eyebrow="Research"
         title={
@@ -262,6 +263,45 @@ export default function ResearchPage() {
                 </a>
               </p>
             </div>
+          </Reveal>
+
+          {/* Public records behind the study. The registration link appears
+              once the protocol's public registry URL is set in study.ts. */}
+          <Reveal>
+            <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[13.5px] text-ink-dim">
+              {study.registration.href ? (
+                <li>
+                  <a
+                    href={study.registration.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-ink underline underline-offset-[6px] decoration-accent/50 hover:text-accent transition-colors"
+                  >
+                    Preregistration on {study.registration.registry} ↗
+                  </a>
+                </li>
+              ) : null}
+              <li>
+                <a
+                  href={study.source.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-ink underline underline-offset-[6px] decoration-accent/50 hover:text-accent transition-colors"
+                >
+                  Sample source, Liang et al. (2026) ↗
+                </a>
+              </li>
+              <li>
+                <a
+                  href={surveyMeta.meta.analysisScript}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-ink underline underline-offset-[6px] decoration-accent/50 hover:text-accent transition-colors"
+                >
+                  Survey analysis script on GitHub ↗
+                </a>
+              </li>
+            </ul>
           </Reveal>
         </Container>
       </section>
@@ -544,6 +584,6 @@ export default function ResearchPage() {
           </Reveal>
         </Container>
       </section>
-    </>
+    </div>
   );
 }

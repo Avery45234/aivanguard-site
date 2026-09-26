@@ -194,18 +194,21 @@ export const press: PressItem[] = [
 // student's story. Each carries its real stage in the tag.
 export const developments = [
   {
+    tone: "community",
     tag: "Partnership · In development",
     title: "Project Tomorrow \u00d7 AI Vanguard",
     body: "In active conversation with Project Tomorrow's research team about adding a student-led qualitative dimension to Speak Up, its national survey of students, educators, and parents. A proposal is with their leadership; a student focus group on the survey questions is the next step under discussion.",
     href: "/our-work#project-tomorrow",
   },
   {
+    tone: "research",
     tag: "Research · Underway",
     title: "When Does Student Voice Change AI Policy?",
     body: "A preregistered study of the twelve largest U.S. school districts, tracing whether student recommendations on generative AI received a documented response. Public-records requests are out to twenty large systems; coding is underway.",
     href: "/research#study",
   },
   {
+    tone: "governance",
     tag: "Governance · Proposed",
     title: "A standing student AI body in ABC Unified",
     body: "Working with district instructional-technology leaders on a proposal for a durable student AI leadership structure with mentorship and year-to-year continuity. Under review, with the district's January 2027 AI-Ignite event as the first proving ground if approved.",

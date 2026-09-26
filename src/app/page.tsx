@@ -62,7 +62,7 @@ export default function HomePage() {
               <Reveal key={x.title} delay={i * 60}>
                 <Link
                   href={x.href}
-                  className="group flex h-full flex-col bg-bg p-7 md:p-8 hover:bg-surface/60 transition-colors"
+                  className={`tone-${x.tone} group flex h-full flex-col bg-bg p-7 md:p-8 hover:bg-surface/60 transition-colors`}
                 >
                   <div className="flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em]">
                     <span className="text-ink-muted">{x.tag}</span>
@@ -187,7 +187,7 @@ export default function HomePage() {
           {pillars.map((p, i) => (
             <Reveal key={p.slug}>
               <article
-                className="border-t border-border py-10 md:py-14"
+                className={`tone-${p.tone} border-t border-border py-10 md:py-14`}
                 id={p.slug}
               >
                 <Container size="wide">

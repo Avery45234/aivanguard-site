@@ -28,6 +28,14 @@ export const survey2025 = {
       "https://github.com/Avery45234/aivanguard-site/blob/master/scripts/analyze-survey.mjs",
     citation:
       "AI Vanguard. (2026). 2025 Student AI Policy Survey: what 447 students said about AI at school. https://aivanguard.org/research/student-ai-survey",
+    // Peer-reviewed or journal publication of the analysis. Rendered only
+    // when href is set; title and year are filled from the published record.
+    publication: {
+      venue: "Curieux Academic Journal",
+      title: "",
+      year: "",
+      href: "",
+    },
   },
 
   // Exact question wording from the form, in order.

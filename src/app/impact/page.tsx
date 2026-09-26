@@ -32,6 +32,7 @@ export const metadata: Metadata = {
 const categories = [
   {
     n: "01",
+    tone: "research",
     title: "Research",
     blurb: "Primary evidence, gathered and now analyzed by students.",
     href: "/research",
@@ -61,6 +62,7 @@ const categories = [
   },
   {
     n: "02",
+    tone: "governance",
     title: "Policy",
     blurb: "Evidence carried into rooms where AI decisions get made.",
     href: "/our-work#abcusd",
@@ -90,6 +92,7 @@ const categories = [
   },
   {
     n: "03",
+    tone: "community",
     title: "Reach",
     blurb: "A network built to outlast any one student.",
     href: "/about",
@@ -119,6 +122,7 @@ const categories = [
   },
   {
     n: "04",
+    tone: "community",
     title: "Public engagement",
     blurb: "Students speaking for themselves, in public.",
     href: "/highlights",
@@ -173,7 +177,7 @@ export default function ImpactPage() {
         <section
           key={c.title}
           id={c.title.toLowerCase().replace(/\s+/g, "-")}
-          className={`py-14 md:py-20 scroll-mt-28 ${
+          className={`tone-${c.tone} py-14 md:py-20 scroll-mt-28 ${
             idx > 0 ? "border-t border-border" : ""
           } ${idx % 2 === 1 ? "surface-panel" : ""}`}
           data-rail-section={c.title}

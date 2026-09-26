@@ -48,6 +48,7 @@ export const metrics = [
 export const pillars = [
   {
     slug: "research",
+    tone: "research",
     number: "01",
     title: "Student voice research",
     subtitle: "Find out what students actually think.",
@@ -64,6 +65,7 @@ export const pillars = [
   },
   {
     slug: "governance",
+    tone: "governance",
     number: "02",
     title: "AI governance",
     subtitle: "Bring that evidence into institutional decision-making.",
@@ -80,6 +82,7 @@ export const pillars = [
   },
   {
     slug: "leadership",
+    tone: "community",
     number: "03",
     title: "Student leadership",
     subtitle: "Create structures that keep students involved over time.",
@@ -203,6 +206,7 @@ export const milestones = [
 export const initiatives = [
   {
     tag: "District governance",
+    tone: "governance",
     status: "Proposed",
     title: "A standing student AI body in ABC Unified",
     body: "Working with district instructional-technology leaders on a recurring structure for student input into AI decisions, with mentorship and year-to-year continuity built in. Under review, with the district's January 2027 AI-Ignite event as the first proving ground if approved.",
@@ -210,6 +214,7 @@ export const initiatives = [
   },
   {
     tag: "National research",
+    tone: "research",
     status: "Underway",
     title: "Tracing when student voice actually changes AI policy",
     body: "A preregistered study of the twelve largest U.S. school districts, built on public records rather than press releases. Records requests are out to twenty large systems and coding has begun.",
@@ -217,6 +222,7 @@ export const initiatives = [
   },
   {
     tag: "National student voice",
+    tone: "community",
     status: "In development",
     title: "In conversation with Project Tomorrow's Speak Up",
     body: "Exploring a student-led qualitative layer for the national research program that heard from more than 100,000 students, educators, and parents in its last cycle. A proposal is with their leadership.",

@@ -44,7 +44,7 @@ export default function OurWorkPage() {
         <section
           key={p.slug}
           id={p.slug}
-          className="py-14 md:py-20 border-t border-border scroll-mt-28"
+          className={`tone-${p.tone} py-14 md:py-20 border-t border-border scroll-mt-28`}
           data-rail-section={p.title}
         >
           <Container size="wide">
@@ -109,7 +109,7 @@ export default function OurWorkPage() {
       {/* DISTRICT WORK — featured case study */}
       <section
         id="abcusd"
-        className="py-14 md:py-20 border-t border-border scroll-mt-28 surface-panel"
+        className="tone-governance py-14 md:py-20 border-t border-border scroll-mt-28 surface-panel"
         data-rail-section="District work"
       >
         <Container size="wide">
@@ -165,7 +165,7 @@ export default function OurWorkPage() {
       {/* PROJECT TOMORROW */}
       <section
         id="project-tomorrow"
-        className="py-14 md:py-20 border-t border-border scroll-mt-28"
+        className="tone-community py-14 md:py-20 border-t border-border scroll-mt-28"
         data-rail-section="Project Tomorrow"
       >
         <Container size="wide">
@@ -236,6 +236,7 @@ export default function OurWorkPage() {
             {[
               {
                 tag: "Research",
+                tone: "research",
                 status: "Underway",
                 title: "When Does Student Voice Change AI Policy?",
                 body: "A preregistered study of the twelve largest U.S. school districts, tracing whether student recommendations on generative AI received a documented response. Public-records requests are out to twenty large systems and coding has begun.",
@@ -244,18 +245,21 @@ export default function OurWorkPage() {
               },
               {
                 tag: "Advocacy",
+                tone: "governance",
                 status: "Proposal",
                 title: "The Student AI Pulse",
                 body: "A proposal to the Los Angeles County Office of Education for a short, voluntary measure of whether students understand AI expectations, can reach appropriate tools, and are building basic AI literacy, piloted with interested districts in 2026–27. Sent to superintendents across the county in August; being refined with the districts that responded.",
               },
               {
                 tag: "Governance",
+                tone: "governance",
                 status: "Early stage",
                 title: "Tracking AI changes after approval",
                 body: "How districts find out when an already-approved product adds student-facing AI or changes how student data is processed. Working from conversations with district technology and privacy leads toward a lightweight review standard for material AI changes.",
               },
               {
                 tag: "Community",
+                tone: "community",
                 status: "Ongoing",
                 title: "The national network",
                 body: "Onboarding the 2026–27 cohort of representatives and State Directors, with structured onboarding and shared resources, and running the first Vanguard Open.",
@@ -265,7 +269,7 @@ export default function OurWorkPage() {
             ].map((x) => (
               <li
                 key={x.title}
-                className="py-8 md:py-10 grid gap-6 md:grid-cols-[140px_1fr] md:gap-14 items-baseline"
+                className={`tone-${x.tone} py-8 md:py-10 grid gap-6 md:grid-cols-[140px_1fr] md:gap-14 items-baseline`}
               >
                 <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
                   <div>{x.tag}</div>

@@ -51,14 +51,14 @@ export function VanguardOpenBanner() {
   const phase = useSyncExternalStore(noop, phaseNow, phaseNow);
   const c = copy[phase];
   return (
-    <div className="border-b border-border bg-accent/10">
+    <div className="border-b border-border bg-highlight/10">
       <Link
         href={c.href}
-        className="group mx-auto flex max-w-7xl items-center justify-center gap-3 px-6 py-2 text-[12px] md:text-[12.5px] tracking-tight text-ink hover:text-accent-deep transition-colors"
+        className="group mx-auto flex max-w-7xl items-center justify-center gap-3 px-6 py-2 text-[12px] md:text-[12.5px] tracking-tight text-ink hover:text-highlight transition-colors"
       >
-        <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
+        <span className="h-1.5 w-1.5 rounded-full bg-highlight" aria-hidden />
         <span>{c.text}</span>
-        <span className="text-ink-dim group-hover:text-accent-deep transition-colors">
+        <span className="text-ink-dim group-hover:text-highlight transition-colors">
           {c.cta} →
         </span>
       </Link>

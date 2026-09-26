@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export default function StudentSurveyPage() {
   const m = survey2025.meta;
   return (
-    <>
+    <div className="tone-research">
       <PageHeader
         eyebrow="Research · 2025 Student AI Policy Survey"
         title={
@@ -430,6 +430,25 @@ export default function StudentSurveyPage() {
                     <dt className="text-[11px] uppercase tracking-[0.22em] text-ink-muted pt-1">Suggested citation</dt>
                     <dd className="text-ink">{m.citation}</dd>
                   </div>
+                  {m.publication.href ? (
+                    <div className="py-5 grid gap-2 md:grid-cols-[180px_1fr] md:gap-8">
+                      <dt className="text-[11px] uppercase tracking-[0.22em] text-ink-muted pt-1">Published as</dt>
+                      <dd className="text-ink">
+                        <a
+                          href={m.publication.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline underline-offset-4 decoration-accent/50 hover:text-accent"
+                        >
+                          {m.publication.title || "Read the published analysis"}
+                        </a>
+                        <span className="block mt-1 text-[13px] text-ink-muted">
+                          {m.publication.venue}
+                          {m.publication.year ? `, ${m.publication.year}` : ""}
+                        </span>
+                      </dd>
+                    </div>
+                  ) : null}
                   <div className="py-5 grid gap-2 md:grid-cols-[180px_1fr] md:gap-8">
                     <dt className="text-[11px] uppercase tracking-[0.22em] text-ink-muted pt-1">Quotable, organizational</dt>
                     <dd className="text-ink">
@@ -487,6 +506,6 @@ export default function StudentSurveyPage() {
           </Reveal>
         </Container>
       </section>
-    </>
+    </div>
   );
 }
