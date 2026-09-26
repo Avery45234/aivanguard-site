@@ -57,7 +57,19 @@ export default function ResearchPage() {
                     <span className="serif-italic">?</span>
                   </>
                 }
-                blurb={study.lead}
+                blurb={
+                  <>
+                    Led by{" "}
+                    <Link
+                      href="/people/avery-updike"
+                      className="text-accent underline underline-offset-4"
+                    >
+                      Avery Updike
+                    </Link>
+                    , AI Vanguard&apos;s founder, as an independent
+                    preregistered study.
+                  </>
+                }
               />
               <div className="text-[11px] uppercase tracking-[0.2em] text-ink-muted leading-relaxed text-right">
                 <div className="text-accent">{study.status}</div>

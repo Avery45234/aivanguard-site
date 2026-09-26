@@ -19,6 +19,7 @@ const routes = [
   "/portal/help",
   "/contact",
   "/press",
+  "/people/avery-updike",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

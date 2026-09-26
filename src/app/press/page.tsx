@@ -107,7 +107,7 @@ export default function PressPage() {
               { label: "Students surveyed (2025)", value: `${survey2025.meta.totalResponses}`, href: "/research/student-ai-survey" },
               { label: "Teachers surveyed (2026 pilot)", value: `${teacherSurvey2026.meta.totalResponses}`, href: "/research#teachers-2026" },
               { label: "Current study", value: `${study.sample.count} districts · preregistered`, href: "/research#study" },
-              { label: "Founder & President", value: "Avery Updike" },
+              { label: "Founder & President", value: "Avery Updike", href: "/people/avery-updike" },
             ].map((f) => (
               <Reveal key={f.label}>
                 <div className="border-t border-border pt-4" role="listitem">
@@ -175,6 +175,73 @@ export default function PressPage() {
               </li>
             ))}
           </ul>
+        </Container>
+      </section>
+
+      {/* Founder — bios, headshot, and profile */}
+      <section className="py-12 md:py-16 border-t border-border surface-panel" data-rail-section="Founder">
+        <Container size="wide">
+          <div className="grid gap-10 md:grid-cols-12 md:gap-16 items-start">
+            <div className="md:col-span-4">
+              <Reveal>
+                <SectionHeading
+                  eyebrow="Founder"
+                  title={
+                    <>
+                      Avery Updike,{" "}
+                      <span className="serif-italic">on the record.</span>
+                    </>
+                  }
+                  blurb="Approved bios at three lengths, a downloadable headshot, and a full profile with research and speaking history."
+                />
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button href="/people/avery-updike" size="md">
+                    Full profile
+                  </Button>
+                  <Button href="/img/team/avery.png" external variant="secondary" size="md">
+                    Headshot ↗
+                  </Button>
+                </div>
+              </Reveal>
+            </div>
+            <div className="md:col-span-8">
+              <Reveal>
+                <div className="photo-frame photo-crisp photo-duotone aspect-[4/5] bg-surface relative w-[160px] mb-8">
+                  <Image
+                    src="/img/team/avery.png"
+                    alt="Avery Updike, founder and president of AI Vanguard."
+                    fill
+                    sizes="160px"
+                    quality={90}
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="space-y-8">
+                  {[
+                    {
+                      label: "25 words",
+                      text: "Avery Updike founded AI Vanguard, a student-led nonprofit advancing student participation in AI education policy. She is a senior at Cerritos High School in California.",
+                    },
+                    {
+                      label: "50 words",
+                      text: "Avery Updike is the founder and president of AI Vanguard, a student-led nonprofit advancing student participation in AI education policy. She leads a preregistered study of student influence on AI policy in the twelve largest U.S. districts and served as a California student senator on the 2026 Students First Act.",
+                    },
+                  ].map((b) => (
+                    <article key={b.label} className="grid gap-3 md:grid-cols-[120px_1fr] md:gap-10 items-baseline border-t border-border pt-5">
+                      <div className="text-[11px] uppercase tracking-[0.22em] text-accent">{b.label}</div>
+                      <div>
+                        <p className="text-[16px] leading-relaxed text-ink">{b.text}</p>
+                        <CopyButton text={b.text} />
+                      </div>
+                    </article>
+                  ))}
+                </div>
+                <p className="mt-6 text-[12.5px] text-ink-muted">
+                  Headshot may be reproduced for editorial and event use with credit to AI Vanguard. The 100-word bio is on the profile page.
+                </p>
+              </Reveal>
+            </div>
+          </div>
         </Container>
       </section>
 

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
@@ -245,6 +246,7 @@ export default function AboutPage() {
                   role={p.role}
                   image={p.image}
                   index={i + 1}
+                  href={"href" in p ? p.href : undefined}
                 />
               </Reveal>
             ))}
@@ -338,11 +340,13 @@ function ProfileCard({
   role,
   image,
   index,
+  href,
 }: {
   name: string;
   role: string;
   image: string | null;
   index: number;
+  href?: string;
 }) {
   const parts = name.split(" ");
   const inits = (parts[0]?.[0] ?? "") + (parts[parts.length - 1]?.[0] ?? "");
@@ -370,7 +374,16 @@ function ProfileCard({
       <figcaption className="mt-4 flex items-baseline justify-between gap-4">
         <div>
           <div className="font-display text-xl tracking-tight text-ink">
-            {name}
+            {href ? (
+              <Link
+                href={href}
+                className="hover:text-accent transition-colors underline decoration-accent/40 underline-offset-[6px]"
+              >
+                {name}
+              </Link>
+            ) : (
+              name
+            )}
           </div>
           <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-ink-muted">
             {role}
