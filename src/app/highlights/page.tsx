@@ -9,6 +9,7 @@ import { developments, highlights, press, updates } from "@/lib/highlights";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/highlights" },
   title: "News",
   description:
     "Work worth following from AI Vanguard: student highlights, developments in research and district governance, and press coverage of AI Vanguard students.",

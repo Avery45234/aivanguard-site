@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -12,6 +13,7 @@ import { press } from "@/lib/highlights";
 import CopyButton from "./CopyButtonClient";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/press" },
   title: "Press",
   description:
     "AI Vanguard press kit — boilerplate, logo, founder bio, research summary, and contact. For journalists, partners, and anyone writing about student-led AI education advocacy.",
@@ -97,14 +99,14 @@ export default function PressPage() {
 
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3" role="list">
             {[
-              { label: "Founded", value: "2024" },
+              { label: "Founded", value: "2024", href: "/impact#milestones" },
               { label: "Legal status", value: "501(c)(3) nonprofit" },
-              { label: "Based", value: "Southern California · six states" },
-              { label: "Leadership", value: "15-person student cabinet" },
-              { label: "Representatives", value: "14 reps · 8 campuses" },
-              { label: "Students surveyed (2025)", value: `${survey2025.meta.totalResponses}` },
-              { label: "Teachers surveyed (2026 pilot)", value: `${teacherSurvey2026.meta.totalResponses}` },
-              { label: "Current study", value: `${study.sample.count} districts · preregistered` },
+              { label: "Based", value: "Southern California · six states", href: "/about" },
+              { label: "Leadership", value: "15-person student cabinet", href: "/about" },
+              { label: "Representatives", value: "14 reps · 8 campuses", href: "/about" },
+              { label: "Students surveyed (2025)", value: `${survey2025.meta.totalResponses}`, href: "/research/student-ai-survey" },
+              { label: "Teachers surveyed (2026 pilot)", value: `${teacherSurvey2026.meta.totalResponses}`, href: "/research#teachers-2026" },
+              { label: "Current study", value: `${study.sample.count} districts · preregistered`, href: "/research#study" },
               { label: "Founder & President", value: "Avery Updike" },
             ].map((f) => (
               <Reveal key={f.label}>
@@ -113,7 +115,16 @@ export default function PressPage() {
                     {f.label}
                   </div>
                   <div className="mt-2 font-display text-xl md:text-2xl tracking-tight text-ink">
-                    {f.value}
+                    {f.href ? (
+                      <Link
+                        href={f.href}
+                        className="hover:text-accent transition-colors underline decoration-accent/40 underline-offset-[6px]"
+                      >
+                        {f.value}
+                      </Link>
+                    ) : (
+                      f.value
+                    )}
                   </div>
                 </div>
               </Reveal>

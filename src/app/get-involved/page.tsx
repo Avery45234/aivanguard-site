@@ -8,6 +8,7 @@ import { PortraitPlate } from "@/components/PortraitPlate";
 import { reach, site } from "@/lib/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/get-involved" },
   title: "Get Involved",
   description:
     "Four ways in: become a student representative or researcher, bring structured student AI input into your district's policymaking, collaborate on student-centered research, or support the work.",

@@ -12,10 +12,11 @@ import { RESULTS_DATE, SUBMISSION_DEADLINE } from "@/lib/competition";
  *   until results day   → judging underway, results October 3
  *   after results       → meet the winners
  *
- * Pages are prerendered, so the phase is computed on the client.
- * useSyncExternalStore renders the pre-deadline phase during
- * hydration (the build always happens before the deadline) and then
- * swaps in the live phase without a hydration mismatch.
+ * Pages are prerendered, so the phase is computed from the clock on both
+ * sides: the server snapshot bakes the phase current at build time into
+ * the HTML, and the client re-reads the clock after hydration, so a
+ * visitor never sees an expired state, even if no deploy has happened
+ * since the phase changed.
  */
 type Phase = "open" | "judging" | "results";
 
@@ -47,7 +48,7 @@ const copy: Record<Phase, { text: string; cta: string; href: string }> = {
 };
 
 export function VanguardOpenBanner() {
-  const phase = useSyncExternalStore(noop, phaseNow, () => "open" as Phase);
+  const phase = useSyncExternalStore(noop, phaseNow, phaseNow);
   const c = copy[phase];
   return (
     <div className="border-b border-border bg-accent/10">

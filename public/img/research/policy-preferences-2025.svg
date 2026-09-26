@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="t d" font-family="Inter, 'Helvetica Neue', Arial, sans-serif">
+  <title id="t">What students want schools to do about AI. AI Vanguard 2025 Student AI Policy Survey, 447 responses.</title>
+  <desc id="d">Horizontal bar chart. Teach students to use AI responsibly, 74 percent, 330 of 447. Involve students in shaping AI rules and policies, 35 percent, 158. Create stricter rules to limit misuse, 26 percent, 116. Allow free use with minimal restrictions, 24 percent, 106. Do nothing, AI use should be up to individuals, 14 percent, 63. AI should complete most of the work, 5 percent, 22. Select-all-that-apply, so bars total more than 100 percent. Fielded August 25 to December 17, 2025 at six Southern California high schools.</desc>
+  <rect width="1200" height="720" fill="#fcfcfb"/>
+
+  <!-- Title block -->
+  <text x="72" y="78" font-size="30" font-weight="600" fill="#0b0b0b" letter-spacing="-0.3">What students want schools to do about AI</text>
+  <text x="72" y="110" font-size="16" fill="#52514e">“What role should schools play in guiding AI use?” Select all that apply. Share of all 447 responses.</text>
+
+  <!-- Bars: 22px thick, square at the baseline (x=470), 4px rounded data-end. Value scale: 100% = 640px. -->
+  <g font-size="16" fill="#0b0b0b">
+    <!-- 1 -->
+    <text x="72" y="184" font-weight="500">Teach students how to use AI responsibly</text>
+    <path d="M470,168 H1101.6 a4,4 0 0 1 4,4 v14 a4,4 0 0 1 -4,4 H470 Z" fill="#8968cc"/>
+    <text x="1118" y="184" font-size="15" fill="#0b0b0b" font-weight="600">74%</text>
+    <text x="72" y="204" font-size="12" fill="#52514e">n = 330</text>
+    <!-- 2 -->
+    <text x="72" y="264" font-weight="500">Involve students in shaping AI rules and policies</text>
+    <path d="M470,248 H690 a4,4 0 0 1 4,4 v14 a4,4 0 0 1 -4,4 H470 Z" fill="#8968cc"/>
+    <text x="706" y="264" font-size="15" fill="#0b0b0b" font-weight="600">35%</text>
+    <text x="72" y="284" font-size="12" fill="#52514e">n = 158</text>
+    <!-- 3 -->
+    <text x="72" y="344" font-weight="500">Create stricter rules to limit misuse</text>
+    <path d="M470,328 H632.4 a4,4 0 0 1 4,4 v14 a4,4 0 0 1 -4,4 H470 Z" fill="#8968cc"/>
+    <text x="649" y="344" font-size="15" fill="#0b0b0b" font-weight="600">26%</text>
+    <text x="72" y="364" font-size="12" fill="#52514e">n = 116</text>
+    <!-- 4 -->
+    <text x="72" y="424" font-weight="500">Allow free use with minimal restrictions</text>
+    <path d="M470,408 H619.6 a4,4 0 0 1 4,4 v14 a4,4 0 0 1 -4,4 H470 Z" fill="#8968cc"/>
+    <text x="636" y="424" font-size="15" fill="#0b0b0b" font-weight="600">24%</text>
+    <text x="72" y="444" font-size="12" fill="#52514e">n = 106</text>
+    <!-- 5 -->
+    <text x="72" y="504" font-weight="500">Do nothing; AI use should be up to individuals</text>
+    <path d="M470,488 H555.6 a4,4 0 0 1 4,4 v14 a4,4 0 0 1 -4,4 H470 Z" fill="#8968cc"/>
+    <text x="572" y="504" font-size="15" fill="#0b0b0b" font-weight="600">14%</text>
+    <text x="72" y="524" font-size="12" fill="#52514e">n = 63</text>
+    <!-- 6 -->
+    <text x="72" y="584" font-weight="500">AI should complete most of the work</text>
+    <path d="M470,568 H498 a4,4 0 0 1 4,4 v14 a4,4 0 0 1 -4,4 H470 Z" fill="#8968cc"/>
+    <text x="515" y="584" font-size="15" fill="#0b0b0b" font-weight="600">5%</text>
+    <text x="72" y="604" font-size="12" fill="#52514e">n = 22</text>
+  </g>
+
+  <!-- Baseline -->
+  <line x1="470" y1="156" x2="470" y2="600" stroke="#d9d7d2" stroke-width="1"/>
+
+  <!-- Source -->
+  <line x1="72" y1="640" x2="1128" y2="640" stroke="#e6e4df" stroke-width="1"/>
+  <text x="72" y="668" font-size="13" fill="#52514e">Source: AI Vanguard, 2025 Student AI Policy Survey. 447 responses, six Southern California high schools, Aug 25 – Dec 17, 2025. Convenience sample; not representative.</text>
+  <text x="72" y="690" font-size="13" fill="#52514e">Methods, exact wording, and counts: aivanguard.org/research/student-ai-survey</text>
+</svg>

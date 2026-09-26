@@ -6,6 +6,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact",
   description:
     "Get in touch with AI Vanguard — for students, school partnerships, press, or general inquiries.",

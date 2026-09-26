@@ -16,30 +16,90 @@ export const survey2025 = {
     window: "Aug 25 – Dec 17, 2025",
     totalResponses: 447,
     schoolCount: 6,
+    instrument: "Google Form, nine items, distributed by AI Vanguard student representatives at their campuses",
+    // Every percentage on the site divides by all 447 submitted responses.
+    // 12 rows are exact duplicates of another response (same school, grade,
+    // and answers, different timestamp), most likely double submissions.
+    // Removing them (n = 435) moves no headline figure by more than half a
+    // point, so the published analysis keeps all 447 and discloses this.
+    duplicateRows: 12,
+    uniqueResponses: 435,
+    analysisScript:
+      "https://github.com/Avery45234/aivanguard-site/blob/master/scripts/analyze-survey.mjs",
+    citation:
+      "AI Vanguard. (2026). 2025 Student AI Policy Survey: what 447 students said about AI at school. https://aivanguard.org/research/student-ai-survey",
   },
 
-  // Headline percentages — the four numbers that tell the story fastest.
+  // Exact question wording from the form, in order.
+  questions: [
+    "What school do you attend?",
+    "Grade level",
+    "Have you used AI tools (e.g., ChatGPT, Grammarly, Khanmigo, QuillBot) for schoolwork?",
+    "What have you primarily used AI tools for? (select all that apply)",
+    "How helpful do you find AI tools for your learning?",
+    "Do you think using AI for schoolwork should be considered…",
+    "Do you feel all students at your school have equal access to AI tools?",
+    "What role should schools play in guiding AI use?",
+    "Comments or request for policy advocation? (optional)",
+  ],
+
+  // Headline percentages, each with its count over all 447 responses and the
+  // exact response options that were counted. The first figure was
+  // previously published as 84%; that was the count of frequent users (84)
+  // mistaken for a percentage. Corrected September 2026.
   headline: [
     {
-      value: "84%",
-      label: "Use AI for schoolwork",
-      hint: "Frequently or occasionally",
+      value: "80%",
+      n: 357,
+      label: "Used AI for schoolwork",
+      hint: "Frequently or occasionally · 357 of 447",
+      question: "Have you used AI tools (e.g., ChatGPT, Grammarly, Khanmigo, QuillBot) for schoolwork?",
+      counted: "\u201cYes, frequently (weekly or more)\u201d (84) + \u201cYes, occasionally (a few times)\u201d (273)",
+      rest: "52 had heard of AI tools but not used them, 24 had never used them, and 14 wrote in a custom answer, most describing limited or teacher-directed use.",
     },
     {
       value: "87%",
+      n: 389,
       label: "Find AI helpful",
-      hint: "Very or somewhat",
+      hint: "Very or somewhat · 389 of 447",
+      question: "How helpful do you find AI tools for your learning?",
+      counted: "\u201cVery helpful\u201d (182) + \u201cSomewhat helpful\u201d (207)",
+      rest: "35 said not helpful, 7 said harmful, and 16 wrote in an answer, mostly non-users.",
     },
     {
       value: "90%",
+      n: 404,
       label: "Say AI is acceptable",
-      hint: "With guidance or for specific tasks",
+      hint: "With guidance or for specific tasks · 404 of 447",
+      question: "Do you think using AI for schoolwork should be considered…",
+      counted: "\u201cAcceptable, as long as it\u2019s used responsibly\u201d (222) + \u201cAcceptable only for certain tasks\u201d (182)",
+      rest: "16 (4%) called it cheating even if just for help, 22 were not sure, and 5 wrote in an answer.",
     },
     {
       value: "74%",
+      n: 330,
       label: "Want schools to teach responsible use",
-      hint: "The dominant policy preference",
+      hint: "The dominant policy preference · 330 of 447",
+      question: "What role should schools play in guiding AI use?",
+      counted: "\u201cTeach students how to use AI responsibly\u201d, in a select-all-that-apply question",
+      rest: "Students could choose more than one role, so the options below total more than 100%.",
     },
+  ],
+
+  // Grade distribution of respondents.
+  grades: [
+    { label: "Freshman (9th)", n: 140, pct: 31 },
+    { label: "Sophomore (10th)", n: 133, pct: 30 },
+    { label: "Junior (11th)", n: 125, pct: 28 },
+    { label: "Senior (12th)", n: 49, pct: 11 },
+  ],
+
+  // Equal access to AI tools at school (single choice).
+  equalAccess: [
+    { label: "Yes, most students have equal access", n: 296, pct: 66 },
+    { label: "No, some students do not", n: 82, pct: 18 },
+    { label: "Don\u2019t know", n: 67, pct: 15 },
+    { label: "Other", n: 2, pct: 0 },
   ],
 
   // Schools represented — honest about the distribution.
@@ -55,12 +115,12 @@ export const survey2025 = {
   // What students want schools to do (multi-select, % of all responses).
   // Ordered by support. Clearly shows: students want guidance, not bans.
   policyPreferences: [
-    { label: "Teach students how to use AI responsibly", pct: 74 },
-    { label: "Involve students in shaping AI rules and policies", pct: 35 },
-    { label: "Create stricter rules to limit misuse", pct: 26 },
-    { label: "Allow free use with minimal restrictions", pct: 24 },
-    { label: "Do nothing; AI use should be up to individuals", pct: 14 },
-    { label: "AI should complete most of the work", pct: 5 },
+    { label: "Teach students how to use AI responsibly", n: 330, pct: 74 },
+    { label: "Involve students in shaping AI rules and policies", n: 158, pct: 35 },
+    { label: "Create stricter rules to limit misuse", n: 116, pct: 26 },
+    { label: "Allow free use with minimal restrictions", n: 106, pct: 24 },
+    { label: "Do nothing; AI use should be up to individuals", n: 63, pct: 14 },
+    { label: "AI should complete most of the work", n: 22, pct: 5 },
   ],
 
   // Stance on AI for schoolwork — only 4% call it outright cheating.

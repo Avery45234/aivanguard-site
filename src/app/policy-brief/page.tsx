@@ -7,6 +7,7 @@ import { site } from "@/lib/site";
 import { survey2025, teacherSurvey2026 } from "@/lib/research";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/policy-brief" },
   title: "Policy Brief",
   description:
     "AI Vanguard's position on AI in K-12 education — six asks for schools and districts, grounded in student-voice research across Southern California.",

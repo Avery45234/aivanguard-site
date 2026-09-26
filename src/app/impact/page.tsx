@@ -20,6 +20,7 @@ import { survey2025, teacherSurvey2026 } from "@/lib/research";
 import { study } from "@/lib/study";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/impact" },
   title: "Impact",
   description:
     "AI Vanguard's impact in four parts: research, policy, reach, and public engagement. Specific, sourced numbers, updated September 2026.",

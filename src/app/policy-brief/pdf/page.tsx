@@ -5,6 +5,7 @@ import { survey2025, teacherSurvey2026 } from "@/lib/research";
 import "./document.css";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/policy-brief/pdf" },
   title: "Policy Brief — PDF version",
   description:
     "Document-form version of the AI Vanguard policy brief, optimized for printing and PDF export.",

@@ -3,6 +3,7 @@ import { Container } from "@/components/Container";
 import { HelpForm } from "./HelpForm";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/portal/help" },
   title: "Help",
   description:
     "Get help with the Vanguard Open: registration, submissions, rules, or technical issues.",

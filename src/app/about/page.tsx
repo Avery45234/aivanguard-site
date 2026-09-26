@@ -18,6 +18,7 @@ const spell = (n: number) => words[n] ?? String(n);
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "About",
   description:
     "AI Vanguard is a student-led nonprofit ensuring students have a voice in how AI enters the classroom.",

@@ -4,6 +4,7 @@ import { Container } from "@/components/Container";
 import { RegisterForm } from "./RegisterForm";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/portal/register" },
   title: "Register",
   description:
     "Official registration form for the Vanguard Open. Free, takes a few minutes. Submissions due September 25, 2026.",

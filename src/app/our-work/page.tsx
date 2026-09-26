@@ -11,6 +11,7 @@ import { districtWork, partnerships, pillars, site } from "@/lib/site";
 import { speakUp } from "@/lib/study";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/our-work" },
   title: "Work",
   description:
     "Student voice research, AI governance, and student leadership — the three programs that make up AI Vanguard, and the district and national work underway right now.",

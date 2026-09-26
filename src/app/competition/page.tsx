@@ -7,14 +7,15 @@ import { Reveal } from "@/components/Reveal";
 import { rubric, judgingRounds } from "@/lib/competition";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/competition" },
   title: "The Vanguard Open",
   description:
-    "The Vanguard Open, AI Vanguard's competition: design an AI-era classroom you'd actually want to learn in, then defend one thing you'd refuse to automate. Any format. $1,000 in prizes. Deadline September 25, 2026.",
+    "The Vanguard Open, AI Vanguard's competition: design an AI-era classroom you'd actually want to learn in, then defend one thing you'd refuse to automate. Any format. $1,000 in prizes. Entries closed September 25, 2026; results October 3.",
 };
 
 const keyDates = [
-  { date: "Open now", label: "Registration", note: "Free, a few minutes, in the Entrant Portal." },
-  { date: "September 25, 2026", label: "Submission deadline", note: "Entries close 11:59 PM Pacific. Registered entrants submit through the Entrant Portal." },
+  { date: "Closed", label: "Registration", note: "Registration and submissions closed September 25, 2026 at 11:59 PM Pacific." },
+  { date: "Underway", label: "Judging", note: "Every eligible entry is scored independently by at least two judges against the published rubric." },
   { date: "October 3, 2026", label: "Results announced", note: "Winners published and featured on aivanguard.org." },
 ];
 
@@ -22,7 +23,7 @@ const quickFacts = [
   { k: "Prize pool", v: "$1,000" },
   { k: "Format", v: "Open" },
   { k: "Team size", v: "1-4" },
-  { k: "Deadline", v: "Sept 25" },
+  { k: "Results", v: "Oct 3" },
 ];
 
 const requirements = [
@@ -35,7 +36,7 @@ const requirements = [
       "Essays / written work: PDF, max 2,500 words.",
       "Video / film: max 6 minutes, hosted link. Unlisted YouTube is fine.",
       "Design / visual work: PDF or hosted link, max 15 pages or frames.",
-      "Something else entirely? Email us before the deadline and we'll tell you how to submit it.",
+      "Something else entirely? Entrants who emailed us before the deadline were told how to submit it.",
     ],
   },
   {
@@ -129,8 +130,8 @@ const prizes = [
 
 const faq = [
   {
-    q: "How do I enter?",
-    a: "Open the Entrant Portal (it opens in a new tab) and register. It's free and takes a few minutes. When your entry is ready, submit it in the portal: the work, the 300-word Rationale, and the AI Use Disclosure, any time before September 25, 2026.",
+    q: "Can I still enter?",
+    a: "No. Entries closed September 25, 2026 at 11:59 PM Pacific. Registered entrants can still sign in to the Entrant Portal to see the entry they submitted. Results will be announced October 3, 2026, and the next Open will be announced here.",
   },
   {
     q: "Can I use AI to build my submission?",
@@ -149,8 +150,8 @@ const faq = [
     a: "Yes. The prompt is the classroom you'd want to learn in, and everyone is a learner.",
   },
   {
-    q: "What if my format doesn't fit the categories?",
-    a: "Email us before the deadline. We'll find a way to accept it.",
+    q: "I submitted. What happens now?",
+    a: "Screening first: organizers check each entry for completeness and rules compliance, and incomplete entries get one email and 48 hours to fix. Then at least two judges score every eligible entry independently against the rubric. Finalists may be invited to a brief live or video Q&A to verify authorship.",
   },
   {
     q: "Do teams split the judging criteria?",
@@ -176,11 +177,11 @@ export default function CompetitionPage() {
         blurb="AI is entering classrooms faster than anyone can evaluate it, and most of the conversation is happening about students, not with them. So here's the prompt: what would you automate, and what would you refuse to automate?"
         meta={
           <div className="flex flex-wrap gap-3">
-            <Button href="/portal" external size="md">
-              Open the Entrant Portal ↗
-            </Button>
-            <Button href="#brief" variant="secondary" size="md">
+            <Button href="#brief" size="md">
               Read the brief ↓
+            </Button>
+            <Button href="/portal" external variant="secondary" size="md">
+              Entrant Portal ↗
             </Button>
           </div>
         }
@@ -706,20 +707,21 @@ export default function CompetitionPage() {
           <Reveal>
             <div className="max-w-3xl">
               <h2 className="font-display text-4xl md:text-6xl leading-[1.02] tracking-tight text-ink">
-                Got an opinion?{" "}
-                <span className="serif-italic">Prove it.</span>
+                Entries are in.{" "}
+                <span className="serif-italic">Judging is underway.</span>
               </h2>
               <p className="mt-6 text-[16px] md:text-[17px] text-ink-dim leading-relaxed max-w-xl">
-                Registration is open now in the Entrant Portal and takes a few
-                minutes. Completed entries are due September 25, 2026, and
-                results will be announced October 3, 2026.
+                Submissions closed September 25, 2026. Results will be announced
+                October 3, 2026 and the winners featured here. Registered
+                entrants can sign in to the Entrant Portal to review the entry
+                they submitted.
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
                 <Button href="/portal" external size="lg">
-                  Open the Entrant Portal ↗
+                  Entrant Portal ↗
                 </Button>
                 <Button href="/contact" variant="secondary" size="lg">
-                  Ask a question first
+                  Ask a question
                 </Button>
               </div>
             </div>

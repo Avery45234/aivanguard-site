@@ -5,6 +5,7 @@ import { PrintButton } from "@/components/PrintButton";
 import { rubric, judgingRounds } from "@/lib/competition";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/competition/rubric" },
   title: "Official Judging Rubric",
   description:
     "The official 100-point judging rubric for the Vanguard Open 2026: five criteria with full score bands, tiebreakers, and the judging process.",

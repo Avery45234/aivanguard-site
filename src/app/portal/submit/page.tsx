@@ -3,6 +3,7 @@ import { Container } from "@/components/Container";
 import { SubmitForm } from "./SubmitForm";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/portal/submit" },
   title: "Submit your entry",
   description:
     "Official submission form for the Vanguard Open 2026. The work, the 300-word Rationale, and the AI Use Disclosure, due September 25, 2026.",

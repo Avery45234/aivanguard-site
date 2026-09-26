@@ -11,6 +11,7 @@ import { study } from "@/lib/study";
 import { survey2025, teacherSurvey2026, perceptionStudy } from "@/lib/research";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/research" },
   title: "Research",
   description:
     "AI Vanguard's evidence: a preregistered study of student influence on AI policy in the twelve largest U.S. districts, the 2025 policy survey of 447 students, and a companion teacher pilot.",
@@ -283,7 +284,20 @@ export default function ResearchPage() {
                     <span className="serif-italic">One clear message.</span>
                   </>
                 }
-                blurb="Our first research cycle, run through campus representatives at partner schools. The raw data behind the policy conversations we bring to districts, and the evidence base for the 2026 policy brief."
+                blurb={
+                  <>
+                    Our first research cycle, run through campus representatives
+                    at partner schools. The raw data behind the policy
+                    conversations we bring to districts, and the evidence base
+                    for the 2026 policy brief.{" "}
+                    <Link
+                      href="/research/student-ai-survey"
+                      className="text-accent underline underline-offset-4"
+                    >
+                      Full methods, exact question wording, and counts →
+                    </Link>
+                  </>
+                }
               />
               <div className="text-[11px] uppercase tracking-[0.2em] text-ink-muted leading-relaxed text-right">
                 <div>{survey2025.meta.cycle}</div>
