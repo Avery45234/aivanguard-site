@@ -32,9 +32,16 @@ export const survey2025 = {
     // when href is set; title and year are filled from the published record.
     publication: {
       venue: "Curieux Academic Journal",
-      title: "",
-      year: "",
-      href: "",
+      title: "The Guidance Gap: Student Perspectives on Ethical AI Use in Schools",
+      author: "Avery Updike",
+      year: "2026",
+      issue: "July 2026 · Issue 9, Part 2 · p. 542",
+      href: "https://www.curieuxreview.com/_files/ugd/60ed3c_9d6ecf0a70da42109ca83bd552c653b1.pdf#page=542",
+      // The article reports N = 446 after its own review for incomplete or
+      // duplicate cases. This page counts all 447 submitted responses and
+      // discloses the 12 exact duplicates instead. Say so wherever the two
+      // sit side by side.
+      note: "The article reports 446 responses after removing incomplete or duplicate cases. This page counts all 447 submitted responses and discloses the 12 duplicates; no headline figure moves by more than half a point either way.",
     },
   },
 

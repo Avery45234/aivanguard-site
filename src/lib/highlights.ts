@@ -99,6 +99,13 @@ export const updates: Update[] = [
     external: true,
   },
   {
+    date: "July 2026",
+    title: "“The Guidance Gap” published in Curieux Academic Journal",
+    body: "Avery Updike's analysis of the 2025 student AI policy survey appears in Curieux Academic Journal, Issue 9, Part 2. The site's survey page keeps every count and notes where the article's sample differs.",
+    href: "https://www.curieuxreview.com/_files/ugd/60ed3c_9d6ecf0a70da42109ca83bd552c653b1.pdf#page=542",
+    external: true,
+  },
+  {
     date: "July 17 – 19, 2026",
     title: "America's Youth AI Festival, Boston",
     body: "AI Vanguard's founder serves as a California student senator in the national mock Senate that drafts and passes the Students First Act, and Tristan Tjetjep takes the Day of AI stage as a student speaker.",

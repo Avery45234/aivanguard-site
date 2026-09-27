@@ -78,10 +78,15 @@ export const study = {
     "The study's lead founded AI Vanguard. The protocol names that as a possible source of bias and builds in controls: a fixed sample, an outcome measure that counts reasoned rejection, unknowns kept unknown, contradictory evidence retained, a second independent coder, and AI Vanguard's own materials held to the same evidentiary standard as any other record. Findings that show no student influence will be reported.",
   timeline:
     "Descriptive findings and up to four process-tracing case studies will be published on this page when the preregistered analysis is complete.",
-  // Public registration of the protocol. Rendered only when href is set.
+  // Registration of the protocol. The OSF registration is timestamped and
+  // embargoed until the analysis is published (Avery's decision, Sept
+  // 2026); a link renders only when href is set. Until then the site says
+  // it is embargoed rather than implying it is public.
   registration: {
     registry: "OSF",
     href: "",
+    embargoed: true,
+    note: "Timestamped registration on OSF, embargoed until the analysis is published.",
   },
   source: {
     citation:

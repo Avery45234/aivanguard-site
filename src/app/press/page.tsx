@@ -105,6 +105,7 @@ export default function PressPage() {
               { label: "Leadership", value: "15-person student cabinet", href: "/about" },
               { label: "Representatives", value: "14 reps · 8 campuses", href: "/about" },
               { label: "Students surveyed (2025)", value: `${survey2025.meta.totalResponses}`, href: "/research/student-ai-survey" },
+              { label: "Published analysis", value: `“The Guidance Gap” · ${survey2025.meta.publication.venue}, ${survey2025.meta.publication.year}`, href: "/research/student-ai-survey#cite" },
               { label: "Teachers surveyed (2026 pilot)", value: `${teacherSurvey2026.meta.totalResponses}`, href: "/research#teachers-2026" },
               { label: "Current study", value: `${study.sample.count} districts · preregistered`, href: "/research#study" },
               { label: "Founder & President", value: "Avery Updike" },

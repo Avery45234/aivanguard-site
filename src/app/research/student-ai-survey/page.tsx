@@ -443,9 +443,13 @@ export default function StudentSurveyPage() {
                           {m.publication.title || "Read the published analysis"}
                         </a>
                         <span className="block mt-1 text-[13px] text-ink-muted">
+                          {m.publication.author ? `${m.publication.author} · ` : ""}
                           {m.publication.venue}
-                          {m.publication.year ? `, ${m.publication.year}` : ""}
+                          {m.publication.issue ? ` · ${m.publication.issue}` : m.publication.year ? `, ${m.publication.year}` : ""}
                         </span>
+                        {m.publication.note ? (
+                          <span className="block mt-2 text-[13px] text-ink-dim leading-relaxed">{m.publication.note}</span>
+                        ) : null}
                       </dd>
                     </div>
                   ) : null}

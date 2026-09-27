@@ -68,7 +68,13 @@ export default function ResearchPage() {
               kind="Preregistered protocol"
               status="Underway"
               title={study.title}
-              meta={["12 districts, fixed before coding", "20 public-records requests", "Protocol fixed September 2026"]}
+              meta={[
+                "12 districts, fixed before coding",
+                "20 public-records requests",
+                study.registration.href
+                  ? `Registered on ${study.registration.registry}, September 2026`
+                  : `${study.registration.registry} registration timestamped, embargoed`,
+              ]}
               actions={[
                 { label: "Summary", href: "#study" },
                 ...(study.registration.href
@@ -194,7 +200,7 @@ export default function ResearchPage() {
               <div className="mt-6 grid gap-6 md:grid-cols-2 text-[14.5px] text-ink-dim leading-relaxed max-w-5xl">
                 <p><strong className="text-ink font-medium">Secondary questions.</strong> {study.secondary.join(" ")}</p>
                 <p><strong className="text-ink font-medium">Unit of analysis.</strong> {study.unit}</p>
-                <p><strong className="text-ink font-medium">Preregistration.</strong> {study.preregistration}</p>
+                <p><strong className="text-ink font-medium">Preregistration.</strong> {study.preregistration} {study.registration.note}</p>
                 <p><strong className="text-ink font-medium">Reliability.</strong> {study.reliability}</p>
                 <p><strong className="text-ink font-medium">Researcher position.</strong> {study.position}</p>
                 <p><strong className="text-ink font-medium">What happens next.</strong> {study.timeline} {study.records.note}</p>
@@ -255,6 +261,11 @@ export default function ResearchPage() {
                   <SourceLine href="/research/student-ai-survey#methods">Methods, exact wording, duplicates</SourceLine>
                   <SourceLine href={links.tableCsv} external>Table (CSV)</SourceLine>
                   <SourceLine href={links.analysisScript} external>Analysis script on GitHub</SourceLine>
+                  {m.publication.href && (
+                    <SourceLine href={m.publication.href} external>
+                      &ldquo;{m.publication.title}&rdquo;, {m.publication.venue}, {m.publication.year}
+                    </SourceLine>
+                  )}
                 </div>
               </div>
             </div>
