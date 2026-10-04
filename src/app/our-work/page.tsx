@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { StatTile } from "@/components/StatTile";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
+import { StatesAtHome } from "@/components/StatesAtHome";
 import { districtWork, partnerships, pillars, site } from "@/lib/site";
 import { speakUp } from "@/lib/study";
 
@@ -161,6 +162,9 @@ export default function OurWorkPage() {
           </Reveal>
         </Container>
       </section>
+
+      {/* DISTRICT WORK OUTSIDE CALIFORNIA */}
+      <StatesAtHome />
 
       {/* PROJECT TOMORROW */}
       <section
