@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
-import { Medal, Portrait } from "@/components/open/Awards";
 import { results } from "@/lib/competition";
-import { winnerPhoto } from "@/lib/open-photos";
 
 /**
  * Home-page band naming the Vanguard Open winners. Reads from the same
@@ -18,28 +16,24 @@ export function OpenWinnersStrip() {
         >
           <div>
             <div className="text-[10.5px] uppercase tracking-[0.22em] text-highlight">
-              The Vanguard Open · {results.year} results
+              The Vanguard Open · {results.year}
             </div>
             <div className="mt-2 font-display text-2xl md:text-3xl tracking-tight text-ink">
-              Meet the <span className="serif-italic">prize winners.</span>
+              Prize <span className="serif-italic">winners.</span>
             </div>
           </div>
-          <ol className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
+          <dl className="grid gap-y-4 sm:grid-cols-3 sm:divide-x sm:divide-border">
             {results.winners.map((w) => (
-              <li key={w.name} className="bg-bg px-4 py-4 flex items-center gap-3">
-                <Portrait name={w.name} image={winnerPhoto(w.slug)} place={w.place} size="sm" />
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-ink-muted whitespace-nowrap">
-                    <Medal place={w.place} size={13} />
-                    {w.label}
-                  </div>
-                  <div className="mt-0.5 font-display text-[17px] leading-tight tracking-tight text-ink group-hover:text-accent transition-colors">
-                    {w.name}
-                  </div>
-                </div>
-              </li>
+              <div key={w.name} className="sm:px-6 sm:first:pl-0">
+                <dt className="text-[10.5px] font-semibold uppercase tracking-[0.22em] text-ink-muted">
+                  {w.label}
+                </dt>
+                <dd className="mt-1 font-display text-xl md:text-2xl leading-tight tracking-tight text-ink group-hover:text-accent transition-colors">
+                  {w.name}
+                </dd>
+              </div>
             ))}
-          </ol>
+          </dl>
           <span className="text-sm text-ink-dim group-hover:text-ink transition-colors whitespace-nowrap">
             See the results →
           </span>

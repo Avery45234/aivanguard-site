@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
-import { Laurel, Medal, Portrait, METAL } from "@/components/open/Awards";
+import { Laurel } from "@/components/open/Awards";
 import { rubric, results, type Winner, type WinnerWork } from "@/lib/competition";
 import { winnerPhoto } from "@/lib/open-photos";
 
@@ -25,7 +26,7 @@ const quickFacts = [
   { k: "In prizes", v: "$1,000" },
   { k: "Prize winners", v: "3" },
   { k: "Point rubric", v: "100" },
-  { k: "Divisions", v: "2" },
+  { k: "Judging criteria", v: "5" },
 ];
 
 const timeline = [
@@ -60,12 +61,12 @@ const requirements = [
   {
     tag: "D · Required",
     title: "Entrant information",
-    body: "Name, age category, school or organization, and a contact email. Solo entries or teams of up to four.",
+    body: "Name, school or organization, and a contact email. Solo entries or teams of up to four.",
   },
 ];
 
 const rules = [
-  { title: "Who can enter", body: "Anyone. Two divisions: 18 and under, and Open (all ages). Students, educators, parents: everyone is a learner." },
+  { title: "Who can enter", body: "Anyone. Students, educators, parents: everyone is a learner." },
   { title: "Free to enter", body: "No purchase, payment, or donation is ever required to enter or to win." },
   { title: "One entry per person or team", body: "Solo or a team of up to 4. A person may not appear on multiple teams, and prizes are split equally among team members." },
   { title: "Original work", body: "Created for this competition, or substantially developed during it. Building on prior work is fine, just disclose it." },
@@ -89,12 +90,12 @@ const faq = [
   {
     q: "Can I see the winning work?",
     a: allFeatured
-      ? "Yes. Each winner's entry is featured on this page."
-      : "A feature on each winning entry is being prepared and will be published on this page.",
+      ? "Yes. Each winner's entry is published on this page."
+      : "The three winning entries are being prepared for publication on this page.",
   },
   {
     q: "How were entries judged?",
-    a: `On the published 100-point rubric: five criteria, the same for every format, so an essay and an app are scored on the thinking and not the medium. Entries were graded by ${results.judge.name}, a ${results.judge.credential}.`,
+    a: `On the published 100-point rubric: five criteria, the same for every format, so an essay and an app are scored on the thinking and not the medium. Graders included ${results.judge.name}, a ${results.judge.credential}.`,
   },
   {
     q: "I entered. Can I appeal or see my entry?",
@@ -106,99 +107,68 @@ const faq = [
   },
 ];
 
-// Desktop podium order is second, first, third. On a phone the cards stack
-// in finishing order.
-const ORDER: Record<1 | 2 | 3, string> = {
-  1: "order-1 md:order-2",
-  2: "order-2 md:order-1",
-  3: "order-3 md:order-3",
-};
-const PLINTH: Record<1 | 2 | 3, string> = {
-  1: "md:h-36",
-  2: "md:h-24",
-  3: "md:h-16",
-};
+const GOLD = "#e2c477";
+const GOLD_INK = "#8a6514"; // gold that reads as text on white
+const PLUM = "#1a0f3d";
 
 function winnerLinks(w: Winner) {
   return [
-    ...(w.work?.href ? [{ label: "View the winning entry", href: w.work.href }] : []),
+    ...(w.work?.href ? [{ label: "Read the winning entry", href: w.work.href }] : []),
     ...(w.links ?? []),
   ];
 }
 
-function PodiumPlace({ w }: { w: Winner }) {
-  const m = METAL[w.place];
-  const top = w.place === 1;
-  const links = winnerLinks(w);
+// School and country on one line, the way a prize list prints them.
+function Affiliation({ w }: { w: Winner }) {
+  const line = [w.affiliation, w.location].filter(Boolean).join(", ");
+  return line ? <p className="mt-3 font-display text-lg md:text-xl text-ink-dim">{line}</p> : null;
+}
+
+// A portrait, shown only when a photo file exists for this winner.
+function WinnerPhoto({ w, large }: { w: Winner; large?: boolean }) {
+  const src = winnerPhoto(w.slug);
+  if (!src) return null;
   return (
-    <li className={`flex flex-col ${ORDER[w.place]}`}>
-      <article
-        className={`relative flex-1 rounded-2xl border border-border bg-bg text-center shadow-[0_14px_44px_rgba(60,34,116,0.10)] ${
-          top ? "px-7 pb-10 pt-16 md:pt-20" : "px-6 pb-8 pt-16"
-        }`}
-        style={{ borderTop: `4px solid ${m.base}` }}
-      >
-        <Medal
-          place={w.place}
-          size={top ? 68 : 56}
-          className="absolute left-1/2 -translate-x-1/2 -top-8"
-        />
-        <Portrait
-          name={w.name}
-          image={winnerPhoto(w.slug)}
-          place={w.place}
-          size={top ? "lg" : "md"}
-          className="mx-auto"
-        />
-        <div className="mt-5 text-[11px] uppercase tracking-[0.26em]" style={{ color: m.deep }}>
-          {w.label}
-        </div>
-        <h3
-          className={`mt-2 font-display tracking-tight text-ink leading-[1.05] ${
-            top ? "text-4xl md:text-[44px]" : "text-3xl md:text-[34px]"
-          }`}
-        >
-          {w.name}
-        </h3>
-        {(w.affiliation || w.location) && (
-          <p className="mt-2 text-[14px] text-ink-dim">
-            {[w.affiliation, w.location].filter(Boolean).join(" · ")}
-          </p>
-        )}
-        <div className="mt-4 fig text-2xl text-ink">{w.award}</div>
-        {w.work && (
-          <p className="mt-4 font-display italic text-lg text-ink-dim leading-snug">
-            &ldquo;{w.work.title}&rdquo;
-            <span className="mt-1 block not-italic text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-              {w.work.format}
-            </span>
-          </p>
-        )}
-        {links.length > 0 && (
-          <div className="mt-5 flex flex-wrap justify-center gap-2">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-9 items-center rounded-full border border-border-strong px-4 text-[13px] text-ink hover:bg-surface transition-colors"
-              >
-                {l.label} ↗
-              </a>
-            ))}
-          </div>
-        )}
-      </article>
-      <div
-        className={`mt-3 hidden md:flex items-center justify-center rounded-xl border border-border bg-surface-2 ${PLINTH[w.place]}`}
-        aria-hidden
-      >
-        <span className="fig text-5xl" style={{ color: m.deep }}>
-          {w.place}
-        </span>
-      </div>
-    </li>
+    <figure
+      className={`relative mx-auto mb-8 overflow-hidden border border-border-strong ${
+        large ? "h-[280px] w-[224px]" : "h-[200px] w-[160px]"
+      }`}
+    >
+      <Image src={src} alt={`Portrait of ${w.name}`} fill sizes="224px" className="object-cover object-top" />
+    </figure>
+  );
+}
+
+// Entry title and links under a winner's name, once they are on the record.
+function EntryLine({ w }: { w: Winner }) {
+  const links = winnerLinks(w);
+  if (!w.work && links.length === 0) return null;
+  return (
+    <div className="mt-5">
+      {w.work && (
+        <p className="font-display italic text-xl md:text-2xl leading-snug text-ink-dim">
+          &ldquo;{w.work.title}&rdquo;
+          <span className="ml-3 not-italic text-[11px] uppercase tracking-[0.2em] text-ink-muted">
+            {w.work.format}
+          </span>
+        </p>
+      )}
+      {links.length > 0 && (
+        <p className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[15px]">
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent underline underline-offset-[6px] decoration-accent/50 hover:text-ink transition-colors"
+            >
+              {l.label}
+            </a>
+          ))}
+        </p>
+      )}
+    </div>
   );
 }
 
@@ -206,15 +176,12 @@ function PodiumPlace({ w }: { w: Winner }) {
 function WorkFeature({ w, work }: { w: Winner; work: WinnerWork }) {
   return (
     <article className="grid gap-6 border-t border-border py-10 md:grid-cols-12 md:gap-12">
-      <div className="md:col-span-3 flex items-start gap-4">
-        <Medal place={w.place} size={40} />
-        <div>
-          <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">{w.label}</div>
-          <div className="mt-1 font-display text-xl tracking-tight text-ink">{w.name}</div>
-        </div>
+      <div className="md:col-span-3">
+        <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-accent">{w.label}</div>
+        <div className="mt-1 font-display text-2xl tracking-tight text-ink">{w.name}</div>
       </div>
       <div className={work.refusal ? "md:col-span-5" : "md:col-span-9"}>
-        <div className="text-[11px] uppercase tracking-[0.22em] text-accent">{work.format}</div>
+        <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">{work.format}</div>
         <h3 className="mt-2 font-display italic text-2xl md:text-3xl leading-[1.12] tracking-tight text-ink">
           {work.title}
         </h3>
@@ -224,9 +191,9 @@ function WorkFeature({ w, work }: { w: Winner; work: WinnerWork }) {
             href={work.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-block text-sm text-ink underline underline-offset-[6px] decoration-accent/60 hover:text-accent"
+            className="mt-4 inline-block text-sm text-accent underline underline-offset-[6px] decoration-accent/50 hover:text-ink"
           >
-            View the winning entry ↗
+            Read the winning entry
           </a>
         )}
       </div>
@@ -251,9 +218,6 @@ function SectionMark({ n, label }: { n: string; label: string }) {
     </div>
   );
 }
-
-const GOLD = "#e2c477";
-const PLUM = "#1a0f3d";
 
 export default function CompetitionPage() {
   return (
@@ -341,66 +305,86 @@ export default function CompetitionPage() {
         </Container>
       </section>
 
-      {/* PODIUM */}
+      {/* PRIZE WINNERS. A plain prize list: the year, then each prize and
+          the name it went to. No ornament; the type does the work. */}
       <section
         id="winners"
-        className="py-14 md:py-20 scroll-mt-28 border-b border-border"
+        className="py-16 md:py-24 scroll-mt-28 border-b border-border"
         data-rail-section="Winners"
       >
         <Container size="wide">
           <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <div className="text-[11px] uppercase tracking-[0.26em] text-accent">
-                Roll of honour · {results.year}
+            <div className="flex items-center gap-6 md:gap-10">
+              <span className="h-px flex-1 bg-border-strong" aria-hidden />
+              <h2 className="fig text-6xl md:text-8xl leading-none text-ink">{results.year}</h2>
+              <span className="h-px flex-1 bg-border-strong" aria-hidden />
+            </div>
+            <p className="mt-5 text-center text-[11px] uppercase tracking-[0.3em] text-ink-muted">
+              The Vanguard Open · Prize Winners
+            </p>
+          </Reveal>
+
+          <Reveal>
+            <div className="mx-auto mt-14 md:mt-20 max-w-5xl text-center">
+              <WinnerPhoto w={first} large />
+              <div
+                className="text-[13px] font-semibold uppercase tracking-[0.3em]"
+                style={{ color: GOLD_INK }}
+              >
+                {first.label}
               </div>
-              <h2 className="mt-3 font-display text-4xl md:text-6xl leading-[1.02] tracking-tight text-ink">
-                The prize <span className="serif-italic">winners.</span>
-              </h2>
-              <p className="mt-4 text-[15.5px] text-ink-dim leading-relaxed">
-                Three entries, chosen on the published 100-point rubric.
-              </p>
+              <h3 className="mt-5 font-display text-5xl sm:text-7xl md:text-[104px] leading-[0.98] tracking-tight text-ink">
+                {first.name}
+              </h3>
+              <Affiliation w={first} />
+              <p className="mt-5 fig text-2xl md:text-3xl text-ink-dim">{first.award}</p>
+              <EntryLine w={first} />
             </div>
           </Reveal>
 
-          <ol className="mt-16 md:mt-20 grid gap-14 md:grid-cols-3 md:gap-6 md:items-end">
-            {results.winners.map((w) => (
-              <PodiumPlace key={w.name} w={w} />
-            ))}
-          </ol>
+          <div
+            className="mx-auto mt-14 md:mt-20 h-px w-28"
+            style={{ background: GOLD_INK }}
+            aria-hidden
+          />
+
+          <Reveal>
+            <div className="mx-auto mt-14 md:mt-20 grid max-w-5xl gap-14 md:grid-cols-2 md:gap-0 md:divide-x md:divide-border">
+              {[second, third].map((w) => (
+                <div key={w.name} className="text-center md:px-10">
+                  <WinnerPhoto w={w} />
+                  <div className="text-[12px] font-semibold uppercase tracking-[0.3em] text-accent">
+                    {w.label}
+                  </div>
+                  <h3 className="mt-4 font-display text-4xl md:text-[56px] leading-[1.02] tracking-tight text-ink">
+                    {w.name}
+                  </h3>
+                  <Affiliation w={w} />
+                  <p className="mt-4 fig text-xl md:text-2xl text-ink-dim">{w.award}</p>
+                  <EntryLine w={w} />
+                </div>
+              ))}
+            </div>
+          </Reveal>
 
           {/* TO OUR WINNERS */}
           <Reveal>
-            <div className="mx-auto mt-14 md:mt-16 max-w-3xl rounded-2xl border border-border-strong bg-surface p-6 md:p-8 flex gap-5 items-start">
-              <svg
-                width="40"
-                height="40"
-                viewBox="0 0 40 40"
-                fill="none"
-                className="shrink-0 text-accent"
-                aria-hidden
-              >
-                <rect x="4" y="9" width="32" height="22" rx="3" stroke="currentColor" strokeWidth="1.6" />
-                <path d="M5 11l15 12 15-12" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-              </svg>
-              <div>
-                <h3 className="font-display text-2xl md:text-[28px] tracking-tight text-ink">
-                  To our winners
-                </h3>
-                <p className="mt-2 text-[15.5px] text-ink-dim leading-relaxed">
-                  {results.winnerNotice}
-                </p>
-                <p className="mt-3 text-[13px] text-ink-muted leading-relaxed">
-                  AI Vanguard will never ask a winner for payment. If you have a question in the
-                  meantime,{" "}
-                  <a
-                    href="/contact"
-                    className="underline underline-offset-4 decoration-accent/60 hover:decoration-accent text-ink-dim hover:text-ink"
-                  >
-                    use the contact form
-                  </a>
-                  .
-                </p>
-              </div>
+            <div className="mx-auto mt-16 md:mt-24 max-w-2xl border-y border-border-strong py-8 text-center">
+              <h3 className="font-display text-2xl md:text-[30px] tracking-tight text-ink">
+                To our winners
+              </h3>
+              <p className="mt-3 text-[16px] text-ink-dim leading-relaxed">{results.winnerNotice}</p>
+              <p className="mt-3 text-[13px] text-ink-muted leading-relaxed">
+                AI Vanguard will never ask a winner for payment. If you have a question in the
+                meantime,{" "}
+                <a
+                  href="/contact"
+                  className="underline underline-offset-4 decoration-accent/60 hover:decoration-accent text-ink-dim hover:text-ink"
+                >
+                  use the contact form
+                </a>
+                .
+              </p>
             </div>
           </Reveal>
 
@@ -418,7 +402,7 @@ export default function CompetitionPage() {
             </div>
           ) : (
             <p className="mx-auto mt-8 max-w-3xl text-center text-[14px] text-ink-muted">
-              A feature on each winning entry is being prepared and will be published here.
+              The three winning entries are being prepared for publication on this page.
             </p>
           )}
         </Container>
@@ -479,17 +463,15 @@ export default function CompetitionPage() {
               />
               {timeline.map((t, i) => {
                 const last = i === timeline.length - 1;
+                const dot = last ? GOLD_INK : "var(--color-accent)";
                 return (
                   <li key={t.what} className="relative pl-10 md:pl-0 md:pt-10">
                     <span
                       className="absolute left-0 top-0 flex h-[23px] w-[23px] items-center justify-center rounded-full border-2 bg-bg"
-                      style={{ borderColor: last ? METAL[1].base : "var(--color-accent)" }}
+                      style={{ borderColor: dot }}
                       aria-hidden
                     >
-                      <span
-                        className="h-2.5 w-2.5 rounded-full"
-                        style={{ background: last ? METAL[1].base : "var(--color-accent)" }}
-                      />
+                      <span className="h-2.5 w-2.5 rounded-full" style={{ background: dot }} />
                     </span>
                     <div className="fig text-xl md:text-2xl text-ink">{t.when}</div>
                     <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-accent">
@@ -527,28 +509,18 @@ export default function CompetitionPage() {
                   }
                   blurb="The thinking is scored, not the medium. A brilliant essay beats a mediocre app, and vice versa."
                 />
-                <div className="mt-8 flex items-center gap-5 rounded-2xl border border-border bg-surface p-5 md:p-6">
-                  <Portrait
-                    name={results.judge.name}
-                    initials={results.judge.initials}
-                    size="md"
-                    className="!h-20 !w-20 !text-2xl"
-                  />
-                  <div>
-                    <div className="text-[11px] uppercase tracking-[0.22em] text-accent">Grader</div>
-                    <div className="mt-1 font-display text-2xl tracking-tight text-ink">
-                      {results.judge.name}
-                    </div>
-                    <div className="mt-1 text-[14px] text-ink-dim">
-                      {results.judge.credential.charAt(0).toUpperCase() +
-                        results.judge.credential.slice(1)}
-                    </div>
-                    {results.judge.detail && (
-                      <div className="mt-1 text-[13px] text-ink-muted">{results.judge.detail}</div>
-                    )}
+                <div className="mt-8 border-l-2 pl-6" style={{ borderColor: GOLD_INK }}>
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-accent">
+                    Graders included
                   </div>
+                  <div className="mt-2 font-display text-3xl md:text-4xl tracking-tight text-ink">
+                    {results.judge.name}
+                  </div>
+                  <p className="mt-2 text-[14.5px] text-ink-dim leading-relaxed">
+                    {results.judge.detail}
+                  </p>
                 </div>
-                <div className="mt-6">
+                <div className="mt-8">
                   <Button href="/competition/rubric" variant="secondary" size="md">
                     Official rubric, full score bands →
                   </Button>
@@ -713,12 +685,7 @@ export default function CompetitionPage() {
         <Container size="wide">
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
-              <div className="flex justify-center gap-3">
-                <Medal place={2} size={40} />
-                <Medal place={1} size={52} />
-                <Medal place={3} size={40} />
-              </div>
-              <h2 className="mt-8 font-display text-4xl md:text-6xl leading-[1.02] tracking-tight text-ink">
+              <h2 className="font-display text-4xl md:text-6xl leading-[1.02] tracking-tight text-ink">
                 Congratulations to{" "}
                 <span className="serif-italic">the 2026 winners.</span>
               </h2>

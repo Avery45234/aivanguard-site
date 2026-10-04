@@ -3,9 +3,8 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
-import { Laurel, Medal, Portrait, METAL } from "@/components/open/Awards";
+import { Laurel } from "@/components/open/Awards";
 import { results, rubric } from "@/lib/competition";
-import { winnerPhoto } from "@/lib/open-photos";
 import { site } from "@/lib/site";
 
 const [first, second, third] = results.winners;
@@ -84,31 +83,28 @@ export default function WinnersArticle() {
         </Container>
       </section>
 
-      {/* WINNERS ROW */}
+      {/* PRIZE LIST */}
       <section className="border-b border-border surface-panel" data-rail-section="Winners">
         <Container size="wide" className="py-10 md:py-14">
-          <ol className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-3">
+          <dl className="grid gap-y-8 md:grid-cols-3 md:divide-x md:divide-border">
             {results.winners.map((w) => (
-              <li key={w.name} className="bg-bg p-6 md:p-8 flex items-center gap-5">
-                <Portrait name={w.name} image={winnerPhoto(w.slug)} place={w.place} size="md" />
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <Medal place={w.place} size={22} />
-                    <span
-                      className="text-[11px] uppercase tracking-[0.22em]"
-                      style={{ color: METAL[w.place].base }}
-                    >
-                      {w.label}
-                    </span>
-                  </div>
-                  <div className="mt-2 font-display text-2xl md:text-[28px] leading-[1.08] tracking-tight text-ink">
+              <div key={w.name} className="md:px-10 md:first:pl-0 md:last:pr-0">
+                <dt
+                  className={`text-[11px] font-semibold uppercase tracking-[0.26em] ${
+                    w.place === 1 ? "text-highlight" : "text-accent"
+                  }`}
+                >
+                  {w.label}
+                </dt>
+                <dd className="mt-3">
+                  <span className="block font-display text-3xl md:text-[40px] leading-[1.05] tracking-tight text-ink">
                     {w.name}
-                  </div>
-                  <div className="mt-1 fig text-lg text-ink-dim">{w.award}</div>
-                </div>
-              </li>
+                  </span>
+                  <span className="mt-2 block fig text-xl text-ink-dim">{w.award}</span>
+                </dd>
+              </div>
             ))}
-          </ol>
+          </dl>
         </Container>
       </section>
 
@@ -134,7 +130,7 @@ export default function WinnersArticle() {
                   Entrants were asked to design an AI-era classroom they would genuinely want to
                   learn in, and to name and defend one thing they would refuse to automate. Any
                   format was welcome: a working app, an essay, a film, a design. The competition
-                  was free to enter and open to everyone, in two divisions: 18 and under, and Open.
+                  was free to enter and open to everyone.
                 </p>
                 <blockquote className="mt-8 border-l-2 border-accent pl-6 font-display italic text-2xl md:text-[30px] leading-[1.25] text-ink">
                   What would you automate, and what would you refuse to automate?
@@ -148,9 +144,9 @@ export default function WinnersArticle() {
                 <p className="mt-4 text-[17px] leading-[1.75] text-ink-dim">
                   Entries in every format were scored on the same 100-point rubric, published
                   alongside the brief: {rubric.map((c) => `${c.title} (${c.points})`).join(", ")}.
-                  Entries were graded by {results.judge.name}, a {results.judge.credential}. The
-                  rubric scores the thinking, not the medium, so an essay and an app are held to
-                  the same standard.
+                  Graders included {results.judge.name}, a {results.judge.credential}. The rubric
+                  scores the thinking, not the medium, so an essay and an app are held to the same
+                  standard.
                 </p>
                 <p className="mt-4">
                   <Link
@@ -167,9 +163,9 @@ export default function WinnersArticle() {
                   What happens next
                 </h2>
                 <p className="mt-4 text-[17px] leading-[1.75] text-ink-dim">
-                  {results.winnerNotice} A feature on each winning entry will be published on the
-                  results page, and the next Open will be announced there too. AI Vanguard will
-                  never ask a winner for payment.
+                  {results.winnerNotice} The three winning entries will be published on the results
+                  page, and the next Open will be announced there too. AI Vanguard will never ask a
+                  winner for payment.
                 </p>
                 <p className="mt-4 text-[17px] leading-[1.75] text-ink-dim">
                   To everyone who entered: thank you. A competition is only as good as the people
@@ -195,10 +191,10 @@ export default function WinnersArticle() {
                       { k: "Competition", v: `The Vanguard Open ${results.year}` },
                       { k: "Prizes", v: "$1,000: $500, $300, $200" },
                       { k: "Formats", v: "Any" },
-                      { k: "Divisions", v: "18 and under · Open" },
+                      { k: "Rubric", v: "100 points, five criteria" },
                       { k: "Entries closed", v: "September 25, 2026" },
                       { k: "Announced", v: results.announced },
-                      { k: "Grader", v: `${results.judge.name}, ${results.judge.credential}` },
+                      { k: "Graders included", v: results.judge.name },
                     ].map((f) => (
                       <div key={f.k} className="flex items-baseline justify-between gap-6 py-3">
                         <dt className="text-ink-muted shrink-0">{f.k}</dt>
@@ -206,6 +202,9 @@ export default function WinnersArticle() {
                       </div>
                     ))}
                   </dl>
+                  <p className="mt-3 text-[12.5px] leading-relaxed text-ink-muted">
+                    {results.judge.detail}
+                  </p>
                 </div>
                 <div className="mt-6 rounded-2xl border border-border p-6 md:p-7">
                   <div className="text-[11px] uppercase tracking-[0.22em] text-accent">
