@@ -5,6 +5,7 @@ import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
+import { WinnersNewsCard } from "@/components/open/WinnersNewsCard";
 import { developments, highlights, press, updates } from "@/lib/highlights";
 import { site } from "@/lib/site";
 
@@ -30,10 +31,12 @@ export default function HighlightsPage() {
         meta={
           <div className="flex flex-col gap-2 text-[11px] uppercase tracking-[0.2em] text-ink-muted">
             <span>Series · Ongoing</span>
-            <span>Last added · September 2026</span>
+            <span>Last added · October 2026</span>
           </div>
         }
       />
+
+      <WinnersNewsCard />
 
       {/* DEVELOPMENTS */}
       <section

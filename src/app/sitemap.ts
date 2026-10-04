@@ -9,6 +9,7 @@ const routes = [
   "/research",
   "/research/student-ai-survey",
   "/highlights",
+  "/highlights/vanguard-open-2026-winners",
   "/policy-brief",
   "/get-involved",
   "/competition",
