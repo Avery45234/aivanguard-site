@@ -1,0 +1,135 @@
+{
+  "title": "Nothing Happens Until You Ask",
+  "subtitle": "A world where the question is the only engine",
+  "author": "Shusuke Kamiura",
+  "sections": [
+    {
+      "n": "1",
+      "title": "Where learning begins",
+      "blocks": [
+        "Before you can ask a question, you have to understand what you want to ask. That sounds obvious, but it is the whole of it. A student who does not know what puzzles them cannot form a question, and a student without a question has nothing to learn — only material to receive.",
+        "So the argument that follows is not that AI makes learning shallower. That is an empirical claim, and it may or may not be true. Mine is a definitional one. Learning starts when someone is holding a question. Remove that step and there is nothing left to accelerate, because the process has ended before it began."
+      ]
+    },
+    {
+      "n": "2",
+      "title": "The refusal",
+      "blocks": [
+        "I would refuse to automate **the generation of the question.**",
+        "Not answers. Not grading. Not explanation. Not feedback, translation, summarisation, or any of the tasks a system does well. The refusal covers one moment: noticing that something is strange, and wanting to know why."
+      ]
+    },
+    {
+      "n": "3",
+      "title": "What can be delegated, and what cannot",
+      "blocks": [
+        "A calculator uninstalls mental arithmetic. Most people who use one daily lose the ability, and most of them are fine. A translation app does the same to vocabulary recall. An AI coding assistant does it to syntax.",
+        "These are acceptable trades, and they share a property: **they remove a capability without changing what the person can go on to ask.** The calculator does not alter which problems occur to you. It only handles the step after you have chosen one.",
+        "Judgement and thought are different in kind. When those are delegated, the loss is not a capability sitting in isolation. It is the branching itself. What you conclude determines what you notice next, what you notice determines what you ask next, and what you ask determines everything downstream. Outsource that and you have not lost a skill; you have handed over the shape of your own search space.",
+        "So the line I draw is this: **a substitute for a human sub-function is acceptable. A substitute for the function that determines the branching is not.** The first removes a step. The second removes the map."
+      ]
+    },
+    {
+      "n": "4",
+      "title": "shiro",
+      "blocks": [
+        "The design is called **shiro**. The name is written in a script most readers here will not read, and it can mean several things at once — blank, castle, a stand-in for something else. I have never fixed which. That is deliberate, and it is the first principle of the space: **nothing arrives pre-interpreted.** If you want the name to mean something, you decide.",
+        "shiro has an outside and an inside, and they solve different problems.",
+        "**The outside** is how the space appears from this world. It sits quietly. There is no campaign, no enrolment, no notification. You find it or you do not. Nobody is delivered into it. This protects the first question: _do I want to go in?_",
+        "**The inside** is a virtual space you can move through and touch. It opens outward — forest, city, galaxy, whatever the metaphor holds — and it keeps changing slowly. There is no completion state. This protects the second question: _what is over there?_"
+      ]
+    },
+    {
+      "n": "5",
+      "title": "Why a space, and not an interface",
+      "blocks": [
+        "An app presents you with a list. Lists are made of options, and options were chosen by someone else. Even a very good list teaches you that your job is to select.",
+        "A space does not present options. It has a somewhere-else in it. You notice a thing at the edge of vision, and you go and look. The difference between selecting from a menu and walking toward something you noticed is not aesthetic. In the first case the candidate set came from outside you. In the second, the impulse originated with you.",
+        "**The form of the space is not decoration around the refusal. It is how the refusal is enforced.**"
+      ]
+    },
+    {
+      "n": "6",
+      "title": "Removing the constraints",
+      "blocks": [
+        "Inside shiro there is no timetable, no start time, no curriculum, no sequence, and no physics that has to hold. Touched things can multiply. You can walk into someone else’s creation. Time can run differently in different places.",
+        "This is not decoration either. In a conventional classroom, the constraints do the work that a question would otherwise have to do. The bell tells you when. The syllabus tells you what. The assignment tells you why. A student can move through an entire day without once having wanted to know something, because the structure supplies the direction that curiosity would have supplied.",
+        "**Take the constraints away and nothing moves you.** There is no next thing unless you have noticed a next thing. That is not a hardship built into the design; it is the design."
+      ]
+    },
+    {
+      "n": "7",
+      "title": "No teachers. AI everywhere.",
+      "blocks": [
+        "There are no teachers in shiro. Instead there is AI, available anywhere in the space, to anyone, without limit.",
+        "It will answer anything. It will argue against your position, and argue well. It will show you what happens if you change one variable. It will stay with a thread for as long as you want and never tire of it. Every complaint about the shortage of adult attention in education is solved here, completely.",
+        "It does exactly one thing less than it could: **it does not offer you a question.**",
+        "This is not a limitation of the technology. The system is entirely capable of suggesting what you might wonder about next, and in most products it would. It is a design choice, which matters, because a limitation disappears when the technology improves and a choice does not.",
+        "The accurate way to state it is this: **in shiro, AI is a response system, not an ignition system.** It is inexhaustible once something has been asked. Before that, it is still.",
+        "Which gives the world a single physical law: **a question is the only thing that starts anything.**"
+      ]
+    },
+    {
+      "n": "8",
+      "title": "Trying to break it is also learning",
+      "blocks": [
+        "The obvious move, for a certain kind of student, is to try to get the AI to produce a question anyway. Trick it. Prompt around it. Find the phrasing that makes it slip.",
+        "I want that to happen.",
+        "Consider what it requires. You have to decide what you want it to say, which means forming a target of your own. You have to hypothesise about which phrasing will work, which means building a model of the system. You have to try, fail, and work out why the attempt failed, which means diagnosing your own reasoning.",
+        "**Every step of cheating is the generation of a question.** The exploit is not a hole in the design; it is the design running at higher intensity. There is nothing to punish, and no rule to enforce, because the only available way to attack the refusal is to do the thing the refusal exists to protect."
+      ]
+    },
+    {
+      "n": "9",
+      "title": "The refusal has three layers",
+      "blocks": [
+        "It **protects**: the AI does not supply questions. It **drives**: without a question, nothing in the world moves at all. It **absorbs**: the attempt to break it produces the thing it protects.",
+        "Remove the refusal and shiro does not get worse. It stops being a world and becomes a recommendation engine, which is a different object entirely. Everything else in the design exists to hold that one absence open."
+      ]
+    },
+    {
+      "n": "10",
+      "title": "This is not a replacement for school",
+      "blocks": [
+        "The obvious objections arrive immediately. Where is the timetable? What about the start of the school day? Compulsory education? Attainment?",
+        "All of these are answered the same way, and the answer is not a defence. **shiro is not competing with school. It handles a different stage of the process.**",
+        "School is very good at what comes _after_ a question exists: supplying knowledge, sequencing it sensibly, and checking that it arrived. Those are real problems, solved by real institutions, and I have no interest in replacing that machinery.",
+        "shiro handles the one stage before it — the stage where something becomes interesting to a specific person. **No institution currently owns that stage**, and the reason is structural: it cannot be measured, and unmeasurable things do not survive inside systems that must account for themselves.",
+        "So there is a gap. shiro is built to sit in it."
+      ]
+    },
+    {
+      "n": "11",
+      "title": "Individuality is not developed. It is what survives measurement.",
+      "blocks": [
+        "The usual claim in this space is that education should nurture each student’s individuality. I want to state something narrower and, I think, more defensible.",
+        "A single axis of evaluation converts every student into a position on that axis. Above or below. Ahead or behind. This is not a side effect of measurement; it is what measurement _is_.",
+        "And once a person has been rendered as a position, _how am I seen_ is not a psychological reaction to being measured. It is the information the measurement produced. A position has no meaning except relative to other positions, so the comparison is not something the child adds afterwards — it is already in the output. The question is handed to them fully formed.",
+        "shiro has no axis. Not a gentler one, not a broader one — none. Nothing you do is converted into a value, so nothing you do can be ranked against what anyone else did.",
+        "**Individuality is not something the design grows. It is what is left when nothing is measuring.**"
+      ]
+    },
+    {
+      "n": "12",
+      "title": "What becomes unobservable",
+      "blocks": [
+        "Every choice above has the same cost, and it is a serious one.",
+        "**Nothing about shiro can be verified from outside.** A child who explored deeply for a year and a child who did nothing at all produce the same external record: none. There is no completion, no score, no progress bar, and therefore no evidence.",
+        "The consequences are concrete. No funder can be shown that the design works, because \"works\" would require the axis I removed. No school board can adopt it, because adoption requires reporting. No parent can look in and see how their child is doing, because \"how they are doing\" is not a quantity that exists here.",
+        "I do not think this is a flaw to be engineered around, and I want to be clear about why. **Every fix is the same fix.** Any mechanism that makes the inside legible to the outside is an axis, and an axis produces comparison, and comparison restores exactly the pressure the space was built to remove. A version of shiro that can prove itself is not a safer shiro. It is a normal learning app.",
+        "So the honest statement of the trade is: **this design buys the protection of the question by giving up the ability to demonstrate that it is working.** I am willing to make that trade. I do not think it can be avoided."
+      ]
+    },
+    {
+      "n": "13",
+      "title": "What I do not know",
+      "blocks": [
+        "**Anticipation.** The AI does not offer questions, but it is very good at inferring what someone is circling. A sufficiently helpful answer can hand over a question without ever phrasing one. I do not know where the boundary is, and I suspect it is not a line so much as a gradient.",
+        "**The child who does not arrive at a question.** Some will move through shiro for a long time without anything becoming interesting. In a conventional classroom the structure would carry them; here there is nothing to carry them. I have no mechanism for this, and I am not sure I should want one, because every mechanism I can think of is a question supplied from outside.",
+        "**Whether protection is enough.** Nothing in this design teaches anyone to hold a question. It only refuses to take that step away. Those are different, and I have assumed without argument that the second is sufficient.",
+        "---",
+        "These are the places where the design is thin, and I would rather name them than have them found. A world in which the question is the only engine is only as good as the questions that occur in it — and that is the one variable the designer does not get to set."
+      ]
+    }
+  ]
+}

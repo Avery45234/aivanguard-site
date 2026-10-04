@@ -163,10 +163,21 @@ export default function WinnersArticle() {
                   What happens next
                 </h2>
                 <p className="mt-4 text-[17px] leading-[1.75] text-ink-dim">
-                  {results.winnerNotice} The three winning entries will be published on the results
-                  page, and the next Open will be announced there too. AI Vanguard will never ask a
-                  winner for payment.
+                  {results.winnerNotice} AI Vanguard will never ask a winner for payment. The next
+                  Open will be announced on the results page.
                 </p>
+                {first.work?.href && (
+                  <p className="mt-4 text-[17px] leading-[1.75] text-ink-dim">
+                    The Grand Prize entry, &ldquo;{first.work.title}&rdquo; by {first.name}, is
+                    published in full.{" "}
+                    <Link
+                      href={first.work.href}
+                      className="text-ink underline underline-offset-[6px] decoration-accent/50 hover:text-accent transition-colors"
+                    >
+                      Read the essay →
+                    </Link>
+                  </p>
+                )}
                 <p className="mt-4 text-[17px] leading-[1.75] text-ink-dim">
                   To everyone who entered: thank you. A competition is only as good as the people
                   who take the question seriously.

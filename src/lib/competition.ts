@@ -33,14 +33,18 @@ export const PORTAL_OPEN: boolean = false;
 export type WinnerWork = {
   /** Entry title, exactly as submitted. */
   title: string;
+  /** The entry's own subtitle, when it has one. */
+  subtitle?: string;
   /** "Essay", "Working app", "Film", "Design", ... */
   format: string;
   /** Two or three sentences on what the entry is and does. */
   summary: string;
-  /** The one thing the entrant refuses to automate, in a sentence. */
+  /** The one thing the entrant refuses to automate, in their own words. */
   refusal?: string;
-  /** Hosted work, when the entrant's link is public. */
+  /** Where to read it: a page on this site ("/...") or a public link. */
   href?: string;
+  /** The original file as submitted, served from /public. */
+  pdf?: string;
 };
 
 export type WinnerLink = { label: string; href: string };
@@ -94,6 +98,20 @@ export const results: {
         "Presentation opportunity",
         "Board opportunity",
       ],
+      // From the entry as submitted (PDF supplied by the organizer,
+      // October 2026). The refusal is the author's own sentence. The full
+      // text lives in src/lib/open-entries/ and is generated from the PDF,
+      // word for word.
+      work: {
+        title: "Nothing Happens Until You Ask",
+        subtitle: "A world where the question is the only engine",
+        format: "Essay",
+        summary:
+          "Kamiura designs shiro, a virtual learning space with no timetable, no curriculum, and no teachers, where AI is everywhere and will answer anything. The one thing it never does is offer a question, so nothing in that world moves until the learner asks. The essay also names its own cost: a space with no measurement cannot prove from the outside that it works.",
+        refusal: "I would refuse to automate the generation of the question.",
+        href: "/competition/2026/nothing-happens-until-you-ask",
+        pdf: "/open/2026/nothing-happens-until-you-ask.pdf",
+      },
     },
     {
       place: 2,
@@ -127,7 +145,7 @@ export const results: {
   },
   // Shown under the winners, in the FAQ, and in the News article.
   winnerNotice:
-    "We will be reaching out to each winner by email very soon, at the address used to register, to arrange the prize and the published feature of the winning entry.",
+    "We will be reaching out to each winner by email very soon, at the address used to register, to arrange their prize.",
 };
 
 export type RubricCriterion = {
