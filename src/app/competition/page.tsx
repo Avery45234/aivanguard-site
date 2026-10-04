@@ -99,7 +99,7 @@ const faq = [
   },
   {
     q: "I entered. Can I appeal or see my entry?",
-    a: "Scores and decisions are final and there are no appeals, as the rules state. Registered entrants can still sign in to the Entrant Portal to review the entry they submitted.",
+    a: "Scores and decisions are final and there are no appeals, as the rules state. The Entrant Portal is now closed. If you need a copy of what you submitted, use the contact form.",
   },
   {
     q: "Will there be another Open?",
@@ -699,9 +699,6 @@ export default function CompetitionPage() {
                 </Button>
                 <Button href="/get-involved" variant="secondary" size="lg">
                   Get involved with AI Vanguard
-                </Button>
-                <Button href="/portal" external variant="secondary" size="lg">
-                  Entrant Portal ↗
                 </Button>
               </div>
             </div>

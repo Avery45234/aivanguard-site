@@ -14,10 +14,8 @@ const routes = [
   "/get-involved",
   "/competition",
   "/competition/rubric",
-  "/portal",
-  "/portal/register",
-  "/portal/submit",
-  "/portal/help",
+  // The Entrant Portal is closed (PORTAL_OPEN in src/lib/competition.ts),
+  // so its routes are left out. Add them back when it reopens.
   "/contact",
   "/press",
 ];

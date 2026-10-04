@@ -10,6 +10,13 @@ export const SUBMISSION_DEADLINE = new Date("2026-09-25T23:59:59-07:00");
 // move from "judging underway" to "meet the winners".
 export const RESULTS_DATE = new Date("2026-10-03T00:00:00-07:00");
 
+// The Entrant Portal is closed: the 2026 Open has ended and the winners
+// are announced. While this is false, every /portal route shows a closed
+// notice instead of sign-in, registration, submission, or the help form
+// (see src/app/portal/layout.tsx). Set it to true to reopen the portal
+// for the next Open.
+export const PORTAL_OPEN: boolean = false;
+
 // ---------------------------------------------------------------------
 // 2026 results. Names and order are from the organizer (Avery Updike),
 // announced October 3, 2026. Everything on /competition, the home-page
