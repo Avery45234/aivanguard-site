@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { StatTile } from "@/components/StatTile";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
+import { StatesAtHome } from "@/components/StatesAtHome";
 import { FactCard, SourceLine, Steps } from "@/components/Blocks";
 import { districtWork, partnerships, pillars, site } from "@/lib/site";
 import { speakUp } from "@/lib/study";
@@ -117,6 +118,11 @@ export default function OurWorkPage() {
           </Reveal>
         </Container>
       </section>
+
+      {/* DISTRICT WORK OUTSIDE CALIFORNIA */}
+      <div className="tone-governance">
+        <StatesAtHome />
+      </div>
 
       {/* PROGRAMS — compact, linked */}
       <section className="py-14 md:py-20 border-t border-border surface-panel" data-rail-section="Programs">
