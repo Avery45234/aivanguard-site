@@ -4,45 +4,55 @@ import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/Button";
 import { Reveal } from "@/components/Reveal";
-import { rubric, judgingRounds } from "@/lib/competition";
+import {
+  rubric,
+  judgingRounds,
+  results,
+  type Winner,
+  type WinnerWork,
+} from "@/lib/competition";
+
+const [first, ...runnersUp] = results.winners;
+const allFeatured = results.winners.every((w) => w.work);
 
 export const metadata: Metadata = {
   alternates: { canonical: "/competition" },
-  title: "The Vanguard Open",
-  description:
-    "The Vanguard Open, AI Vanguard's competition: design an AI-era classroom you'd actually want to learn in, then defend one thing you'd refuse to automate. Any format. $1,000 in prizes. Entries closed September 25, 2026; results October 3.",
+  title: "Vanguard Open 2026 Winners",
+  description: `Results of the 2026 Vanguard Open, AI Vanguard's competition to design an AI-era classroom worth learning in and defend one thing you'd refuse to automate. Grand Prize: ${first.name}. Second: ${runnersUp[0].name}. Third: ${runnersUp[1].name}. $1,000 in prizes.`,
 };
 
 const keyDates = [
-  { date: "Closed", label: "Registration", note: "Registration and submissions closed September 25, 2026 at 11:59 PM Pacific." },
-  { date: "Underway", label: "Judging", note: "Every eligible entry is scored independently by at least two judges against the published rubric." },
-  { date: "October 3, 2026", label: "Results announced", note: "Winners published and featured on aivanguard.org." },
+  { date: "September 25, 2026", label: "Entries closed", note: "Registration and submissions closed at 11:59 PM Pacific." },
+  { date: "Complete", label: "Judging", note: "Entries were scored against the published 100-point rubric, the same five criteria for every format." },
+  { date: results.announced, label: "Results announced", note: "The three winning entries are named on this page." },
 ];
 
+// Participation figures come first once they are on the record; the rest
+// are fixed facts about the competition.
 const quickFacts = [
-  { k: "Prize pool", v: "$1,000" },
-  { k: "Format", v: "Open" },
-  { k: "Team size", v: "1-4" },
-  { k: "Results", v: "Oct 3" },
+  ...results.stats,
+  { k: "Prizes", v: "$1,000" },
+  { k: "Winners", v: "3" },
+  { k: "Rubric", v: "100 pts" },
+  { k: "Announced", v: "Oct 3" },
 ];
 
 const requirements = [
   {
     tag: "A · The work",
     title: "The work itself",
-    body: "Build an app, write an essay, film something, design something. The format is your choice. We judge the thinking.",
+    body: "An app, an essay, a film, a design. The format was the entrant's choice. We judged the thinking.",
     items: [
-      "Code / apps: a public repository link or hosted demo, plus a 2 to 3 minute walkthrough video. A screen recording is fine.",
+      "Code / apps: a public repository link or hosted demo, plus a 2 to 3 minute walkthrough video.",
       "Essays / written work: PDF, max 2,500 words.",
-      "Video / film: max 6 minutes, hosted link. Unlisted YouTube is fine.",
+      "Video / film: max 6 minutes, hosted link.",
       "Design / visual work: PDF or hosted link, max 15 pages or frames.",
-      "Something else entirely? Entrants who emailed us before the deadline were told how to submit it.",
     ],
   },
   {
     tag: "B · Required",
     title: "The Rationale (max 300 words)",
-    body: "A short written statement answering three questions. The Rationale is judged with equal weight for every entrant. It's how we fairly compare an app against an essay against a film: everyone thinks on the same 300-word playing field.",
+    body: "A short statement answering three questions, judged with equal weight for every entrant. It is how an app, an essay, and a film get compared fairly: everyone thinks on the same 300-word playing field.",
     items: [
       "What problem does your classroom design solve, and for whom?",
       "What can be improved in classrooms through AI?",
@@ -52,112 +62,127 @@ const requirements = [
   {
     tag: "C · Required",
     title: "AI Use Disclosure",
-    body: "Tell us how you used AI tools in creating your submission. Using AI isn't just allowed. For a competition about AI, it's encouraged. But undisclosed AI use is grounds for disqualification. There's no penalty for heavy AI use; there's a penalty for hiding it. Judges may weigh how thoughtfully you used AI as part of Execution & Craft.",
+    body: "How the entrant used AI tools. Using AI was encouraged. Hiding it was grounds for disqualification. No penalty for heavy use, only for undisclosed use.",
   },
   {
     tag: "D · Required",
     title: "Entrant information",
-    body: "Name(s), age category, school or organization (if any), and a contact email. We encourage individual entries; teams of up to 4 are permitted, and prizes are split equally among team members.",
+    body: "Name(s), age category, school or organization, and a contact email. Individual entries encouraged; teams of up to 4 permitted.",
   },
 ];
 
 const rules = [
-  {
-    title: "Who can enter",
-    body: "Anyone. Two divisions: 18 and under, and Open (all ages). Students, educators, parents: everyone is a learner.",
-  },
-  {
-    title: "Free to enter",
-    body: "No purchase, payment, or donation is ever required to enter or to win.",
-  },
-  {
-    title: "One entry per person or team",
-    body: "Enter solo or as a team of up to 4. A person may not appear on multiple teams, and prizes are split equally among team members.",
-  },
-  {
-    title: "Original work",
-    body: "Created for this competition, or substantially developed during it. Building on prior work is fine, just disclose it.",
-  },
-  {
-    title: "AI use",
-    body: "Allowed and encouraged anywhere in your process, on one condition: full disclosure. Undisclosed AI use is grounds for disqualification.",
-  },
-  {
-    title: "You keep your work",
-    body: "Entrants retain full ownership. Entering grants AI Vanguard a non-exclusive license to display, publish, and promote your work, always with credit.",
-  },
-  {
-    title: "Privacy & consent",
-    body: "If your entry shows real students, classrooms, or identifiable people, you must have their consent to include them.",
-  },
-  {
-    title: "Content standards",
-    body: "No hateful, obscene, harassing, or unlawful content. Entries that cross the line are removed from consideration.",
-  },
-  {
-    title: "Disqualification",
-    body: "Plagiarism, undisclosed AI use, or fabricated data or testimonials will disqualify an entry.",
-  },
-  {
-    title: "Decisions are final",
-    body: "Judges' scores and decisions are final; there are no appeals.",
-  },
-];
-
-const prizes = [
-  {
-    place: "Grand Prize",
-    amount: "$500",
-    perks: [
-      "Cash award",
-      "Published & highlighted feature on aivanguard.org",
-      "Presentation opportunity",
-      "Board opportunity",
-    ],
-    featured: true,
-  },
-  {
-    place: "Silver · 2nd",
-    amount: "$300",
-    perks: ["Cash award", "Published feature", "Board opportunity"],
-  },
-  {
-    place: "Bronze · 3rd",
-    amount: "$200",
-    perks: ["Cash award", "Published feature", "Board opportunity"],
-  },
+  { title: "Who can enter", body: "Anyone. Two divisions: 18 and under, and Open (all ages). Students, educators, parents: everyone is a learner." },
+  { title: "Free to enter", body: "No purchase, payment, or donation is ever required to enter or to win." },
+  { title: "One entry per person or team", body: "Solo or a team of up to 4. A person may not appear on multiple teams, and prizes are split equally among team members." },
+  { title: "Original work", body: "Created for this competition, or substantially developed during it. Building on prior work is fine, just disclose it." },
+  { title: "AI use", body: "Allowed and encouraged anywhere in the process, on one condition: full disclosure." },
+  { title: "You keep your work", body: "Entrants retain full ownership. Entering grants AI Vanguard a non-exclusive license to display, publish, and promote the work, always with credit." },
+  { title: "Privacy & consent", body: "An entry that shows real students, classrooms, or identifiable people must have their consent." },
+  { title: "Content standards", body: "No hateful, obscene, harassing, or unlawful content." },
+  { title: "Disqualification", body: "Plagiarism, undisclosed AI use, or fabricated data or testimonials disqualify an entry." },
+  { title: "Decisions are final", body: "Judges' scores and decisions are final; there are no appeals." },
 ];
 
 const faq = [
   {
+    q: "Who won the 2026 Vanguard Open?",
+    a: `${first.name} won the Grand Prize (${first.award}). ${runnersUp[0].name} placed second (${runnersUp[0].award}) and ${runnersUp[1].name} placed third (${runnersUp[1].award}).`,
+  },
+  {
+    q: "Can I see the winning work?",
+    a: allFeatured
+      ? "Yes. Each winner's entry is featured at the top of this page."
+      : "A feature on each winning entry will be published on this page.",
+  },
+  {
+    q: "How were entries judged?",
+    a: "Against the published 100-point rubric: five criteria, the same for every format, so an essay and an app are scored on the thinking and not the medium. The rubric, the three rounds, and the tiebreakers are all on this page.",
+  },
+  {
+    q: "I entered. Can I appeal or see my entry?",
+    a: "Judges' scores and decisions are final and there are no appeals, as the rules state. Registered entrants can still sign in to the Entrant Portal to review the entry they submitted.",
+  },
+  {
     q: "Can I still enter?",
-    a: "No. Entries closed September 25, 2026 at 11:59 PM Pacific. Registered entrants can still sign in to the Entrant Portal to see the entry they submitted. Results will be announced October 3, 2026, and the next Open will be announced here.",
+    a: "No. Entries closed September 25, 2026 at 11:59 PM Pacific.",
   },
   {
-    q: "Can I use AI to build my submission?",
-    a: "Yes, and it's encouraged. Disclose how you used it. We judge your thinking and your choices.",
-  },
-  {
-    q: "Does my classroom design have to be realistic or buildable today?",
-    a: "No. Speculative designs are welcome, but Depth of Reasoning still applies: engage honestly with what your design would cost and where it could fail.",
-  },
-  {
-    q: "Can my “refusal” be something unconventional?",
-    a: "Please. “I'd refuse to automate grading” defended brilliantly beats “I'd refuse to automate teachers” defended vaguely. Surprising, specific refusals score highest.",
-  },
-  {
-    q: "I'm a teacher or parent, not a student. Can I enter?",
-    a: "Yes. The prompt is the classroom you'd want to learn in, and everyone is a learner.",
-  },
-  {
-    q: "I submitted. What happens now?",
-    a: "Screening first: organizers check each entry for completeness and rules compliance, and incomplete entries get one email and 48 hours to fix. Then at least two judges score every eligible entry independently against the rubric. Finalists may be invited to a brief live or video Q&A to verify authorship.",
-  },
-  {
-    q: "Do teams split the judging criteria?",
-    a: "No. A submission is judged as one work, regardless of team size.",
+    q: "Will there be another Open?",
+    a: "The next Open will be announced on this page.",
   },
 ];
+
+function Perks({ items, align }: { items: string[]; align?: "end" }) {
+  return (
+    <ul className={`flex flex-wrap gap-2 ${align === "end" ? "md:justify-end" : ""}`}>
+      {items.map((p) => (
+        <li
+          key={p}
+          className="inline-flex items-center rounded-full border border-border px-3 h-7 text-[12px] text-ink-dim bg-bg"
+        >
+          {p}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// A winner's entry, shown once it is on the record in src/lib/competition.ts.
+function WorkFeature({ work }: { work: WinnerWork }) {
+  return (
+    <div className="mt-8 border-t border-border pt-6 grid gap-6 md:grid-cols-12 md:gap-12">
+      <div className={work.refusal ? "md:col-span-7" : "md:col-span-12 max-w-3xl"}>
+        <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
+          Winning entry · {work.format}
+        </div>
+        <h4 className="mt-2 font-display italic text-2xl md:text-3xl leading-[1.12] tracking-tight text-ink">
+          {work.title}
+        </h4>
+        <p className="mt-3 text-[15.5px] text-ink-dim leading-relaxed">{work.summary}</p>
+        {work.href && (
+          <a
+            href={work.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-block text-sm text-ink underline underline-offset-[6px] decoration-accent/60 hover:text-accent"
+          >
+            See the work ↗
+          </a>
+        )}
+      </div>
+      {work.refusal && (
+        <div className="md:col-span-5">
+          <div className="text-[11px] uppercase tracking-[0.22em] text-accent">The refusal</div>
+          <p className="mt-2 font-display text-xl md:text-2xl leading-[1.25] tracking-tight text-ink">
+            {work.refusal}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function RunnerUp({ w }: { w: Winner }) {
+  return (
+    <article className="bg-bg p-7 md:p-10 flex flex-col">
+      <div className="flex items-baseline justify-between gap-4">
+        <div className="flex items-baseline gap-3 text-[11px] uppercase tracking-[0.22em]">
+          <span className="text-accent">{w.label}</span>
+          <span className="text-ink-muted">{w.ordinal}</span>
+        </div>
+        <span className="fig text-3xl md:text-4xl text-ink leading-none">{w.award}</span>
+      </div>
+      <h3 className="mt-5 font-display text-4xl md:text-5xl leading-[1.02] tracking-tight text-ink">
+        {w.name}
+      </h3>
+      <div className="mt-5">
+        <Perks items={w.perks} />
+      </div>
+      {w.work && <WorkFeature work={w.work} />}
+    </article>
+  );
+}
 
 export default function CompetitionPage() {
   return (
@@ -165,37 +190,102 @@ export default function CompetitionPage() {
     // theme so it stands out from the rest of the (dark) site.
     <div className="portal-theme">
       <PageHeader
-        eyebrow="The Vanguard Open · 2026"
+        eyebrow="The Vanguard Open · 2026 results"
         title={
           <>
-            Design a classroom{" "}
-            <span className="serif-italic">
-              you&apos;d actually want to learn in.
-            </span>
+            Meet the{" "}
+            <span className="serif-italic">2026 winners.</span>
           </>
         }
-        blurb="AI is entering classrooms faster than anyone can evaluate it, and most of the conversation is happening about students, not with them. So here's the prompt: what would you automate, and what would you refuse to automate?"
+        blurb="We asked for an AI-era classroom you'd actually want to learn in, and one thing you'd refuse to automate. These three entries answered best."
         meta={
           <div className="flex flex-wrap gap-3">
-            <Button href="#brief" size="md">
-              Read the brief ↓
+            <Button href="#winners" size="md">
+              The winners ↓
             </Button>
-            <Button href="/portal" external variant="secondary" size="md">
-              Entrant Portal ↗
+            <Button href="#brief" variant="secondary" size="md">
+              Read the brief ↓
             </Button>
           </div>
         }
       />
 
-      {/* QUICK FACTS */}
+      {/* WINNERS */}
+      <section
+        id="winners"
+        className="py-12 md:py-16 scroll-mt-28 border-b border-border"
+        data-rail-section="Winners"
+      >
+        <Container size="wide">
+          <Reveal>
+            <div className="flex items-baseline gap-4 mb-8">
+              <span className="text-[11px] uppercase tracking-[0.22em] text-accent">Results</span>
+              <div className="h-px flex-1 bg-border" />
+              <span className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
+                Announced {results.announced}
+              </span>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <article className="relative border border-border-strong bg-surface p-7 md:p-12">
+              <span className="absolute left-0 top-0 h-1 w-full bg-accent" aria-hidden />
+              <div className="grid gap-8 md:grid-cols-12 md:gap-12 items-end">
+                <div className="md:col-span-8">
+                  <div className="flex items-baseline gap-3 text-[11px] uppercase tracking-[0.22em]">
+                    <span className="text-accent">{first.label}</span>
+                    <span className="text-ink-muted">{first.ordinal}</span>
+                  </div>
+                  <h2 className="mt-4 font-display text-5xl md:text-7xl lg:text-[88px] leading-[0.98] tracking-tight text-ink">
+                    {first.name}
+                  </h2>
+                </div>
+                <div className="md:col-span-4 md:text-right">
+                  <div className="fig text-5xl md:text-6xl text-accent leading-none">{first.award}</div>
+                  <div className="mt-5">
+                    <Perks items={first.perks} align="end" />
+                  </div>
+                </div>
+              </div>
+              {first.work && <WorkFeature work={first.work} />}
+            </article>
+          </Reveal>
+
+          <Reveal>
+            <div className="mt-6 grid gap-px bg-border border border-border md:grid-cols-2">
+              {runnersUp.map((w) => (
+                <RunnerUp key={w.name} w={w} />
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <p className="mt-6 text-[14px] text-ink-muted leading-relaxed max-w-3xl">
+              Scored on the published 100-point rubric: five criteria, every format on the same scale.{" "}
+              {!allFeatured && "A feature on each winning entry will be published on this page. "}
+              <a
+                href="#rubric"
+                className="underline underline-offset-4 decoration-accent/60 hover:decoration-accent text-ink-dim hover:text-ink"
+              >
+                See how entries were scored
+              </a>
+              .
+            </p>
+          </Reveal>
+        </Container>
+      </section>
+
+      {/* AT A GLANCE */}
       <section className="border-b border-border" data-rail-section="At a glance">
         <Container size="wide" className="py-8 md:py-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border">
+          <div
+            className={`grid grid-cols-2 gap-px bg-border ${
+              quickFacts.length > 4 ? "md:grid-cols-3 lg:grid-cols-6" : "md:grid-cols-4"
+            }`}
+          >
             {quickFacts.map((x) => (
               <div key={x.k} className="bg-bg px-5 py-4">
-                <div className="text-[10px] uppercase tracking-[0.2em] text-ink-muted">
-                  {x.k}
-                </div>
+                <div className="text-[10px] uppercase tracking-[0.2em] text-ink-muted">{x.k}</div>
                 <div className="mt-1 fig text-2xl text-ink">{x.v}</div>
               </div>
             ))}
@@ -207,15 +297,13 @@ export default function CompetitionPage() {
                 className="py-4 grid gap-1 md:grid-cols-[220px_220px_1fr] md:gap-8 items-baseline"
               >
                 <span className="fig text-[15px] text-ink">{d.date}</span>
-                <span className="text-[11px] uppercase tracking-[0.22em] text-accent">
-                  {d.label}
-                </span>
+                <span className="text-[11px] uppercase tracking-[0.22em] text-accent">{d.label}</span>
                 <span className="text-[13.5px] text-ink-muted">{d.note}</span>
               </li>
             ))}
           </ul>
           <p className="mt-4 text-[13px] text-ink-muted">
-            Questions before you register?{" "}
+            Questions about the results?{" "}
             <a
               href="/contact"
               className="underline underline-offset-4 decoration-accent/60 hover:decoration-accent text-ink-dim hover:text-ink"
@@ -239,7 +327,7 @@ export default function CompetitionPage() {
               <span className="fig text-2xl text-accent">01</span>
               <div className="h-px flex-1 bg-border" />
               <span className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                Competition brief
+                The 2026 brief
               </span>
             </div>
             <h2 className="font-display text-4xl md:text-6xl lg:text-[72px] leading-[1.02] tracking-tight text-ink max-w-4xl">
@@ -248,7 +336,7 @@ export default function CompetitionPage() {
             </h2>
           </Reveal>
 
-          <div className="mt-14 grid gap-10 md:grid-cols-2 md:gap-14">
+          <div className="mt-12 grid gap-10 md:grid-cols-2 md:gap-14">
             <Reveal>
               <div className="border-t border-border pt-6">
                 <div className="flex items-baseline gap-3">
@@ -274,49 +362,23 @@ export default function CompetitionPage() {
                 </div>
                 <p className="mt-4 text-[15.5px] text-ink-dim leading-relaxed max-w-md">
                   Name one thing you&apos;d refuse to automate, and defend it.
-                  Your refusal can live inside your design (a deliberate
-                  absence, a protected space, a human-only feature) or stand
-                  beside it as an argument.
+                  The refusal can live inside the design (a deliberate absence,
+                  a protected space, a human-only feature) or stand beside it
+                  as an argument.
                 </p>
               </div>
             </Reveal>
           </div>
 
           <Reveal>
-            <div className="mt-14 md:mt-16 grid gap-10 md:grid-cols-12 md:gap-16">
-              <div className="md:col-span-4">
-                <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                  What makes a winning submission
-                </div>
-              </div>
-              <div className="md:col-span-8 max-w-3xl">
-                <p className="font-display italic text-2xl md:text-[32px] leading-[1.2] tracking-tight text-ink">
-                  The strongest entries will contain an actual opinion.{" "}
-                  <span className="not-italic text-ink-dim">
-                    We&apos;re looking for a specific, defensible position on
-                    where the line between human and machine belongs in
-                    learning.
-                  </span>
-                </p>
-                <div className="mt-8 space-y-5 text-[16px] md:text-[17px] leading-[1.7] text-ink-dim">
-                  <p>
-                    We are not looking for &ldquo;AI is good&rdquo; or
-                    &ldquo;AI is bad.&rdquo; We&apos;re looking for the
-                    interesting, uncomfortable, specific territory in between.
-                    This competition is a thought experiment, but we want
-                    submissions thought through well enough that a school
-                    district could actually learn something from them.
-                  </p>
-                  <p>
-                    Submissions in any format are welcome: working apps, code
-                    prototypes, essays, films, design mockups, interactive
-                    experiences, games, zines, policy proposals, or something
-                    we haven&apos;t thought of. The format is your choice; the
-                    thinking is what we judge.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <p className="mt-12 font-display italic text-2xl md:text-[32px] leading-[1.2] tracking-tight text-ink max-w-4xl">
+              The strongest entries contain an actual opinion.{" "}
+              <span className="not-italic text-ink-dim">
+                Not &ldquo;AI is good&rdquo; or &ldquo;AI is bad,&rdquo; but a
+                specific, defensible position on where the line between human
+                and machine belongs in learning.
+              </span>
+            </p>
           </Reveal>
         </Container>
       </section>
@@ -325,7 +387,7 @@ export default function CompetitionPage() {
       <section
         id="requirements"
         className="py-14 md:py-20 scroll-mt-28 border-b border-border"
-        data-rail-section="What to submit"
+        data-rail-section="What entries included"
       >
         <Container size="wide">
           <Reveal>
@@ -339,46 +401,34 @@ export default function CompetitionPage() {
             <SectionHeading
               title={
                 <>
-                  Every entry needs{" "}
-                  <span className="serif-italic">four things.</span>
+                  Every entry had{" "}
+                  <span className="serif-italic">four parts.</span>
                 </>
               }
-              blurb="Register in the Entrant Portal first. Then, whatever format you choose, your completed submission must include all four parts below."
+              blurb="Whatever the format, a completed submission had to include all four."
             />
           </Reveal>
 
-          <ul className="mt-14 divide-y divide-border border-y border-border">
+          <ul className="mt-12 grid gap-px bg-border border border-border md:grid-cols-2">
             {requirements.map((r) => (
-              <li
-                key={r.title}
-                className="py-8 md:py-10 grid gap-4 md:grid-cols-[160px_1fr] md:gap-14 items-baseline"
-              >
-                <span className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                  {r.tag}
-                </span>
-                <div>
-                  <h3 className="font-display text-2xl md:text-[32px] tracking-tight text-ink">
-                    {r.title}
-                  </h3>
-                  <p className="mt-2 text-[15.5px] text-ink-dim leading-relaxed max-w-2xl">
-                    {r.body}
-                  </p>
-                  {r.items && (
-                    <ul className="mt-5 space-y-2.5 max-w-2xl">
-                      {r.items.map((item) => (
-                        <li
-                          key={item}
-                          className="flex gap-3 text-[15px] text-ink-dim leading-relaxed"
-                        >
-                          <span className="text-accent mt-[2px]" aria-hidden>
-                            →
-                          </span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+              <li key={r.title} className="bg-bg p-6 md:p-8">
+                <span className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">{r.tag}</span>
+                <h3 className="mt-3 font-display text-2xl md:text-[28px] tracking-tight text-ink">
+                  {r.title}
+                </h3>
+                <p className="mt-2 text-[15px] text-ink-dim leading-relaxed">{r.body}</p>
+                {r.items && (
+                  <ul className="mt-4 space-y-2">
+                    {r.items.map((item) => (
+                      <li key={item} className="flex gap-3 text-[14.5px] text-ink-dim leading-relaxed">
+                        <span className="text-accent mt-[2px]" aria-hidden>
+                          →
+                        </span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>
@@ -400,76 +450,43 @@ export default function CompetitionPage() {
                 Judging rubric · 100 points
               </span>
             </div>
-            <SectionHeading
-              title={
-                <>
-                  Every format, scored on{" "}
-                  <span className="serif-italic">the same five criteria.</span>
-                </>
-              }
-              blurb="Judges are instructed to score the thinking, not the medium. A brilliant essay beats a mediocre app, and vice versa."
-            />
-            <div className="mt-8">
+            <div className="flex items-end justify-between gap-8 flex-wrap">
+              <SectionHeading
+                title={
+                  <>
+                    Every format, scored on{" "}
+                    <span className="serif-italic">the same five criteria.</span>
+                  </>
+                }
+                blurb="Judges score the thinking, not the medium. A brilliant essay beats a mediocre app, and vice versa."
+              />
               <Button href="/competition/rubric" variant="secondary" size="md">
-                Open the official rubric document →
+                Official rubric, full score bands →
               </Button>
             </div>
           </Reveal>
 
-          <ol className="mt-14 divide-y divide-border border-y border-border">
-            {rubric.map((c) => (
-              <Reveal key={c.n}>
-                <li className="py-10 md:py-14 grid gap-8 md:grid-cols-12 md:gap-12">
-                  <div className="md:col-span-1">
-                    <span className="fig text-3xl md:text-4xl text-accent">
-                      {c.n}
-                    </span>
-                  </div>
-                  <div className="md:col-span-4">
-                    <h3 className="font-display text-2xl md:text-[30px] leading-[1.08] tracking-tight text-ink">
-                      {c.title}
-                    </h3>
-                    <div className="mt-3 fig text-sm text-ink-muted">
-                      {c.points} points
-                    </div>
-                    <p className="mt-4 font-display italic text-ink-dim text-lg md:text-xl leading-snug max-w-xs">
-                      {c.question}
-                    </p>
-                  </div>
-                  <div className="md:col-span-7">
-                    <ul className="divide-y divide-border/70">
-                      {c.bands.map((b) => (
-                        <li
-                          key={b.range}
-                          className="py-3.5 grid grid-cols-[64px_1fr] gap-5 items-baseline"
-                        >
-                          <span className="fig text-sm text-ink">
-                            {b.range}
-                          </span>
-                          <p className="text-[14.5px] text-ink-dim leading-relaxed">
-                            {b.text}
-                          </p>
-                        </li>
-                      ))}
-                    </ul>
-                    {c.note && (
-                      <p className="mt-5 text-[13.5px] text-ink-muted leading-relaxed border-l-2 border-accent/50 pl-4">
-                        Judge&apos;s note: {c.note}
-                      </p>
-                    )}
-                  </div>
-                </li>
-              </Reveal>
-            ))}
-          </ol>
-
           <Reveal>
-            <p className="mt-8 text-[14px] text-ink-muted leading-relaxed">
-              <span className="uppercase tracking-[0.18em] text-[11px]">
-                Tiebreakers
-              </span>
-              , in order: the higher score on Insight &amp; Originality, then a
-              judges&apos; panel discussion and vote.
+            <ol className="mt-12 grid gap-px bg-border border border-border sm:grid-cols-2 lg:grid-cols-5">
+              {rubric.map((c) => (
+                <li key={c.n} className="bg-bg p-5 md:p-6">
+                  <div className="flex items-baseline justify-between">
+                    <span className="fig text-lg text-accent">{c.n}</span>
+                    <span className="fig text-sm text-ink-muted">{c.points} pts</span>
+                  </div>
+                  <h3 className="mt-3 font-display text-xl md:text-[22px] leading-[1.12] tracking-tight text-ink">
+                    {c.title}
+                  </h3>
+                  <p className="mt-2 font-display italic text-ink-dim text-[15px] leading-snug">
+                    {c.question}
+                  </p>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-6 text-[14px] text-ink-muted leading-relaxed">
+              <span className="uppercase tracking-[0.18em] text-[11px]">Tiebreakers</span>, in
+              order: the higher score on Insight &amp; Originality, then a judges&apos; panel
+              discussion and vote.
             </p>
           </Reveal>
         </Container>
@@ -507,10 +524,7 @@ export default function CompetitionPage() {
               <Reveal>
                 <ol className="divide-y divide-border border-y border-border">
                   {judgingRounds.map((r) => (
-                    <li
-                      key={r.n}
-                      className="py-8 grid grid-cols-[64px_1fr] gap-6 items-baseline"
-                    >
+                    <li key={r.n} className="py-7 grid grid-cols-[64px_1fr] gap-6 items-baseline">
                       <span className="fig text-2xl text-accent">{r.n}</span>
                       <div>
                         <h4 className="font-display text-xl md:text-2xl tracking-tight text-ink">
@@ -551,13 +565,13 @@ export default function CompetitionPage() {
                   <span className="serif-italic">in plain language.</span>
                 </>
               }
-              blurb="Ten rules, no legalese. Everything that governs entry and judging is on this page or linked right here."
+              blurb="Ten rules, no legalese."
             />
             <div className="mt-8 flex flex-wrap gap-3">
               {[
                 { label: "Official judging rubric", href: "/competition/rubric" },
                 { label: "Submission requirements", href: "#requirements" },
-                { label: "Register in the Entrant Portal", href: "/portal" },
+                { label: "Entrant Portal", href: "/portal" },
               ].map((d) => (
                 <a
                   key={d.label}
@@ -573,20 +587,16 @@ export default function CompetitionPage() {
             </div>
           </Reveal>
 
-          <ol className="mt-14 grid gap-x-14 gap-y-8 md:grid-cols-2">
+          <ol className="mt-12 grid gap-x-14 gap-y-7 md:grid-cols-2">
             {rules.map((r, i) => (
               <Reveal key={r.title} delay={(i % 2) * 60}>
                 <li className="border-t border-border pt-5 grid grid-cols-[44px_1fr] gap-4 items-baseline">
-                  <span className="fig text-sm text-ink-muted">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  <span className="fig text-sm text-ink-muted">{String(i + 1).padStart(2, "0")}</span>
                   <div>
                     <h4 className="font-display text-xl md:text-[22px] tracking-tight text-ink">
                       {r.title}
                     </h4>
-                    <p className="mt-2 text-[15px] text-ink-dim leading-relaxed max-w-md">
-                      {r.body}
-                    </p>
+                    <p className="mt-2 text-[15px] text-ink-dim leading-relaxed max-w-md">{r.body}</p>
                   </div>
                 </li>
               </Reveal>
@@ -595,133 +605,59 @@ export default function CompetitionPage() {
         </Container>
       </section>
 
-      {/* PRIZES */}
-      <section
-        id="prizes"
-        className="py-14 md:py-20 scroll-mt-28 border-b border-border"
-        data-rail-section="Prizes"
-      >
-        <Container size="wide">
-          <Reveal>
-            <div className="flex items-baseline gap-4 mb-8">
-              <span className="fig text-2xl text-accent">06</span>
-              <div className="h-px flex-1 bg-border" />
-              <span className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                Prizes
-              </span>
-            </div>
-            <SectionHeading
-              title={
-                <>
-                  $1,000 in awards,{" "}
-                  <span className="serif-italic">and a seat at the table.</span>
-                </>
-              }
-              blurb="Winning work gets published on aivanguard.org, and winners are invited into the organization's orbit, not just handed a check."
-            />
-          </Reveal>
-
-          <div className="mt-14 grid gap-px bg-border md:grid-cols-3">
-            {prizes.map((p) => (
-              <div key={p.place} className="bg-bg p-7 md:p-9 flex flex-col">
-                <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
-                  {p.place}
-                </div>
-                <div
-                  className={`mt-4 fig leading-none ${
-                    p.featured
-                      ? "text-5xl md:text-6xl text-accent"
-                      : "text-4xl md:text-5xl text-ink"
-                  }`}
-                >
-                  {p.amount}
-                </div>
-                <ul className="mt-6 space-y-2.5">
-                  {p.perks.map((perk) => (
-                    <li
-                      key={perk}
-                      className="flex gap-3 text-[14.5px] text-ink-dim leading-relaxed"
-                    >
-                      <span className="text-accent mt-[1px]" aria-hidden>
-                        →
-                      </span>
-                      <span>{perk}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       {/* FAQ */}
-      <section
-        className="py-14 md:py-20 border-b border-border"
-        data-rail-section="FAQ"
-      >
+      <section className="py-14 md:py-20 border-b border-border" data-rail-section="FAQ">
         <Container size="wide">
           <Reveal>
             <SectionHeading
               eyebrow="FAQ"
               title={
                 <>
-                  Before you ask:{" "}
-                  <span className="serif-italic">yes, you can use AI.</span>
+                  About the{" "}
+                  <span className="serif-italic">2026 results.</span>
                 </>
               }
             />
           </Reveal>
 
-          <div className="mt-14 max-w-3xl">
+          <div className="mt-10 max-w-3xl">
             {faq.map((f) => (
-              <details
-                key={f.q}
-                className="group border-t border-border py-6 last:border-b"
-              >
+              <details key={f.q} className="group border-t border-border py-6 last:border-b">
                 <summary className="flex cursor-pointer items-baseline justify-between gap-6 font-display text-ink text-xl md:text-2xl leading-snug tracking-tight list-none">
                   <span>{f.q}</span>
                   <span className="shrink-0 text-ink-dim transition-transform duration-200 group-open:rotate-45 mt-1">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path
-                        d="M9 3v12M3 9h12"
-                        stroke="currentColor"
-                        strokeWidth="1.4"
-                        strokeLinecap="round"
-                      />
+                      <path d="M9 3v12M3 9h12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
                     </svg>
                   </span>
                 </summary>
-                <p className="mt-4 text-[15.5px] text-ink-dim leading-relaxed max-w-2xl">
-                  {f.a}
-                </p>
+                <p className="mt-4 text-[15.5px] text-ink-dim leading-relaxed max-w-2xl">{f.a}</p>
               </details>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 md:py-24" data-rail-section="Enter">
+      {/* CLOSE */}
+      <section className="py-16 md:py-24" data-rail-section="Thank you">
         <Container size="wide">
           <Reveal>
             <div className="max-w-3xl">
               <h2 className="font-display text-4xl md:text-6xl leading-[1.02] tracking-tight text-ink">
-                Entries are in.{" "}
-                <span className="serif-italic">Judging is underway.</span>
+                Congratulations to{" "}
+                <span className="serif-italic">the 2026 winners.</span>
               </h2>
               <p className="mt-6 text-[16px] md:text-[17px] text-ink-dim leading-relaxed max-w-xl">
-                Submissions closed September 25, 2026. Results will be announced
-                October 3, 2026 and the winners featured here. Registered
-                entrants can sign in to the Entrant Portal to review the entry
-                they submitted.
+                And thank you to everyone who entered. The next Open will be
+                announced on this page. Registered entrants can still sign in to
+                the Entrant Portal to review the entry they submitted.
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
-                <Button href="/portal" external size="lg">
-                  Entrant Portal ↗
+                <Button href="/get-involved" size="lg">
+                  Get involved with AI Vanguard
                 </Button>
-                <Button href="/contact" variant="secondary" size="lg">
-                  Ask a question
+                <Button href="/portal" external variant="secondary" size="lg">
+                  Entrant Portal ↗
                 </Button>
               </div>
             </div>

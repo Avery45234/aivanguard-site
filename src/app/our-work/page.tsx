@@ -258,7 +258,7 @@ export default function OurWorkPage() {
                 tag: "Community",
                 status: "Ongoing",
                 title: "The national network",
-                body: "Onboarding the 2026–27 cohort of representatives and State Directors, with structured onboarding and shared resources, and running the first Vanguard Open.",
+                body: "Onboarding the 2026–27 cohort of representatives and State Directors, with structured onboarding and shared resources, and the first Vanguard Open, with winners announced October 3, 2026.",
                 href: "/get-involved",
                 cta: "Join the next cohort",
               },
@@ -328,5 +328,5 @@ function pillarFocus(slug: string): string {
     return "a preregistered study of the twelve largest U.S. districts, alongside the Student AI Pulse pilot proposal in Los Angeles County.";
   if (slug === "governance")
     return "a proposed standing student AI body in ABC Unified, now under district review.";
-  return "onboarding the 2026–27 cohort of representatives and State Directors, and running the first Vanguard Open.";
+  return "onboarding the 2026–27 cohort of representatives and State Directors, and the first Vanguard Open, with winners announced October 3, 2026.";
 }

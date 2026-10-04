@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Hero } from "@/components/Hero";
+import { OpenWinnersStrip } from "@/components/OpenWinnersStrip";
 import { StatTile } from "@/components/StatTile";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/Button";
@@ -31,6 +32,7 @@ export default function HomePage() {
     <>
       <ScrollSeal />
       <Hero />
+      <OpenWinnersStrip />
 
       {/* NOW — what AI Vanguard is doing right now, before how it works */}
       <section

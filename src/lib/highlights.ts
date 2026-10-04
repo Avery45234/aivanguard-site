@@ -92,6 +92,12 @@ export type Update = {
 
 export const updates: Update[] = [
   {
+    date: "October 3, 2026",
+    title: "Vanguard Open 2026 winners announced",
+    body: "Shusuke Kamiura takes the Grand Prize in AI Vanguard's first competition, with Ade Ijidakinro second and Simone Maria Moemo third. Entrants designed an AI-era classroom they would want to learn in and defended one thing they would refuse to automate.",
+    href: "/competition#winners",
+  },
+  {
     date: "September 2, 2026",
     title: "El Estoque covers the Students First Act",
     body: "Monta Vista High School's student news magazine reports on the student-drafted AI framework, with AI Vanguard founder Avery Updike interviewed as a California student senator.",

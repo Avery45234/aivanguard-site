@@ -41,9 +41,9 @@ const copy: Record<Phase, { text: string; cta: string; href: string }> = {
     href: "/competition",
   },
   results: {
-    text: "Meet the 2026 Vanguard Open winners",
-    cta: "See the results",
-    href: "/competition",
+    text: "The 2026 Vanguard Open winners are in",
+    cta: "Meet the winners",
+    href: "/competition#winners",
   },
 };
 
