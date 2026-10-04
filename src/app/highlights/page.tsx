@@ -5,6 +5,7 @@ import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
+import { WinnersNewsCard } from "@/components/open/WinnersNewsCard";
 import { developments, highlights, press, updates } from "@/lib/highlights";
 import { site } from "@/lib/site";
 
@@ -29,11 +30,13 @@ export default function HighlightsPage() {
         blurb="Developments at their real stage, students on the record, and the coverage they have earned."
         meta={
           <div className="flex flex-col gap-2 text-[11px] uppercase tracking-[0.2em] text-ink-muted">
-            <span>Updated · September 2026</span>
+            <span>Updated · October 2026</span>
             <a href="#press" className="hover:text-ink transition-colors">{press.length} news stories ↓</a>
           </div>
         }
       />
+
+      <WinnersNewsCard />
 
       {/* DEVELOPMENTS — three toned cards, one line each */}
       <section className="py-12 md:py-16 border-b border-border surface-panel" data-rail-section="Developments">

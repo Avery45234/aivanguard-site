@@ -36,25 +36,47 @@ export type WinnerWork = {
   href?: string;
 };
 
+export type WinnerLink = { label: string; href: string };
+
+// Optional fields are filled only from the submission and registration
+// records, never from memory:
+//   affiliation  school or organization, as registered
+//   location     city or country, as registered
+//   links        public links the winner has agreed to (entry, portfolio)
+//   work         the entry as submitted
+// Portraits are picked up automatically from
+//   public/img/open/2026/first|second|third.(jpg|jpeg|png|webp)
+// (see src/lib/open-photos.ts). Without a file, a monogram is shown.
 export type Winner = {
   place: 1 | 2 | 3;
+  slug: "first" | "second" | "third";
   label: string;
   ordinal: string;
   award: string;
   name: string;
+  affiliation?: string;
+  location?: string;
   perks: string[];
+  links?: WinnerLink[];
   work?: WinnerWork;
 };
 
 export const results: {
+  year: string;
   announced: string;
+  article: string;
   winners: Winner[];
   stats: { k: string; v: string }[];
+  judge: { name: string; initials: string; credential: string; detail?: string };
+  winnerNotice: string;
 } = {
+  year: "2026",
   announced: "October 3, 2026",
+  article: "/highlights/vanguard-open-2026-winners",
   winners: [
     {
       place: 1,
+      slug: "first",
       label: "Grand Prize",
       ordinal: "First place",
       award: "$500",
@@ -68,7 +90,8 @@ export const results: {
     },
     {
       place: 2,
-      label: "Silver",
+      slug: "second",
+      label: "Second Prize",
       ordinal: "Second place",
       award: "$300",
       name: "Ade Ijidakinro",
@@ -76,7 +99,8 @@ export const results: {
     },
     {
       place: 3,
-      label: "Bronze",
+      slug: "third",
+      label: "Third Prize",
       ordinal: "Third place",
       award: "$200",
       name: "Simone Maria Moemo",
@@ -84,6 +108,17 @@ export const results: {
     },
   ],
   stats: [],
+  // The grader, named exactly as the organizer asked: first name and
+  // initials only. Do not add his surname here or anywhere on the site,
+  // and do not link a profile that shows it.
+  judge: {
+    name: "Paul G. U.",
+    initials: "PG",
+    credential: "Caltech alumnus",
+  },
+  // Shown under the podium, in the FAQ, and in the News article.
+  winnerNotice:
+    "We will be reaching out to each winner by email very soon, at the address used to register, to arrange the prize and the published feature of the winning entry.",
 };
 
 export type RubricCriterion = {
