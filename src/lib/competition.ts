@@ -67,7 +67,7 @@ export const results: {
   article: string;
   winners: Winner[];
   stats: { k: string; v: string }[];
-  judge: { name: string; initials: string; credential: string; detail?: string };
+  judge: { name: string; credential: string; detail: string };
   winnerNotice: string;
 } = {
   year: "2026",
@@ -108,15 +108,17 @@ export const results: {
     },
   ],
   stats: [],
-  // The grader, named exactly as the organizer asked: first name and
-  // initials only. Do not add his surname here or anywhere on the site,
-  // and do not link a profile that shows it.
+  // The featured grader, one of several, named exactly as the organizer
+  // asked: first name and initials only. Do not add his surname here or
+  // anywhere on the site, do not name his employer, and do not link a
+  // profile that shows either. Credentials are from his own public
+  // profile and the organizer (October 2026).
   judge: {
     name: "Paul G. U.",
-    initials: "PG",
-    credential: "Caltech alumnus",
+    credential: "Caltech alumnus and former USC professor",
+    detail: "M.S. in Electrical Engineering, Caltech · Former professor, USC · Software engineer",
   },
-  // Shown under the podium, in the FAQ, and in the News article.
+  // Shown under the winners, in the FAQ, and in the News article.
   winnerNotice:
     "We will be reaching out to each winner by email very soon, at the address used to register, to arrange the prize and the published feature of the winning entry.",
 };

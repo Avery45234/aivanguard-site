@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
-import { Medal, Portrait } from "@/components/open/Awards";
 import { results } from "@/lib/competition";
-import { winnerPhoto } from "@/lib/open-photos";
 
 /** Lead story card for the News page: the Vanguard Open results article. */
 export function WinnersNewsCard() {
@@ -30,22 +28,18 @@ export function WinnersNewsCard() {
               Read the announcement →
             </span>
           </div>
-          <ol className="flex flex-col justify-center gap-4">
+          <dl className="flex flex-col justify-center divide-y divide-border border-y border-border">
             {results.winners.map((w) => (
-              <li key={w.name} className="flex items-center gap-4">
-                <Portrait name={w.name} image={winnerPhoto(w.slug)} place={w.place} size="sm" />
-                <div className="min-w-0 flex-1">
-                  <div className="text-[10.5px] uppercase tracking-[0.2em] text-ink-muted">
-                    {w.label} · {w.award}
-                  </div>
-                  <div className="font-display text-xl md:text-2xl tracking-tight text-ink">
-                    {w.name}
-                  </div>
-                </div>
-                <Medal place={w.place} size={26} />
-              </li>
+              <div key={w.name} className="py-4">
+                <dt className="text-[10.5px] font-semibold uppercase tracking-[0.24em] text-highlight">
+                  {w.label}
+                </dt>
+                <dd className="mt-1 font-display text-2xl md:text-[28px] leading-tight tracking-tight text-ink">
+                  {w.name}
+                </dd>
+              </div>
             ))}
-          </ol>
+          </dl>
         </Link>
       </Container>
     </section>
