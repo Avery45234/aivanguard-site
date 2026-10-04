@@ -20,7 +20,7 @@ export function StructuredData() {
     "@type": "NGO",
     "@id": `${orgUrl}#organization`,
     name: site.name,
-    alternateName: "AI Vanguard Inc.",
+    alternateName: ["AI Vanguard Inc.", "AIV"],
     url: orgUrl,
     logo: {
       "@type": "ImageObject",

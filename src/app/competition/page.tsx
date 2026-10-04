@@ -17,6 +17,23 @@ export const metadata: Metadata = {
   alternates: { canonical: "/competition" },
   title: "Vanguard Open 2026 Prize Winners",
   description: `Winners of the 2026 Vanguard Open, the AI Vanguard Open competition to design an AI-era classroom worth learning in and defend one thing you'd refuse to automate. Grand Prize: ${first.name}. Second Prize: ${second.name}. Third Prize: ${third.name}. $1,000 in prizes.`,
+  keywords: [
+    "Vanguard Open winners",
+    "Vanguard Open 2026",
+    "AI Vanguard Open",
+    "AI Vanguard Open winners",
+    "AIV Open",
+    "AI Vanguard competition",
+    first.name,
+    second.name,
+    third.name,
+  ],
+  openGraph: {
+    type: "website",
+    url: "/competition",
+    title: `Vanguard Open ${results.year} Prize Winners`,
+    description: `Grand Prize: ${first.name}. Second Prize: ${second.name}. Third Prize: ${third.name}. Announced ${results.announced} by AI Vanguard.`,
+  },
 };
 
 // Participation figures come first once they are on the record; the rest
@@ -102,6 +119,10 @@ const faq = [
     a: "Scores and decisions are final and there are no appeals, as the rules state. The Entrant Portal is now closed. If you need a copy of what you submitted, use the contact form.",
   },
   {
+    q: "Is the Vanguard Open the same as the AI Vanguard Open?",
+    a: "Yes. The Vanguard Open is AI Vanguard's competition. People also call it the AI Vanguard Open or the AIV Open. This page is its official results page.",
+  },
+  {
     q: "Will there be another Open?",
     a: "The next Open will be announced on this page.",
   },
@@ -157,6 +178,36 @@ const faqJsonLd = {
     "@type": "Question",
     name: f.q,
     acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+// The winners as an ordered list of people and their awards, for the same
+// readers. Kept in step with the prize list by reading the same record.
+const winnersJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Winners of the ${results.year} Vanguard Open (AI Vanguard Open)`,
+  description: `The three prize winners of the ${results.year} Vanguard Open, AI Vanguard's competition, announced ${results.announced}.`,
+  url: "https://aivanguard.org/competition",
+  numberOfItems: results.winners.length,
+  itemListOrder: "https://schema.org/ItemListOrderAscending",
+  itemListElement: results.winners.map((w) => ({
+    "@type": "ListItem",
+    position: w.place,
+    item: {
+      "@type": "Person",
+      name: w.name,
+      award: `${w.label}, The Vanguard Open ${results.year} (AI Vanguard)`,
+      ...(w.work
+        ? {
+            subjectOf: {
+              "@type": "CreativeWork",
+              name: w.work.title,
+              ...(w.work.href?.startsWith("/") ? { url: `https://aivanguard.org${w.work.href}` } : {}),
+            },
+          }
+        : {}),
+    },
   })),
 };
 
@@ -279,6 +330,10 @@ export default function CompetitionPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(winnersJsonLd) }}
+      />
       {/* HERO */}
       <section
         className="relative overflow-hidden text-white"
@@ -298,6 +353,9 @@ export default function CompetitionPage() {
                 The Vanguard Open · {results.year}
               </div>
               <h1 className="mt-6 font-display tracking-tight leading-[0.98] text-[52px] sm:text-7xl lg:text-[104px]">
+                {/* Read aloud and indexed as "The Vanguard Open 2026 Prize
+                    Winners"; the eyebrow above shows the same words. */}
+                <span className="sr-only">The Vanguard Open {results.year} </span>
                 Prize{" "}
                 <span className="serif-italic" style={{ color: GOLD }}>
                   Winners
