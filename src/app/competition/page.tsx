@@ -392,7 +392,6 @@ export default function CompetitionPage() {
                 {first.name}
               </h3>
               <Affiliation w={first} />
-              <p className="mt-5 fig text-2xl md:text-3xl text-ink-dim">{first.award}</p>
               <EntryLine w={first} />
             </div>
           </Reveal>
@@ -415,7 +414,6 @@ export default function CompetitionPage() {
                     {w.name}
                   </h3>
                   <Affiliation w={w} />
-                  <p className="mt-4 fig text-xl md:text-2xl text-ink-dim">{w.award}</p>
                   <EntryLine w={w} />
                 </div>
               ))}

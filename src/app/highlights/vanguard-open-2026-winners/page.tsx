@@ -100,7 +100,6 @@ export default function WinnersArticle() {
                   <span className="block font-display text-3xl md:text-[40px] leading-[1.05] tracking-tight text-ink">
                     {w.name}
                   </span>
-                  <span className="mt-2 block fig text-xl text-ink-dim">{w.award}</span>
                 </dd>
               </div>
             ))}
