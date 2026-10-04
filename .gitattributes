@@ -1,0 +1,4 @@
+# Keep published documents byte-for-byte. A PDF with no binary markers
+# looks like text to Git, which would rewrite its line endings on a
+# Windows checkout and break the file.
+*.pdf binary
