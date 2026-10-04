@@ -10,6 +10,82 @@ export const SUBMISSION_DEADLINE = new Date("2026-09-25T23:59:59-07:00");
 // move from "judging underway" to "meet the winners".
 export const RESULTS_DATE = new Date("2026-10-03T00:00:00-07:00");
 
+// ---------------------------------------------------------------------
+// 2026 results. Names and order are from the organizer (Avery Updike),
+// announced October 3, 2026. Everything on /competition, the home-page
+// strip, and the News update reads from this record.
+//
+// `work` is each winner's entry as they submitted it: fill it from the
+// submission record (entry title, format, Rationale, hosted link), never
+// from memory. A winner without `work` shows name, place, and prize only.
+//
+// `stats` holds the participation figures shown in the at-a-glance row.
+// Add them only from the registration record. A figure may be phrased
+// generously ("nearly 90") but must be true as written.
+// ---------------------------------------------------------------------
+export type WinnerWork = {
+  /** Entry title, exactly as submitted. */
+  title: string;
+  /** "Essay", "Working app", "Film", "Design", ... */
+  format: string;
+  /** Two or three sentences on what the entry is and does. */
+  summary: string;
+  /** The one thing the entrant refuses to automate, in a sentence. */
+  refusal?: string;
+  /** Hosted work, when the entrant's link is public. */
+  href?: string;
+};
+
+export type Winner = {
+  place: 1 | 2 | 3;
+  label: string;
+  ordinal: string;
+  award: string;
+  name: string;
+  perks: string[];
+  work?: WinnerWork;
+};
+
+export const results: {
+  announced: string;
+  winners: Winner[];
+  stats: { k: string; v: string }[];
+} = {
+  announced: "October 3, 2026",
+  winners: [
+    {
+      place: 1,
+      label: "Grand Prize",
+      ordinal: "First place",
+      award: "$500",
+      name: "Shusuke Kamiura",
+      perks: [
+        "Cash award",
+        "Published feature on aivanguard.org",
+        "Presentation opportunity",
+        "Board opportunity",
+      ],
+    },
+    {
+      place: 2,
+      label: "Silver",
+      ordinal: "Second place",
+      award: "$300",
+      name: "Ade Ijidakinro",
+      perks: ["Cash award", "Published feature", "Board opportunity"],
+    },
+    {
+      place: 3,
+      label: "Bronze",
+      ordinal: "Third place",
+      award: "$200",
+      name: "Simone Maria Moemo",
+      perks: ["Cash award", "Published feature", "Board opportunity"],
+    },
+  ],
+  stats: [],
+};
+
 export type RubricCriterion = {
   n: string;
   title: string;

@@ -238,7 +238,7 @@ export default function OurWorkPage() {
               {
                 tag: "Community", tone: "community", status: "Ongoing",
                 title: "The national network",
-                body: "Onboarding the 2026–27 representatives and State Directors; judging the first Vanguard Open.",
+                body: "Onboarding the 2026–27 representatives and State Directors. The first Vanguard Open named its winners on October 3, 2026.",
                 href: "/get-involved", cta: "Join the next cohort",
               },
             ].map((x) => (

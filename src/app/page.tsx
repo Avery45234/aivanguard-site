@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { Hero } from "@/components/Hero";
+import { OpenWinnersStrip } from "@/components/OpenWinnersStrip";
 import { StatTile } from "@/components/StatTile";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/Button";
@@ -27,6 +28,7 @@ export default function HomePage() {
     <>
       <ScrollSeal />
       <Hero />
+      <OpenWinnersStrip />
 
       {/* PROOF — who has covered the students */}
       <section className="border-b border-border" data-rail-section="Coverage">

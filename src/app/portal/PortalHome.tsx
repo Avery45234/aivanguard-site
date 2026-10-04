@@ -358,8 +358,8 @@ function EntryTab({
       sub: "Completeness check",
       state: submission ? ("current" as const) : ("todo" as const),
     },
-    { label: "Judging", sub: "Two judges per entry", state: "todo" as const },
-    { label: "Results", sub: "October 3, 2026", state: "todo" as const },
+    { label: "Judging", sub: "Complete", state: "done" as const },
+    { label: "Results", sub: "Announced October 3, 2026", state: "done" as const },
   ];
 
   return (
