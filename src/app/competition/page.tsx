@@ -16,7 +16,7 @@ const allFeatured = featured.length === results.winners.length;
 export const metadata: Metadata = {
   alternates: { canonical: "/competition" },
   title: "Vanguard Open 2026 Prize Winners",
-  description: `Results of the 2026 Vanguard Open, AI Vanguard's competition to design an AI-era classroom worth learning in and defend one thing you'd refuse to automate. Grand Prize: ${first.name}. Second Prize: ${second.name}. Third Prize: ${third.name}. $1,000 in prizes.`,
+  description: `Winners of the 2026 Vanguard Open, the AI Vanguard Open competition to design an AI-era classroom worth learning in and defend one thing you'd refuse to automate. Grand Prize: ${first.name}. Second Prize: ${second.name}. Third Prize: ${third.name}. $1,000 in prizes.`,
 };
 
 // Participation figures come first once they are on the record; the rest
@@ -89,9 +89,9 @@ const faq = [
   },
   {
     q: "Can I see the winning work?",
-    a: allFeatured
-      ? "Yes. Each winner's entry is published on this page."
-      : "The three winning entries are being prepared for publication on this page.",
+    a: first.work
+      ? `Yes. The Grand Prize entry, "${first.work.title}" by ${first.name}, is published in full on this site, with the original PDF.`
+      : "The Grand Prize entry will be published on this site.",
   },
   {
     q: "How were entries judged?",
@@ -114,9 +114,51 @@ const PLUM = "#1a0f3d";
 function winnerLinks(w: Winner) {
   return [
     ...(w.work?.href ? [{ label: "Read the winning entry", href: w.work.href }] : []),
+    ...(w.work?.pdf ? [{ label: "Original PDF", href: w.work.pdf }] : []),
     ...(w.links ?? []),
   ];
 }
+
+// A page on this site opens in place; a file or an outside link opens in
+// a new tab.
+function EntryLink({
+  href,
+  className,
+  children,
+}: {
+  href: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const onSite = href.startsWith("/") && !href.endsWith(".pdf");
+  return onSite ? (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  ) : (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+      {children}
+    </a>
+  );
+}
+
+// Questions and answers as structured data, so search engines and AI
+// assistants can read who won without parsing the layout.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  about: {
+    "@type": "Event",
+    name: `The Vanguard Open ${results.year}`,
+    alternateName: ["AI Vanguard Open", "AIV Open", "Vanguard Open"],
+    organizer: { "@type": "Organization", name: "AI Vanguard", url: "https://aivanguard.org" },
+  },
+  mainEntity: faq.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 // School and country on one line, the way a prize list prints them.
 function Affiliation({ w }: { w: Winner }) {
@@ -156,15 +198,13 @@ function EntryLine({ w }: { w: Winner }) {
       {links.length > 0 && (
         <p className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[15px]">
           {links.map((l) => (
-            <a
+            <EntryLink
               key={l.href}
               href={l.href}
-              target="_blank"
-              rel="noopener noreferrer"
               className="text-accent underline underline-offset-[6px] decoration-accent/50 hover:text-ink transition-colors"
             >
               {l.label}
-            </a>
+            </EntryLink>
           ))}
         </p>
       )}
@@ -182,26 +222,37 @@ function WorkFeature({ w, work }: { w: Winner; work: WinnerWork }) {
       </div>
       <div className={work.refusal ? "md:col-span-5" : "md:col-span-9"}>
         <div className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">{work.format}</div>
-        <h3 className="mt-2 font-display italic text-2xl md:text-3xl leading-[1.12] tracking-tight text-ink">
+        <h3 className="mt-2 font-display italic text-2xl md:text-4xl leading-[1.1] tracking-tight text-ink">
           {work.title}
         </h3>
-        <p className="mt-3 text-[15.5px] text-ink-dim leading-relaxed">{work.summary}</p>
-        {work.href && (
-          <a
-            href={work.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-block text-sm text-accent underline underline-offset-[6px] decoration-accent/50 hover:text-ink"
-          >
-            Read the winning entry
-          </a>
+        {work.subtitle && (
+          <p className="mt-1 font-display text-lg md:text-xl text-ink-dim">{work.subtitle}</p>
         )}
+        <p className="mt-4 text-[15.5px] text-ink-dim leading-relaxed">{work.summary}</p>
+        <p className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          {work.href && (
+            <EntryLink
+              href={work.href}
+              className="text-accent underline underline-offset-[6px] decoration-accent/50 hover:text-ink"
+            >
+              Read the full entry
+            </EntryLink>
+          )}
+          {work.pdf && (
+            <EntryLink
+              href={work.pdf}
+              className="text-accent underline underline-offset-[6px] decoration-accent/50 hover:text-ink"
+            >
+              Original PDF
+            </EntryLink>
+          )}
+        </p>
       </div>
       {work.refusal && (
         <div className="md:col-span-4">
           <div className="text-[11px] uppercase tracking-[0.22em] text-accent">The refusal</div>
           <p className="mt-2 font-display text-xl md:text-2xl leading-[1.25] tracking-tight text-ink">
-            {work.refusal}
+            &ldquo;{work.refusal}&rdquo;
           </p>
         </div>
       )}
@@ -224,6 +275,10 @@ export default function CompetitionPage() {
     // The competition page adopts the portal's white-paper/purple-ink
     // theme so it stands out from the rest of the (dark) site.
     <div className="portal-theme">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       {/* HERO */}
       <section
         className="relative overflow-hidden text-white"
@@ -392,7 +447,7 @@ export default function CompetitionPage() {
           {featured.length > 0 ? (
             <div className="mt-14 md:mt-20">
               <div className="text-[11px] uppercase tracking-[0.26em] text-accent">
-                The winning entries
+                {allFeatured ? "The winning entries" : "The Grand Prize entry"}
               </div>
               <div className="mt-4 border-b border-border">
                 {featured.map((w) => (
@@ -402,7 +457,7 @@ export default function CompetitionPage() {
             </div>
           ) : (
             <p className="mx-auto mt-8 max-w-3xl text-center text-[14px] text-ink-muted">
-              The three winning entries are being prepared for publication on this page.
+              The Grand Prize entry will be published on this site.
             </p>
           )}
         </Container>
