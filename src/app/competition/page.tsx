@@ -168,11 +168,15 @@ function EntryLink({
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  // Typed as a plain Thing, not an Event: Google treats any Event as a
+  // calendar listing and flags it without a start date and venue, which a
+  // competition does not have.
   about: {
-    "@type": "Event",
+    "@type": "Thing",
     name: `The Vanguard Open ${results.year}`,
     alternateName: ["AI Vanguard Open", "AIV Open", "Vanguard Open"],
-    organizer: { "@type": "Organization", name: "AI Vanguard", url: "https://aivanguard.org" },
+    url: "https://aivanguard.org/competition",
+    description: `AI Vanguard's competition: design an AI-era classroom worth learning in and defend one thing you would refuse to automate. Winners announced ${results.announced}.`,
   },
   mainEntity: faq.map((f) => ({
     "@type": "Question",
