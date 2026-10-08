@@ -21,10 +21,24 @@ async function sitemapUrls() {
   return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
 }
 
-const args = process.argv.slice(2);
-const urlList = args.length
-  ? args.map((p) => (p.startsWith("http") ? p : `${BASE}${p.startsWith("/") ? p : `/${p}`}`))
-  : await sitemapUrls();
+// Pass full URLs rather than bare paths when running from Git Bash on
+// Windows: it rewrites an argument like "/competition" into a local path
+// ("C:/Program Files/Git/competition") before node ever sees it.
+const known = await sitemapUrls();
+const args = process.argv.slice(2).filter((a) => a !== "--force");
+const force = process.argv.includes("--force");
+const requested = args.map((p) =>
+  p.startsWith("http") ? p : `${BASE}${p.startsWith("/") ? p : `/${p}`}`,
+);
+// Only submit addresses that are really on the site, so a typo or a
+// mangled argument never reaches the search engines.
+const unknown = requested.filter((u) => !known.includes(u));
+if (unknown.length && !force) {
+  console.error("Not in the live sitemap (pass --force to submit anyway):");
+  for (const u of unknown) console.error("  " + u);
+  process.exit(1);
+}
+const urlList = args.length ? requested : known;
 
 // The key file must be live before the engines will accept the request.
 const keyCheck = await fetch(`${BASE}/${KEY}.txt`, { cache: "no-store" });
