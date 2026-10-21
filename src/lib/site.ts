@@ -16,6 +16,8 @@ export const site = {
 export const reach = {
   founded: "Southern California",
   states: ["California", "Minnesota", "Tennessee", "Connecticut", "New Jersey", "Michigan"],
+  // USPS codes, same order as `states`. Never derive these from the names:
+  // the first two letters give MI for Minnesota, TE, CO, NE.
   stateCodes: ["CA", "MN", "TN", "CT", "NJ", "MI"],
   statesWord: "six",
   // Reported as "approximately 10" in September 2026.
