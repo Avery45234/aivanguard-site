@@ -16,6 +16,9 @@ export const site = {
 export const reach = {
   founded: "Southern California",
   states: ["California", "Minnesota", "Tennessee", "Connecticut", "New Jersey", "Michigan"],
+  // USPS codes, same order as `states`. Never derive these from the names:
+  // the first two letters give MI for Minnesota, TE, CO, NE.
+  stateCodes: ["CA", "MN", "TN", "CT", "NJ", "MI"],
   statesWord: "six",
   // Reported as "approximately 10" in September 2026.
   districts: 10,
@@ -41,7 +44,7 @@ export const nav = [
 export const metrics = [
   { value: "447", label: "Students surveyed", hint: "First AI policy study, 2025" },
   { value: "8", label: "Campuses with representatives", hint: "Southern California" },
-  { value: `${reach.states.length}`, label: "States with student leadership", hint: reach.states.map((s) => s.slice(0, 2).toUpperCase()).join(" · ") },
+  { value: `${reach.states.length}`, label: "States with student leadership", hint: reach.stateCodes.join(" · ") },
   { value: "12", label: "Largest U.S. districts under study", hint: "Preregistered · led by our founder" },
 ];
 

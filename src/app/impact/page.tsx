@@ -108,7 +108,7 @@ const categories = [
       {
         value: `${reach.states.length}`,
         label: "States with student leadership",
-        hint: reach.states.map((s) => s.slice(0, 2).toUpperCase()).join(" · "),
+        hint: reach.stateCodes.join(" · "),
       },
       {
         value: `${leadership.length}`,
