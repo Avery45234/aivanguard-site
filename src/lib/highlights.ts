@@ -92,6 +92,12 @@ export type Update = {
 
 export const updates: Update[] = [
   {
+    date: "October 22, 2026",
+    title: "Partnering with Project Tomorrow on Speak Up",
+    body: "AI Vanguard works with Project Tomorrow's research team to bring student perspectives into Speak Up, its national education research initiative, and has contributed feedback to the 2026–27 surveys, including questions about AI and the clarity and consistency of AI guidelines across classrooms.",
+    href: "/our-work/project-tomorrow",
+  },
+  {
     date: "October 3, 2026",
     title: "Vanguard Open 2026 winners announced",
     body: "Shusuke Kamiura takes the Grand Prize in AI Vanguard's first competition, with Ade Ijidakinro second and Simone Maria Moemo third. Entrants designed an AI-era classroom they would want to learn in and defended one thing they would refuse to automate.",
@@ -250,10 +256,10 @@ export const press: PressItem[] = [
 // student's story. Each carries its real stage in the tag.
 export const developments = [
   {
-    tag: "Partnership · In development",
+    tag: "Partnership · Active",
     title: "Project Tomorrow \u00d7 AI Vanguard",
-    body: "In active conversation with Project Tomorrow's research team about adding a student-led qualitative dimension to Speak Up, its national survey of students, educators, and parents. A proposal is with their leadership; a student focus group on the survey questions is the next step under discussion.",
-    href: "/our-work#project-tomorrow",
+    body: "Bringing student perspectives into Speak Up, Project Tomorrow's national education research initiative: feedback on the AI questions in the 2026–27 surveys, findings from our 447-student survey, and introductions between district leaders and Project Tomorrow.",
+    href: "/our-work/project-tomorrow",
   },
   {
     tag: "Research · Underway",

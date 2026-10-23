@@ -186,12 +186,25 @@ export default function OurWorkPage() {
                   }
                 />
                 <p className="mt-8 text-[16px] md:text-[17px] text-ink-dim leading-relaxed max-w-2xl">
-                  {projectTomorrow.body}
+                  {projectTomorrow.lede} {projectTomorrow.body}
                 </p>
-                <p className="mt-6 text-[13px] text-ink-muted leading-relaxed max-w-2xl">
-                  Status, plainly: a collaboration in development. We will call
-                  it a partnership when Project Tomorrow does.
-                </p>
+                <ul className="mt-8 divide-y divide-border border-y border-border max-w-2xl">
+                  {projectTomorrow.contributions.map((c) => (
+                    <li
+                      key={c.t}
+                      className="py-4 grid gap-1 sm:grid-cols-[180px_1fr] sm:gap-6 text-[14.5px]"
+                    >
+                      <span className="text-ink">{c.t}</span>
+                      <span className="text-ink-dim leading-relaxed">{c.b}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={projectTomorrow.href}
+                  className="mt-6 inline-block text-sm text-ink hover:text-accent transition-colors underline underline-offset-[6px] decoration-accent/50"
+                >
+                  Read about the partnership →
+                </Link>
               </Reveal>
             </div>
             <div className="md:col-span-5 md:pt-4">

@@ -141,7 +141,7 @@ const categories = [
       },
       {
         value: "1",
-        label: "National collaboration in development",
+        label: "National research partnership",
         hint: "Project Tomorrow · Speak Up",
       },
     ],

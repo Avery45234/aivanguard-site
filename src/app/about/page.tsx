@@ -96,8 +96,8 @@ export default function AboutPage() {
                     In practice, right now, that means a preregistered study of
                     whether student voice has ever changed AI policy in the
                     largest U.S. districts, a proposal for a standing student AI
-                    body in our home district, and a conversation with Project
-                    Tomorrow about strengthening the student side of Speak Up,
+                    body in our home district, and a partnership with Project
+                    Tomorrow that brings student perspectives into Speak Up,
                     its national research program.
                   </p>
                   <p className="text-ink font-display italic text-2xl md:text-3xl leading-snug pt-4 border-t border-border">

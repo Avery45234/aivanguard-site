@@ -239,7 +239,7 @@ export default function GetInvolvedPage() {
                       <span className="serif-italic">student-centered research.</span>
                     </>
                   }
-                  blurb="We bring students who can help design instruments, sit on focus groups, and explain the why behind survey answers. We are in conversation with Project Tomorrow's Speak Up program about exactly this, and open to more."
+                  blurb="We bring students who can help design instruments, sit on focus groups, and explain the why behind survey answers. We do exactly this with Project Tomorrow's Speak Up program, and we are open to more."
                 />
               </Reveal>
             </div>
