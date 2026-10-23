@@ -60,7 +60,7 @@ const categories = [
       { value: "400+", label: "Educators addressed", hint: "ABC IGNITE Ed Tech Symposium", href: "/our-work#abcusd" },
       { value: "4", label: "Student senators", hint: "America's Youth AI Festival, 2026", href: "/highlights" },
       { value: `${press.length}`, label: "News stories in 2026", hint: "NPR, MPR News, WDIV, more", href: "/highlights#press" },
-      { value: "1", label: "National collaboration in development", hint: "Project Tomorrow · Speak Up", href: "/our-work#project-tomorrow" },
+      { value: "1", label: "National research partnership", hint: "Project Tomorrow · Speak Up", href: "/our-work/project-tomorrow" },
     ],
     source: { text: "Coverage list, each item linked", href: "/highlights#press" },
   },

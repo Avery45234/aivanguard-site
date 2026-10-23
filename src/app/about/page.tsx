@@ -78,7 +78,7 @@ export default function AboutPage() {
                   structures so the input keeps coming after any one student graduates. Right now:{" "}
                   <Link href="/research#study" className="text-accent underline underline-offset-4">a preregistered study</Link>,{" "}
                   <Link href="/our-work#abcusd" className="text-accent underline underline-offset-4">a proposed student AI body</Link>, and{" "}
-                  <Link href="/our-work#project-tomorrow" className="text-accent underline underline-offset-4">a conversation with Project Tomorrow</Link>.
+                  <Link href="/our-work/project-tomorrow" className="text-accent underline underline-offset-4">a partnership with Project Tomorrow on Speak Up</Link>.
                 </p>
                 <p className="mt-5 font-display italic text-xl text-ink">Technology should empower every learner, not leave anyone behind.</p>
               </Reveal>

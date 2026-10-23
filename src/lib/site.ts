@@ -214,7 +214,7 @@ export const milestones = [
   {
     year: "2026",
     title: "From surveys to governance",
-    body: "A preregistered study of the twelve largest U.S. districts, district-level proposals in ABC Unified and Los Angeles County, a conversation with Project Tomorrow's Speak Up, and the first Vanguard Open.",
+    body: "A preregistered study of the twelve largest U.S. districts, district-level proposals in ABC Unified and Los Angeles County, a partnership with Project Tomorrow's Speak Up, and the first Vanguard Open.",
     current: true,
   },
 ];
@@ -244,11 +244,11 @@ export const initiatives = [
   {
     tag: "National student voice",
     tone: "community",
-    status: "In development",
-    title: "In conversation with Project Tomorrow's Speak Up",
-    short: "A student-led qualitative layer for the Speak Up national survey. A proposal is with their leadership.",
-    body: "Exploring a student-led qualitative layer for the national research program that heard from more than 100,000 students, educators, and parents in its last cycle. A proposal is with their leadership.",
-    href: "/our-work#project-tomorrow",
+    status: "Partnership",
+    title: "Student perspectives in Project Tomorrow's Speak Up",
+    short: "Feedback on the AI questions in the 2026–27 Speak Up surveys, findings from our 447-student survey, and introductions for district leaders.",
+    body: "Working with Project Tomorrow's research team on Speak Up, its national education research initiative. We have contributed feedback to the 2026–27 surveys, including questions about AI and the clarity and consistency of AI guidelines across classrooms.",
+    href: "/our-work/project-tomorrow",
   },
 ];
 
@@ -288,15 +288,35 @@ export const districtWork = {
   note: "The district asked to feature this student partnership in its 2026 application for the California School Boards Association's Golden Bell Award.",
 };
 
-// Partnerships are listed at their actual stage. Nothing here is a
-// partner until the other organization has said so.
+// Partnerships are listed at the stage the founder has confirmed. Project
+// Tomorrow moved from "in development" to a partnership in October 2026 at
+// Avery's direction; the copy below is hers and describes work already done.
 export const partnerships = [
   {
     id: "project-tomorrow",
     name: "Project Tomorrow · Speak Up",
-    status: "In development",
-    short: "Speak Up has gathered student, parent, and educator views on technology since 2003. With the Youth Civics Think Tank, we are proposing a student-led qualitative layer on AI: the why behind the survey answers.",
-    body: "Project Tomorrow runs Speak Up, a national research program that has gathered the views of K-12 students, parents, and educators on technology and learning since 2003. AI Vanguard is in active conversation with its research team, together with the Youth Civics Think Tank, about strengthening how the program captures student perspectives on AI: a qualitative layer that gets at the why behind survey answers. A proposal is with Project Tomorrow's leadership, and a student focus group on the survey questions is the next step under discussion.",
+    status: "Partnership",
+    href: "/our-work/project-tomorrow",
+    url: "https://tomorrow.org/speakup/",
+    short:
+      "Student perspectives in Speak Up, Project Tomorrow's national education research initiative, including feedback on the AI questions in the 2026–27 surveys.",
+    lede: "AI Vanguard works with Project Tomorrow to bring student perspectives into Speak Up, its national education research initiative.",
+    body: "Through regular collaboration with Project Tomorrow's research team, we have contributed feedback to the 2026–27 Speak Up surveys, including questions about artificial intelligence and the clarity and consistency of AI guidelines across classrooms.",
+    contributions: [
+      {
+        t: "Survey development",
+        b: "Reviewing AI-related questions and recommending revisions based on students' experiences.",
+      },
+      {
+        t: "Student perspectives",
+        b: "Sharing findings from AI Vanguard's 447-student survey to inform discussions about AI use and school guidance.",
+      },
+      {
+        t: "District outreach",
+        b: "Connecting district leaders with Project Tomorrow to explore participation in Speak Up.",
+      },
+    ],
+    goal: "Our goal is to help education research capture what students experience, where school guidance falls short, and what students need from the adults making decisions about AI.",
     disclaimer: "Speak Up's reach is Project Tomorrow's, not AI Vanguard's.",
   },
 ];

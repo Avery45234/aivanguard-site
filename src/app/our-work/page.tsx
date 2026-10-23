@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/our-work" },
   title: "Work",
   description:
-    "AI Vanguard's work: the ABC Unified district case study, three programs, a Project Tomorrow collaboration in development, and what else is underway.",
+    "AI Vanguard's work: the ABC Unified district case study, three programs, the Project Tomorrow partnership on Speak Up, and what else is underway.",
 };
 
 export default function OurWorkPage() {
@@ -37,7 +37,7 @@ export default function OurWorkPage() {
         meta={
           <div className="flex flex-col gap-2 text-[11px] uppercase tracking-[0.2em] text-ink-muted">
             <span>03 programs · 1 district case study</span>
-            <span>1 national collaboration in development</span>
+            <span>1 national research partnership</span>
           </div>
         }
       />
@@ -184,15 +184,26 @@ export default function OurWorkPage() {
                       <span className="serif-italic">and Speak Up.</span>
                     </>
                   }
-                  blurb={projectTomorrow.short}
+                  blurb={projectTomorrow.lede}
                 />
+                <p className="mt-6 text-[15px] text-ink-dim leading-relaxed max-w-xl">
+                  {projectTomorrow.body}
+                </p>
+                <ul className="mt-6 divide-y divide-border border-y border-border max-w-xl">
+                  {projectTomorrow.contributions.map((c) => (
+                    <li key={c.t} className="py-3 grid gap-1 sm:grid-cols-[170px_1fr] sm:gap-6 text-[13.5px]">
+                      <span className="text-ink">{c.t}</span>
+                      <span className="text-ink-dim leading-relaxed">{c.b}</span>
+                    </li>
+                  ))}
+                </ul>
                 <div className="mt-6 flex flex-col gap-2 text-[13.5px]">
+                  <Link href={projectTomorrow.href} className="text-ink underline underline-offset-[6px] decoration-accent/50 hover:text-accent w-fit">
+                    Read about the partnership →
+                  </Link>
                   <a href={links.speakUp} target="_blank" rel="noopener noreferrer" className="text-ink underline underline-offset-[6px] decoration-accent/50 hover:text-accent w-fit">
                     Speak Up at Project Tomorrow ↗
                   </a>
-                  <span className="text-ink-muted">
-                    Status: a proposal is with their leadership. A student focus group on the survey questions is the next step under discussion.
-                  </span>
                 </div>
               </Reveal>
             </div>
